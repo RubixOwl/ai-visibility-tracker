@@ -8,3 +8,26 @@
 
 # Before adding application folders, review their contents and extend this list.
 # Never force-add internal notes or secrets to bypass this policy.
+
+# Hard exclusions apply even when public code folders are added later.
+**/store/
+*.db
+*.db-wal
+*.db-shm
+.env
+.env.*
+*.env
+*.pem
+*.key
+*.ppk
+*.pfx
+*.p12
+credentials.json
+secrets.json
+secrets.yaml
+secrets.yml
+*-adminsdk*.json
+service-account*.json
+id_rsa
+id_ed25519
+id_ecdsa
