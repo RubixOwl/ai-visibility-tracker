@@ -50,6 +50,7 @@ Use this repository's Issues tab to share feedback. Please use public examples a
 ## Follow the work
 
 - [Progress log](PROGRESS.md)
+- [September 27 discovery evidence](DISCOVERY-2026-09-27.md)
 - [Roadmap](ROADMAP.md)
 - [Giving feedback](CONTRIBUTING.md)
 
