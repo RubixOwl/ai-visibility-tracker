@@ -1,57 +1,35 @@
-# AI Visibility Tracker
+# Voice and website bots
+Working repository name: AI Visibility Tracker.
 
-An early hackathon project exploring how businesses appear in AI-assisted buying journeys.
+**Status: a generic local prototype exists. The active goal is a hosted website and telephone bot, with a tailored demo built from public research about one potential customer.**
 
-**Status: discovery. There is no working application or live demo yet.** This repository records the idea, decisions, experiments and progress as the project develops.
+## Direction
+Develop repeatable voice and website bots that help businesses answer useful questions, capture enquiries and hand them to the right person. The intended outcome is a first paying customer.
 
-## The problem being explored
+Public research identified one potential customer whose website can guide a tailored demonstration. This is a research lead only: there has been no contact and no confirmed interest. The plan is to build around publicly available information and show what the service could do. The business identity and identifying details are kept out of this repository.
 
-When someone asks an AI assistant for a recommendation, does it mention a business? Is the information accurate? Can someone find enough useful information to take the next step?
+## What needs validating
+- Which businesses have a recurring enquiry problem their existing tools do not solve?
+- Does a voice bot, website bot or combination fit their actual customers and workflow?
+- Can a narrow service deliver enough measurable value to support a paid pilot?
 
-The first audience is independent winter tour and activity operators around Big White, Silver Star and Apex in British Columbia's Okanagan region. Examples include snowmobile tours, dog sledding, sleigh rides, and guided snowshoe or fat-bike tours: activities visitors can book beyond skiing.
+Public website evidence can guide a relevant demo; it cannot prove demand or willingness to pay. The project deadline is October 24, 2026. The intended first demo covers a website widget and a telephone bot; the actual customer's needs and interest remain unverified.
 
-The first deliverable is a small, evidence-backed report showing an operator what AI assistants currently say about its business. The next step is to identify content improvements worth testing for AI readers. The report format, paid offer and smallest product remain open.
+## Current prototype
+The generic bot-factory preview uses sample facts for chat and optional browser speech. Its source is a local artifact and is not included in this repository. It has no hosted backend, live provider integration, booking connection or message storage. It is not the tailored demo and has not been run or user-tested.
 
-## Why this audience
+## Planned approach
+Build a hosted service around reviewed public information for the research lead, then demonstrate it to the potential customer if an authorized opportunity arises. The recommended stack is Node.js with TypeScript and Fastify, OpenRouter for Jev decisions and conversational replies, Twilio ConversationRelay for telephone speech, and Render for hosting. These are recommendations; accounts and integrations are not confirmed ready.
 
-The working hypothesis is that visitors asking AI assistants what to do could discover these operators while planning winter activities. More accurate, useful recommendations might help operators reach new visitors and attract direct bookings with less reliance on third-party commissions. These are reasons to test the idea, not evidence of demand or guaranteed booking gains.
+Both voice and website bots are product directions. A combined first build is not required. Live booking integrations, payments and emergency support are outside the initial proposed demo.
 
-Potential improvement work includes reviewing the accuracy and completeness of public information on Tripadvisor, Google Maps and local tourism websites. Whether changes influence AI answers must be measured; visibility, recommendations and bookings are not guaranteed.
-
-## Possible directions
-
-- Check whether a business appears in a defined set of buyer questions.
-- Show the actual answers and sources behind each finding.
-- Identify inaccurate or missing information worth investigating.
-- Explore whether a website makes essential information easy to find.
-
-These are hypotheses, not implemented features. A dashboard, subscriptions and automated monitoring have not been committed to.
-
-## What exists today
-
-- A documented problem hypothesis and initial roadmap.
-- A public progress log with clear distinctions between plans and completed work.
-- An internal project-management workflow to coordinate research, implementation and review.
-
-There are no installation instructions yet because application code has not been published.
-
-## Next step
-
-Define the questions and success criterion for a proposed 10-operator ChatGPT check, then use the results to create one sample report. Record the answers, dates, model details and available sources, and verify business facts against public information. Use feedback to decide what is worth building. This check has not yet been completed.
-
-## Feedback welcome
-
-1. Would seeing whether AI recommends your business help you make a decision? Which decision?
-2. What would make a sample report useful enough to act on?
-3. Would you care more about missing recommendations, inaccurate information, or difficulty finding booking/contact details?
-
-Use this repository's Issues tab to share feedback. Please use public examples and avoid customer data, passwords or private conversations.
+## Current work
+The generic scaffold is the first implementation artifact. Hosted implementation is next. No tailored build, customer contact, external API call or deployment is represented as completed.
 
 ## Follow the work
-
-- [Progress log](PROGRESS.md)
-- [September 27 discovery evidence](DISCOVERY-2026-09-27.md)
 - [Roadmap](ROADMAP.md)
-- [Giving feedback](CONTRIBUTING.md)
+- [Progress log](PROGRESS.md)
+- [Historical tourism discovery](DISCOVERY-2026-09-27.md)
+- [Feedback guidance](CONTRIBUTING.md)
 
-AI tools support planning and implementation. Completion claims will be tied to visible artifacts and relevant checks; a plan is not proof that a feature works.
+Useful feedback: which enquiries take time, what happens outside staffed hours, and what existing booking or communication tools already handle. Share only public examples, not customer information or credentials.

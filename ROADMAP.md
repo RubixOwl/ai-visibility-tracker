@@ -1,29 +1,24 @@
-# Roadmap
+# Roadmap — voice and website bots
+Target deadline: October 24, 2026. This is a delivery goal, not a promise of sales. Public research has identified one potential customer; no contact or customer interest is confirmed. The plan is to build a tailored hosted demonstration from public information and show what the service can do.
 
-This is a discovery roadmap, not a promise of features or delivery dates.
+## Confirmed
+- [x] Product direction: repeatable voice and website bots for business customers.
+- [x] Generic prototype started with shared facts for website chat and browser voice.
+- [x] Identify one potential customer through public research as a demo reference.
+- [ ] Confirm a narrow demo workflow from publicly available website information; keep the prospect unnamed in public materials.
 
-## Now: narrow the problem
+## Hosted demo build
+- [ ] Build the shared Node.js/TypeScript/Fastify service and embeddable website widget.
+- [ ] Add OpenRouter adapters for Jev decisions and conversational replies, with reviewed facts and clear fallback behavior.
+- [ ] Add Twilio ConversationRelay inbound voice handling, including webhook signature checks and failure paths.
+- [ ] Prepare Render deployment configuration; keep provider secrets server-side.
+- [ ] Verify website conversations and inbound calls when accounts and explicit deployment authority are ready.
+- [ ] Prepare and show a tailored demo based on public information, with no claim that the prospect is a customer.
 
-- [x] Choose a first customer group: independent winter activity operators around Big White, Silver Star and Apex in the Okanagan.
-- [x] Choose the lead angle: show what AI assistants currently say about an operator, then investigate content improvements for AI readers.
-- [ ] Define one decision the report should help that customer make.
-- [ ] Choose a small experiment and its success criterion before running it.
+The recommended stack is Node.js, TypeScript, Fastify, OpenRouter, Twilio ConversationRelay and Render. Provider/account readiness and paid service costs remain unconfirmed. A paid pilot is a possible later outcome, not evidence or a commitment.
 
-## Next: produce evidence
-
-- [ ] Define a 10-operator ChatGPT check, including operator selection, repeatable questions and a success criterion.
-- [ ] Run the check and distinguish observed answers from verified business facts.
-- [ ] Create one sample report using public business information.
-- [ ] Record the exact questions, date, model/tool settings and raw answer evidence where sharing is appropriate.
-- [ ] Check whether conclusions are supported and explain uncertainty or variation.
-- [ ] Request feedback and record what changed as a result.
-
-## Then: decide what to build
-
-- [ ] Keep, change or reject the initial offer based on evidence.
-- [ ] Build the smallest useful version of the selected workflow.
-- [ ] Add reproducible setup instructions, a demonstration and relevant verification.
-
-## Possible later work
-
-Repeated tracking, competitor comparisons, agent booking tests, website usability checks and a dashboard may be explored if the early evidence supports them. Agent booking tests are secondary to the initial AI visibility report. No paid tier or full platform is promised at this stage.
+## Prototype follow-up
+- [ ] Review ambiguous and mixed-question handling with fictional sample prompts.
+- [ ] Record integration and call-flow verification evidence as implementation proceeds.
+- [x] Record independent source review of the generic scaffold; runtime and user validation are still pending.
+AI-visibility tracking, dashboards, traveller comparison, emergency handling and live booking/payment integrations are deferred.
