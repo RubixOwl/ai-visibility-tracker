@@ -12,6 +12,10 @@ Target: October 24, 2026. Dates are delivery targets, not measured capacity or s
 
 - [x] Define staged delivery and evidence requirements.
 
+- [x] Finalize Givingli-inspired editorial website structure (`mockup/alpine-wave-givingli.html`) with interactive spider map, core channels showcase, and walkthrough video.
+
+- [x] Build local Next.js company website (`website/`) with automated tests passing (49 checks).
+
 ## Build and verify
 
 | Target | Deliverable | Evidence required |
@@ -23,7 +27,7 @@ Target: October 24, 2026. Dates are delivery targets, not measured capacity or s
 | Oct 20 | Deployed company site/bots and separate shop demo | Hosted page and inbound number; isolated configurations; reproducible evaluation |
 | Oct 24 | Hardening and presentation | Independent review, usage controls, fallback/shutdown and clear limitations |
 
-None of these build milestones is marked complete. Provider-neutral work can start while exact integration costs and configuration are resolved. The custom route is a starting proposal, not a finalized vendor commitment.
+Website structure exploration and initial company chat cases are implemented locally; formal milestone sign-off awaits end-to-end browser review and live carrier integration. Provider-neutral work continues while exact integration costs and configuration are resolved.
 
 ## Evaluation plan
 

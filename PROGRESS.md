@@ -1,5 +1,40 @@
 # Progress log
 
+## 2026-09-29: Alpine Wave company website redesign & Givingli editorial showcase
+
+### Completed
+
+- **Givingli-inspired vibrant editorial layout (`mockup/alpine-wave-givingli.html`):**
+  - Designed and finalized a standalone, high-energy editorial prototype modeled on Givingli's visual structure, specifically tailored for BC tour operators, ski shops, and adventure outfitters.
+  - Implemented a 4-page narrative progression:
+    1. *Monumental Hero:* Tight-tracking display typography (`Bricolage Grotesque`), animated Alpine Wave logo mark (mountain + wave), interactive prompt bar, and high-impact social proof without cluttered badges.
+    2. *Interactive Spider Map (`#how-it-works`):* 8 clickable operator question nodes (Pricing, Returns, Hours, Service, Stock, Safety, Booking, Retail) connected by animated SVG bezier rays with pulse dots to a central typewriter phone status display.
+    3. *Four Core Channels & Safeguards Cards (`#channels`):* Dedicated interactive cards detailing Incoming Voice Calls (with response latency metrics), Website Live Chat (with inventory drawer launcher), Saturday 9 AM Peak Rush Concurrency (handling 40+ simultaneous calls), and Smart Staff Escalation (routing high-intent bookings to staff mobile).
+    4. *Product Walkthrough Video (`#video`):* Responsive cinema frame with custom HUD and synchronized local voiceover narration.
+  - Implemented multi-theme palette switching (Vibrant Alpine Poppy, Sun-Drenched Okanagan Amber, High Peak Glacier Cerulean), audience switcher (Tour Operators vs. Adventure & Ski Rentals), and Web Speech voice call simulation.
+
+- **Standalone Next.js company website build (`website/`):**
+  - Implemented dedicated company website codebase replacing vertical-specific ski-shop layout with Alpine Wave's primary offering.
+  - Built company messaging sections: Services Grid (Website Bot + Inbound Phone Bot), How We Work (3-step process), Honest Limits, FAQ, and interactive Contact & Chat.
+  - Integrated company assistant chat endpoint with 10 prepared company Q&As, follow-ups, unknown fallback, and retry handling.
+  - Verified local build: 49 automated HTTP/conversation checks passed; production build clean.
+
+- **Mockup options catalogued:**
+  - Catalogued 7 distinct standalone design options (including ski-shop reference, platform switcher, centered future mark, 3 palette variants, and the Givingli editorial layout) for structured comparison.
+
+### Current limits
+
+- Prototypes and Next.js company site run locally; no live public cloud deployment or telephony provider is connected yet.
+- The voice walkthrough video uses local synthetic narration; real telephony latency benchmarks (sub-1.5s audible response) remain to be measured on live carriers.
+- Customer-specific details and prospect identities remain excluded; all demonstrations use approved generic fixtures.
+
+### Next
+
+- Complete content and copy audit across all sections to verify business logic, tone, and operational safeguards before live deployment.
+- Wire inbound telephony test cases and verify call escalation to live staff mobile.
+
+---
+
 ## 2026-09-28: Alpine Wave delivery scope
 
 ### Completed

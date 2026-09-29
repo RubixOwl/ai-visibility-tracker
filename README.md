@@ -2,7 +2,7 @@
 
 Website and telephone bots for businesses. Repository name retained from the earlier AI Visibility Tracker exploration.
 
-**Status: planning and an early local prototype. No live company website or telephone bot is deployed or verified yet. Target: October 24, 2026.**
+**Status: local Next.js company website built with verified chat endpoint (49 automated checks passing); Givingli-inspired editorial showcase (`mockup/alpine-wave-givingli.html`) finalized. Live telephony carrier wiring and cloud deployment pending. Target: October 24, 2026.**
 
 ## What we are building
 
@@ -16,9 +16,9 @@ The proposed showcase covers rental, retail and servicing questions, follow-up c
 
 ## Work completed
 
-The delivery scope, sequence and acceptance criteria are documented in the [roadmap](ROADMAP.md). Public-source research informed the first segment. An early local prototype uses fictional facts for chat and optional browser speech; its code is not published here and runtime validation remains pending.
+The delivery scope, sequence and acceptance criteria are documented in the [roadmap](ROADMAP.md). Today's work established the Givingli-inspired editorial layout prototype (`mockup/alpine-wave-givingli.html`) featuring an interactive spider map, 4 core channel cards, and video walkthrough, alongside the local Next.js company website with 49 automated checks passing.
 
-This update records planning progress. It does not demonstrate working integrations, customer demand or a deployed service. A potential demo prospect is not a customer; its identity and source details are excluded.
+This update records local implementation and design progress. It does not demonstrate live telephony carrier integrations or public cloud deployment. A potential demo prospect is not a customer; its identity and source details are excluded.
 
 ## Build approach
 
