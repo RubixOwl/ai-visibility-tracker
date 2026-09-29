@@ -1,10 +1,10 @@
 # Progress log
 
-## 2026-09-28: Alpine Wave Systems delivery scope
+## 2026-09-28: Alpine Wave delivery scope
 
 ### Completed
 
-- Established Alpine Wave Systems as the business brand.
+- Established Alpine Wave as the business brand.
 
 - Promoted the company website and its own website/telephone bots into core delivery, alongside a separate winter-shop showcase.
 

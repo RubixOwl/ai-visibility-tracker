@@ -1,4 +1,4 @@
-# Alpine Wave Systems
+# Alpine Wave
 
 Website and telephone bots for businesses. Repository name retained from the earlier AI Visibility Tracker exploration.
 

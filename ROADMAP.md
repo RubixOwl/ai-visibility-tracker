@@ -1,4 +1,4 @@
-# Alpine Wave Systems roadmap
+# Alpine Wave roadmap
 
 Target: October 24, 2026. Dates are delivery targets, not measured capacity or sales promises.
 
