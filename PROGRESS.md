@@ -1,11 +1,43 @@
 # Progress log
+
+## 2026-09-28: Alpine Wave Systems delivery scope
+
+### Completed
+
+- Established Alpine Wave Systems as the business brand.
+
+- Promoted the company website and its own website/telephone bots into core delivery, alongside a separate winter-shop showcase.
+
+- Reconciled the roadmap around a shared system, early phone testing, synthetic enquiry handling and an October 24 target.
+
+- Defined observable evidence for web, phone, hosted delivery and failure handling.
+
+### Current limits
+
+This is documentation and planning evidence. No company website implementation, live integration, inbound call, deployment or complete website extraction is claimed. Existing local prototype source is not published here; its runtime validation remains pending. Prospect identity is excluded and no customer relationship is claimed.
+
+### Next
+
+Build and browser-test the company website/chat slice with synthetic facts and replaceable providers. Resolve actual integration costs before paid use; add real phone early.
+
+---
+
+# Earlier dated progress
+
+Earlier next actions are historical and superseded by the scope above.
+
+# Progress log
+
 ## 2026-09-28: generic bot-factory scaffold
 
 ### Completed
 
 - Added a local prototype with a shared approved-facts configuration, website chat, optional browser speech input/output and an explicit fallback for unsupported questions.
+
 - Used only fictional business details and sample policies. No real business identity or source material is included.
+
 - Kept the prototype dependency-free with no app backend, persistence, external provider, booking system or inventory connection.
+
 - Updated the roadmap and task records to reflect the bounded prototype authorization. Market research and real-business tailoring remain on hold.
 
 ### Status and limits
@@ -21,16 +53,21 @@ Build the hosted website and telephone service, then prepare a tailored demonstr
 ## 2026-09-28: hosted voice and website bot direction
 
 ### Completed
+
 Owner confirmed October 24, 2026 as the project deadline. Public research has identified one potential customer to use as a reference for a tailored demo. This is not a customer relationship: no contact or interest is confirmed. The plan is to build around public information and show what the service can do. The recommended stack is Node.js/TypeScript/Fastify, OpenRouter, Twilio ConversationRelay and Render.
 
 ## Status
+
 Documentation only in this update. No hosted implementation, customer contact, deployment or product API use is claimed. The local prototype is not the hosted deliverable. Account readiness and costs remain unknown.
 
 ## Next planned step
+
 Implement the shared hosted backend and website/telephone adapters; keep the potential customer's identity out of public materials.
 
 ---
+
 # Historical progress
+
 Earlier next-step instructions below describe their dates, not current execution.
 
 # Progress log
@@ -42,7 +79,9 @@ Entries distinguish completed artifacts, observed results and proposed next step
 ### Completed
 
 - Traced tubing at three Okanagan resorts through public resort activity and ticket pages, recording what is known about providers, visitor information, discovery and booking routes.
+
 - Followed the resort-named dog-sled and snowmobile suppliers at one resort, then found two additional public-facing activity-provider leads around another resort.
+
 - Kept adjacent transport, guiding and nearby activity businesses separate from direct activity-provider leads.
 
 ### What remains unknown
@@ -60,7 +99,9 @@ Historical baseline; the audience and lead angle below were subsequently narrowe
 ### Completed
 
 - Documented the working problem and current uncertainty in the [README](README.md).
+
 - Created a [roadmap](ROADMAP.md) focused on choosing a customer/problem and testing a sample report.
+
 - Prepared [feedback guidance](CONTRIBUTING.md) for community review.
 
 These linked documents are the evidence for this entry. There is no working app, customer validation, published sample report or verified commercial result yet.
@@ -82,7 +123,9 @@ What business decision would a report about AI recommendations help you make, an
 ### Decided
 
 - Focus on independent winter activity operators around Big White, Silver Star and Apex in the Okanagan, British Columbia. Examples include snowmobile tours, dog sledding, sleigh rides, and guided snowshoe or fat-bike tours.
+
 - Start by showing an operator what AI assistants currently say about its business, then identify content improvements to test for AI readers. Agent booking tests are secondary.
+
 - Treat increased exposure, reaching new visitors and more direct bookings as hypotheses to test, not demonstrated benefits.
 
 ### Completed

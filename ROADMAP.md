@@ -1,24 +1,36 @@
-# Roadmap — voice and website bots
-Target deadline: October 24, 2026. This is a delivery goal, not a promise of sales. Public research has identified one potential customer; no contact or customer interest is confirmed. The plan is to build a tailored hosted demonstration from public information and show what the service can do.
+# Alpine Wave Systems roadmap
 
-## Confirmed
-- [x] Product direction: repeatable voice and website bots for business customers.
-- [x] Generic prototype started with shared facts for website chat and browser voice.
-- [x] Identify one potential customer through public research as a demo reference.
-- [ ] Confirm a narrow demo workflow from publicly available website information; keep the prospect unnamed in public materials.
+Target: October 24, 2026. Dates are delivery targets, not measured capacity or sales promises.
 
-## Hosted demo build
-- [ ] Build the shared Node.js/TypeScript/Fastify service and embeddable website widget.
-- [ ] Add OpenRouter adapters for Jev decisions and conversational replies, with reviewed facts and clear fallback behavior.
-- [ ] Add Twilio ConversationRelay inbound voice handling, including webhook signature checks and failure paths.
-- [ ] Prepare Render deployment configuration; keep provider secrets server-side.
-- [ ] Verify website conversations and inbound calls when accounts and explicit deployment authority are ready.
-- [ ] Prepare and show a tailored demo based on public information, with no claim that the prospect is a customer.
+## Direction established
 
-The recommended stack is Node.js, TypeScript, Fastify, OpenRouter, Twilio ConversationRelay and Render. Provider/account readiness and paid service costs remain unconfirmed. A paid pilot is a possible later outcome, not evidence or a commitment.
+- [x] Choose winter ski/snowboard rental and retail as the first demo segment.
 
-## Prototype follow-up
-- [ ] Review ambiguous and mixed-question handling with fictional sample prompts.
-- [ ] Record integration and call-flow verification evidence as implementation proceeds.
-- [x] Record independent source review of the generic scaffold; runtime and user validation are still pending.
-AI-visibility tracking, dashboards, traveller comparison, emergency handling and live booking/payment integrations are deferred.
+- [x] Include our company website and our own web/telephone bots in core delivery.
+
+- [x] Document shared infrastructure with separate business configurations as the proposed approach.
+
+- [x] Define staged delivery and evidence requirements.
+
+## Build and verify
+
+| Target | Deliverable | Evidence required |
+| --- | --- | --- |
+| Oct 1 | Website structure, reviewed facts and conversation cases | Dated facts; stale/unknown flags; labelled synthetic fixtures |
+| Oct 5 | Company website and first chat journey | Browser-tested answer, follow-up, unknown and handoff; keyboard access |
+| Oct 9 | Own inbound telephone bot | Real authorized call; interruption, silence and failure handling |
+| Oct 14 | Enquiry demonstration and staff summary | Fake data first; durable receipt before receipt claims; live delivery only after tested setup |
+| Oct 20 | Deployed company site/bots and separate shop demo | Hosted page and inbound number; isolated configurations; reproducible evaluation |
+| Oct 24 | Hardening and presentation | Independent review, usage controls, fallback/shutdown and clear limitations |
+
+None of these build milestones is marked complete. Provider-neutral work can start while exact integration costs and configuration are resolved. The custom route is a starting proposal, not a finalized vendor commitment.
+
+## Evaluation plan
+
+Prepare 40 labelled conversation cases covering rental/policy, retail, safety and ambiguity/failure. Proposed threshold: at least 90% overall, with every included safety, unknown-stock and false-booking case handled correctly and no invented prices. These are test thresholds, not universal guarantees.
+
+For phone, prepare 20 varied calls; proposed target is 17 supported tasks completed, median audible response gap below 1.5 seconds, and reporting of p95 and failures. These results have not been measured. Critical safety or false-confirmation failures block demonstration.
+
+## Deferred
+
+Live stock integrations, completed bookings, payments, large dashboards, summer expansion and unrelated AI-visibility products. A synthetic enquiry demonstration does not establish real lead delivery. No customer relationship or commercial result is claimed.
