@@ -2,7 +2,12 @@
 
 Website and telephone bots for businesses. Repository name retained from the earlier AI Visibility Tracker exploration.
 
-**Status: local Next.js company website built with verified chat endpoint (49 automated checks passing); Givingli-inspired editorial showcase (`mockup/alpine-wave-givingli.html`) finalized. Live telephony carrier wiring and cloud deployment pending. Target: October 24, 2026.**
+**Status: Alpine Wave v4 handover finalized (Givingli editorial layout, Sun-Drenched Okanagan coral palette, cinema frame prepared for talkover/walkthrough, and seam for `/api/chat` assistant connection). Dedicated synthetic ski & snowboard showcase 'Everything in the Mountains' V2 built with Mountain Conditions HUD, complete 6-item rental fleet, interactive category filter tabs, real-time rate calculator, and front counter phone simulator (`(236) 205-7030`). Live clickable previews published via GitHub Pages. Target: October 24, 2026.**
+
+## Live Clickable Previews (GitHub Pages)
+
+- **[Alpine Wave Platform (v4 Handover)](https://rubixowl.github.io/ai-visibility-tracker/)**: Editorial platform showcase with interactive spider map, core channels, interactive question filters, audio sample simulation, and prepared video cinema player.
+- **[Everything in the Mountains (Ski Shop Showcase V2)](https://rubixowl.github.io/ai-visibility-tracker/ski-shop/)**: Dedicated retail & rental shop demo with Mountain Conditions HUD, interactive category filter tabs, live rental rate calculator, and front-counter DID `(236) 205-7030` phone simulator.
 
 ## What we are building
 
@@ -16,9 +21,13 @@ The proposed showcase covers rental, retail and servicing questions, follow-up c
 
 ## Work completed
 
-The delivery scope, sequence and acceptance criteria are documented in the [roadmap](ROADMAP.md). Today's work established the Givingli-inspired editorial layout prototype (`mockup/alpine-wave-givingli.html`) featuring an interactive spider map, 4 core channel cards, and video walkthrough, alongside the local Next.js company website with 49 automated checks passing.
+The delivery scope, sequence and acceptance criteria are documented in the [roadmap](ROADMAP.md). Today's work delivered:
+1. **Alpine Wave v4 Handover:** Fully clickable editorial platform mockup with Choice 2 Sun-Drenched Okanagan coral palette, verified sample conversation cards, interactive question routing, and video walkthrough cinema frame primed for live voiceover.
+2. **Everything in the Mountains V2:** Complete dedicated synthetic ski & snowboard retail showcase featuring 6 verified gear packages, interactive category filter tabs, real-time rental rate calculator (15% savings on 3+ days), and DID `(236) 205-7030` phone simulator.
+3. **Tier 2 Shadow Trial Plan:** Architected the 7-day shadow trial model (staff-first answering, automated after-hours/missed-call bot failover, PCI pause recording controls, click/chat logging, and Day-7 executive report).
+4. **Public GitHub Pages Suite (`docs/`):** Self-contained, sanitized web demos enabling instant browser review without local setup.
 
-This update records local implementation and design progress. It does not demonstrate live telephony carrier integrations or public cloud deployment. A potential demo prospect is not a customer; its identity and source details are excluded.
+This update records local implementation, architecture, and design progress. It does not demonstrate live telephony carrier integrations or public cloud deployment. A potential demo prospect is not a customer; its identity and source details are excluded.
 
 ## Build approach
 

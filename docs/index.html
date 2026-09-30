@@ -1,0 +1,3383 @@
+<!DOCTYPE html>
+<html lang="en-CA">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Alpine Wave — 24/7 Front-Desk Voice & Web Assistants for Seasonal Businesses</title>
+  <meta name="description" content="Alpine Wave builds 24/7 voice and website front-desk assistants for seasonal businesses. We shield your staff from peak phone rushes, capture after-hours inquiries, and pull verified answers directly from your approved data.">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=Hanken+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Nunito:wght@800&display=swap">
+
+  <style>
+    /* ==========================================================================
+       ALPINE WAVE — GIVINGLI EDITORIAL DESIGN SYSTEM (v4)
+       Palette: Choice 2 "Sun-Drenched Okanagan" with brand coral #FD632F.
+       Single light theme. Every colour lives here; sections use tokens only.
+       ========================================================================== */
+    :root {
+      /* surfaces */
+      --bg: #FDF9F3;
+      --paper: #FFFFFF;
+      --paper-warm: #F6EEE2;
+      --paper-cream: #FFF7ED;
+      --peach: #FFEBE1;
+      --peach-soft: #FFF5F0;
+
+      /* lead colour (brand coral) */
+      --vibrant-poppy: #FD632F;
+      --vibrant-poppy-deep: #E04410;
+      --vibrant-poppy-soft: #FFB597;
+      --vibrant-poppy-glow: rgba(253, 99, 47, 0.32);
+      --poppy-a10: rgba(253, 99, 47, 0.10);
+      --poppy-a20: rgba(253, 99, 47, 0.20);
+      --poppy-a35: rgba(253, 99, 47, 0.35);
+
+      /* secondary accents (small doses only) */
+      --vibrant-sun: #F59E0B;
+      --vibrant-sun-soft: #FEF3C7;
+      --vibrant-sky: #0284C7;
+      --vibrant-sky-soft: #E0F2FE;
+      --vibrant-mint: #16A34A;
+      --vibrant-mint-soft: #DCFCE7;
+
+      /* text + dark bands: brand navy (matches alpine-wave-future.html) */
+      --ink: #0B2545;
+      --ink-soft: #16365E;
+      --ink-muted: #5B6474;
+      --ink-subtle: #8A93A3;
+      --navy-band: #15395F;      /* dark sections: a shade lighter than --ink */
+      --navy-band-deep: #0F2D4F;
+      --line: #E7DFD4;
+      --line-strong: #D5C7B7;
+      --ink-a05: rgba(11, 37, 69, 0.05);
+      --ink-a10: rgba(11, 37, 69, 0.10);
+      --ink-a20: rgba(11, 37, 69, 0.20);
+
+      --display: "Bricolage Grotesque", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      --body: "Hanken Grotesk", -apple-system, BlinkMacSystemFont, sans-serif;
+      --mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+      --wordmark: "Nunito", sans-serif;
+
+      --shadow-sm: 0 4px 12px rgba(11, 37, 69, 0.05);
+      --shadow-card: 0 16px 36px -8px rgba(11, 37, 69, 0.09), 0 0 0 1px rgba(11, 37, 69, 0.04);
+      --shadow-tilt: 0 24px 50px -12px rgba(11, 37, 69, 0.14), 0 0 0 1.5px var(--poppy-a20);
+      --shadow-glow: 0 16px 40px -8px var(--vibrant-poppy-glow);
+
+      --r-pill: 9999px;
+      --r-card: 26px;
+      --r-chip: 14px;
+
+      color-scheme: light;
+    }
+
+    /* Base Reset & Core Typography */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: var(--body);
+      font-size: 17px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    /* Typography Scale - Givingli Style: Tight tracking, massive clamp headers */
+    h1, h2, h3, h4 {
+      font-family: var(--display);
+      line-height: 0.94;
+      letter-spacing: -0.042em;
+      color: var(--ink);
+      text-wrap: balance;
+    }
+
+    .hero-h1 {
+      font-size: clamp(3.2rem, 8.5vw, 7.2rem);
+      font-weight: 800;
+      letter-spacing: -0.048em;
+      line-height: 0.92;
+    }
+
+    .section-h2 {
+      font-size: clamp(2.6rem, 6.2vw, 5.4rem);
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      line-height: 0.96;
+    }
+
+    .accent-word {
+      color: var(--vibrant-poppy);
+      font-style: normal;
+      position: relative;
+      display: inline-block;
+    }
+
+    .accent-word::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: 6px;
+      width: 100%;
+      height: 8px;
+      background: var(--vibrant-poppy-glow);
+      border-radius: 4px;
+      z-index: -1;
+      opacity: 0.5;
+    }
+
+    /* Layout Wrappers */
+    .container {
+      width: 100%;
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 28px;
+    }
+    .container-wide {
+      width: 100%;
+      max-width: 1440px;
+      margin: 0 auto;
+      padding: 0 28px;
+    }
+
+    /* Top Announcement Bar */
+    .promo-banner {
+      background: var(--paper-warm);
+      border-bottom: 1px solid var(--line);
+      padding: 9px 24px;
+      text-align: center;
+      font-size: 13.5px;
+      font-weight: 500;
+      color: var(--ink);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+    }
+    .promo-banner .tag {
+      background: var(--vibrant-poppy);
+      color: #FFFFFF;
+      font-family: var(--mono);
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      padding: 2px 9px;
+      border-radius: var(--r-pill);
+    }
+    .promo-banner a {
+      color: var(--vibrant-poppy-deep);
+      text-decoration: none;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .promo-banner a:hover { text-decoration: underline; }
+
+    /* Sticky Navigation */
+    nav.main-nav {
+      position: sticky;
+      top: 0;
+      z-index: 90;
+      background: rgba(253, 249, 243, 0.92);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--line);
+      padding: 18px 0;
+      transition: all 0.25s ease;
+    }
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    /* Alpine Wave Brand Logo */
+    .brand-logo {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      font-family: var(--wordmark);
+      font-size: 24px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+    }
+    .brand-logo svg {
+      width: 40px;
+      height: 27px;
+      flex-shrink: 0;
+    }
+
+    /* Givingli-Style Segmented Audience Toggle in Nav */
+    .audience-toggle {
+      display: inline-flex;
+      align-items: center;
+      background: rgba(11, 37, 69, 0.05);
+      padding: 4px;
+      border-radius: var(--r-pill);
+      border: 1px solid var(--line);
+    }
+    .toggle-opt {
+      padding: 7px 18px;
+      border-radius: var(--r-pill);
+      font-size: 13.5px;
+      font-weight: 600;
+      color: var(--ink-muted);
+      border: none;
+      background: transparent;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .toggle-opt.active {
+      background: var(--ink);
+      color: #FFFFFF;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+    }
+
+    /* Nav Links & CTAs */
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+    }
+    .nav-links a {
+      text-decoration: none;
+      color: var(--ink);
+      font-size: 15px;
+      font-weight: 600;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover {
+      color: var(--vibrant-poppy);
+    }
+
+    /* Givingli-Style Tactile Pill Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 16px 32px;
+      border-radius: var(--r-pill);
+      font-family: var(--body);
+      font-size: 16px;
+      font-weight: 700;
+      text-decoration: none;
+      cursor: pointer;
+      border: none;
+      transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.2s ease, background-color 0.2s ease;
+      white-space: nowrap;
+    }
+    .btn:hover {
+      transform: translateY(-2px);
+    }
+    .btn:active {
+      transform: scale(0.97);
+    }
+    .btn .arr {
+      display: inline-block;
+      transition: transform 0.2s ease;
+    }
+    .btn:hover .arr {
+      transform: translateX(4px);
+    }
+
+    .btn-poppy {
+      background: var(--vibrant-poppy);
+      color: #FFFFFF;
+      box-shadow: var(--shadow-glow);
+    }
+    .btn-poppy:hover {
+      background: var(--vibrant-poppy-deep);
+      box-shadow: 0 20px 48px -6px var(--vibrant-poppy-glow);
+    }
+
+    .btn-dark {
+      background: var(--ink);
+      color: #FFFFFF;
+      box-shadow: var(--shadow-sm);
+    }
+    .btn-dark:hover {
+      background: var(--ink-soft);
+      box-shadow: 0 10px 24px rgba(11, 37, 69, 0.2);
+    }
+
+    .btn-white {
+      background: #FFFFFF;
+      color: var(--ink);
+      border: 1.5px solid var(--line);
+      box-shadow: var(--shadow-sm);
+    }
+    .btn-white:hover {
+      border-color: var(--vibrant-poppy);
+      box-shadow: var(--shadow-card);
+    }
+
+    .btn-sm {
+      padding: 10px 20px;
+      font-size: 14px;
+    }
+
+    /* ==========================================================================
+       HERO: GIVINGLI-STYLE STICKER / TILTED CARDS CANVAS
+       Centered monumental typography + floating interactive artifacts
+       ========================================================================== */
+    .hero-canvas {
+      position: relative;
+      padding: 60px 0 110px;
+      overflow: hidden;
+    }
+
+    /* Ambient Warm Glow behind Hero */
+    .hero-canvas::before {
+      content: "";
+      position: absolute;
+      top: 15%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 780px;
+      height: 480px;
+      background: radial-gradient(circle at center, var(--poppy-a10) 0%, rgba(245, 158, 11, 0.08) 45%, transparent 70%);
+      filter: blur(80px);
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .hero-center {
+      position: relative;
+      z-index: 10;
+      max-width: 940px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .eyebrow-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #FFFFFF;
+      border: 1.5px solid var(--line);
+      padding: 7px 18px;
+      border-radius: var(--r-pill);
+      font-family: var(--mono);
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--vibrant-poppy-deep);
+      box-shadow: var(--shadow-sm);
+      margin-bottom: 24px;
+    }
+    .eyebrow-pill .sparkle {
+      color: var(--vibrant-sun);
+      font-size: 14px;
+    }
+
+    .hero-lede {
+      font-size: clamp(1.1rem, 2.2vw, 1.35rem);
+      line-height: 1.6;
+      color: var(--ink-muted);
+      max-width: 680px;
+      margin: 28px auto 38px;
+      text-wrap: balance;
+    }
+
+    /* Givingli-Style Search Prompt Bar */
+    .prompt-bar-wrap {
+      max-width: 580px;
+      margin: 0 auto 36px;
+      position: relative;
+    }
+    .prompt-bar {
+      display: flex;
+      align-items: center;
+      background: #FFFFFF;
+      border: 1.5px solid var(--line-strong);
+      padding: 8px 10px 8px 24px;
+      border-radius: var(--r-pill);
+      box-shadow: var(--shadow-card);
+      transition: all 0.25s ease;
+    }
+    .prompt-bar:focus-within {
+      border-color: var(--vibrant-poppy);
+      box-shadow: 0 12px 30px -4px var(--vibrant-poppy-glow), 0 0 0 4px var(--poppy-a10);
+    }
+    .prompt-icon {
+      color: var(--vibrant-poppy);
+      font-size: 18px;
+      margin-right: 12px;
+      flex-shrink: 0;
+    }
+    .prompt-input {
+      border: none;
+      outline: none;
+      background: transparent;
+      font-family: var(--body);
+      font-size: 16px;
+      color: var(--ink);
+      width: 100%;
+    }
+    .prompt-input::placeholder {
+      color: var(--ink-subtle);
+    }
+
+    /* Action Buttons Stack */
+    .hero-actions {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    /* Social Proof Star Badge */
+    .social-proof {
+      margin-top: 36px;
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 14px;
+      color: var(--ink-muted);
+      font-weight: 600;
+    }
+    .stars {
+      display: inline-flex;
+      gap: 3px;
+      color: var(--vibrant-sun);
+      font-size: 16px;
+    }
+
+    /* Shared Chip Badges used across Channels & Cards */
+    .card-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-family: var(--mono);
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      padding: 4px 10px;
+      border-radius: var(--r-pill);
+    }
+    .chip-phone { background: var(--peach); color: var(--vibrant-poppy-deep); }
+    .chip-chat { background: var(--vibrant-sky-soft); color: #0284C7; }
+    .chip-rush { background: var(--vibrant-sun-soft); color: #B45309; }
+    .chip-safe { background: var(--vibrant-mint-soft); color: #15803D; }
+
+    /* ==========================================================================
+       SECTION 02: INTERACTIVE SPIDER MAP (INTELLIGENCE HUB)
+       Placed right after Hero and before Video Walkthrough
+       ========================================================================== */
+    .spider-section {
+      background: linear-gradient(180deg, var(--paper) 0%, #FFFFFF 60%, var(--paper-warm) 100%);
+      padding: 90px 0 110px;
+      position: relative;
+      overflow: hidden;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+
+    /* Subtle ambient radial glow behind the phone hub */
+    .spider-section::before {
+      content: "";
+      position: absolute;
+      left: 50%;
+      top: 52%;
+      transform: translate(-50%, -50%);
+      width: 650px;
+      height: 650px;
+      background: radial-gradient(circle, var(--poppy-a10) 0%, rgba(245, 158, 11, 0.04) 50%, transparent 70%);
+      filter: blur(60px);
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .spider-header {
+      text-align: center;
+      max-width: 840px;
+      margin: 0 auto 30px;
+      position: relative;
+      z-index: 5;
+    }
+
+    .spider-instructions-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #FFFFFF;
+      border: 1px solid var(--line);
+      border-radius: var(--r-pill);
+      padding: 6px 16px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--ink-muted);
+      margin-top: 18px;
+      box-shadow: var(--shadow-sm);
+    }
+    .spider-instructions-pill .live-indicator {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--vibrant-poppy);
+      box-shadow: 0 0 0 3px var(--vibrant-poppy-glow);
+      animation: pulseDot 2s infinite;
+    }
+    @keyframes pulseDot {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.3); opacity: 0.7; }
+    }
+
+    /* Spider Map Sun Diagram */
+    .sun {
+      position: relative;
+      width: 100%;
+      max-width: 1140px;
+      height: 650px;
+      margin: 20px auto 0;
+      z-index: 5;
+    }
+
+    .sun svg.rays {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      overflow: visible;
+      pointer-events: none;
+    }
+
+    .ray {
+      fill: none;
+      stroke: var(--vibrant-poppy);
+      stroke-width: 1.8;
+      opacity: 0.28;
+      transition: opacity 0.3s ease, stroke-width 0.3s ease;
+    }
+    .ray.on {
+      opacity: 0.95;
+      stroke-width: 2.8;
+    }
+
+    .shim {
+      fill: none;
+      stroke: url(#shimGrad);
+      stroke-width: 3.2;
+      stroke-linecap: round;
+      stroke-dasharray: 48 620;
+      filter: url(#glow);
+      animation: flow 2.5s linear infinite;
+    }
+    @keyframes flow {
+      from { stroke-dashoffset: 668; }
+      to { stroke-dashoffset: 0; }
+    }
+
+    .pulse {
+      fill: var(--vibrant-poppy);
+      filter: url(#glow);
+    }
+
+    /* Hub & Phone Container */
+    .hub {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 10;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .hub::before, .hub::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 530px;
+      height: 530px;
+      margin: -265px 0 0 -265px;
+      border-radius: 50%;
+      border: 1.5px solid var(--poppy-a20);
+      animation: ring 4.2s ease-out infinite;
+      pointer-events: none;
+      z-index: -1;
+    }
+    .hub::after {
+      animation-delay: 2.1s;
+    }
+    @keyframes ring {
+      0% { transform: scale(0.55); opacity: 1; }
+      100% { transform: scale(1.25); opacity: 0; }
+    }
+
+    .shoptag {
+      background: #FFFFFF;
+      border: 1.5px solid var(--line-strong);
+      box-shadow: 0 4px 16px -6px rgba(11, 37, 69, 0.15);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      border-radius: var(--r-pill);
+      padding: 9px 20px;
+      font-family: var(--display);
+      font-weight: 800;
+      font-size: 15px;
+      color: var(--ink);
+      position: relative;
+      z-index: 3;
+    }
+    .shoptag::before {
+      content: "";
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: var(--vibrant-poppy);
+      box-shadow: 0 0 0 3px var(--vibrant-poppy-glow);
+    }
+
+    .phone {
+      position: relative;
+      width: 250px;
+      height: 480px;
+      background: #FFFFFF;
+      border: 2px solid var(--line-strong);
+      border-radius: 38px;
+      box-shadow: 0 25px 50px -12px rgba(11, 37, 69, 0.22), 0 0 0 1px rgba(0,0,0,0.04);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      z-index: 2;
+    }
+    .phone .notch {
+      position: absolute;
+      top: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 72px;
+      height: 20px;
+      background: var(--ink);
+      border-radius: var(--r-pill);
+      z-index: 4;
+    }
+    .phone .top {
+      padding: 36px 14px 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      border-bottom: 1px solid var(--line);
+      background: var(--paper-warm);
+      font-family: var(--body);
+      font-weight: 700;
+      font-size: 13px;
+      color: var(--ink);
+    }
+    .phone .top .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--vibrant-mint);
+      box-shadow: 0 0 0 3px var(--vibrant-mint-soft);
+    }
+    .phone .msgs {
+      flex: 1;
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      overflow-y: auto;
+      scrollbar-width: none;
+      font-size: 12.5px;
+      line-height: 1.45;
+    }
+    .phone .msgs::-webkit-scrollbar {
+      display: none;
+    }
+
+    .phone .bar {
+      margin: 0 10px 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      border-radius: var(--r-pill);
+      padding: 8px 12px;
+      background: var(--paper-warm);
+      border: 1px solid var(--line);
+      font-family: var(--body);
+      font-size: 12px;
+      color: var(--ink-muted);
+      cursor: pointer;
+    }
+    .phone .bar i {
+      margin-left: auto;
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background: var(--vibrant-poppy);
+      display: grid;
+      place-items: center;
+      color: #FFFFFF;
+      font-style: normal;
+      font-size: 13px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    /* Chat Bubbles in Phone */
+    .b {
+      max-width: 90%;
+      padding: 9px 12px;
+      border-radius: 14px;
+      animation: msgIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    @keyframes msgIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .b.u {
+      align-self: flex-end;
+      background: var(--ink);
+      color: #FFFFFF;
+      border-bottom-right-radius: 4px;
+    }
+    .b.a {
+      align-self: flex-start;
+      background: #FFFFFF;
+      color: var(--ink);
+      border: 1.5px solid var(--line);
+      border-bottom-left-radius: 4px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+    }
+    .b.a.hand {
+      border-color: var(--poppy-a35);
+      background: var(--peach-soft);
+    }
+    .b .tag {
+      display: inline-block;
+      margin-bottom: 4px;
+      font-family: var(--mono);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--vibrant-poppy-deep);
+    }
+    .b .src {
+      display: block;
+      margin-top: 5px;
+      font-family: var(--mono);
+      font-size: 9.5px;
+      color: var(--ink-muted);
+    }
+    .typing {
+      display: inline-flex;
+      gap: 4px;
+      padding: 4px 2px;
+    }
+    .typing i {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--vibrant-poppy);
+      animation: blip 1s infinite;
+    }
+    .typing i:nth-child(2) { animation-delay: 0.15s; }
+    .typing i:nth-child(3) { animation-delay: 0.3s; }
+    @keyframes blip {
+      0%, 60%, 100% { opacity: 0.3; }
+      30% { opacity: 1; }
+    }
+
+    /* Spider Question Nodes (Left and Right Wings) */
+    .node {
+      position: absolute;
+      z-index: 15;
+      width: 220px;
+      font-family: var(--body);
+      font-size: 14px;
+      font-weight: 600;
+      line-height: 1.35;
+      color: var(--ink);
+      background: #FFFFFF;
+      border: 1.5px solid var(--line);
+      border-radius: var(--r-card);
+      padding: 12px 16px;
+      text-align: left;
+      cursor: pointer;
+      box-shadow: var(--shadow-sm);
+      transition: transform 0.24s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.24s ease, background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+    }
+    .node small {
+      display: block;
+      font-family: var(--mono);
+      font-size: 10.5px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--vibrant-poppy-deep);
+      margin-bottom: 4px;
+      transition: color 0.2s ease;
+    }
+    .node:hover {
+      transform: scale(1.06);
+      box-shadow: 0 16px 32px -8px var(--vibrant-poppy-glow), 0 0 0 2px var(--vibrant-poppy);
+      border-color: var(--vibrant-poppy);
+      z-index: 20;
+    }
+    .node.on {
+      background: var(--vibrant-poppy);
+      color: #FFFFFF;
+      border-color: var(--vibrant-poppy);
+      box-shadow: 0 18px 40px -10px var(--vibrant-poppy-glow);
+      z-index: 20;
+    }
+    .node.on small {
+      color: #FFE5D9;
+    }
+
+    /* Diagram Footer Badges & Next Section Link */
+    .spider-legend-bar {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+      margin-top: 36px;
+      position: relative;
+      z-index: 5;
+    }
+    .legend-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #FFFFFF;
+      border: 1px solid var(--line);
+      padding: 8px 18px;
+      border-radius: var(--r-pill);
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--ink);
+      box-shadow: var(--shadow-sm);
+    }
+    .legend-dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+    }
+    .legend-dot.green { background: var(--vibrant-mint); }
+    .legend-dot.orange { background: var(--vibrant-poppy); }
+
+    .spider-next-cta {
+      margin-top: 24px;
+      text-align: center;
+      position: relative;
+      z-index: 5;
+    }
+
+    /* Responsive adjustments for Spider Map */
+    @media (max-width: 860px) {
+      .sun {
+        height: auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 18px;
+      }
+      .sun svg.rays {
+        display: none;
+      }
+      .hub {
+        position: relative;
+        left: auto;
+        top: auto;
+        transform: none;
+        order: 2;
+      }
+      .hub::before, .hub::after {
+        display: none;
+      }
+      .nodes-a, .nodes-b {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+        width: 100%;
+        max-width: 600px;
+      }
+      .nodes-a { order: 1; }
+      .nodes-b { order: 3; }
+      .node {
+        position: static;
+        width: auto;
+      }
+    }
+    @media (min-width: 861px) {
+      .nodes-a, .nodes-b {
+        display: contents;
+      }
+    }
+
+    /* ==========================================================================
+       SECTION 03: FOUR CORE CHANNELS & SAFEGUARDS (PAGE 3)
+       Tactile cards placed after Spider Map and before Video Walkthrough
+       ========================================================================== */
+    .cards-showcase-section {
+      background: var(--paper-warm);
+      padding: 100px 0 115px;
+      position: relative;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .cards-header {
+      text-align: center;
+      max-width: 820px;
+      margin: 0 auto 50px;
+    }
+
+    .cards-header .section-h2 {
+      margin-top: 14px;
+    }
+
+    .cards-lede {
+      font-size: 1.15rem;
+      line-height: 1.6;
+      color: var(--ink-muted);
+      margin-top: 14px;
+      text-wrap: balance;
+    }
+
+    .showcase-cards-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 28px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .showcase-card {
+      background: #FFFFFF;
+      border: 1.5px solid var(--line);
+      border-radius: var(--r-card);
+      padding: 32px 30px;
+      box-shadow: var(--shadow-card);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease, border-color 0.25s ease;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .showcase-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 24px 50px -10px rgba(11, 37, 69, 0.16);
+      border-color: var(--vibrant-poppy);
+    }
+
+    .card-top-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .card-badge-pill {
+      font-family: var(--mono);
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--ink-muted);
+      background: var(--paper-warm);
+      padding: 4px 10px;
+      border-radius: var(--r-pill);
+      border: 1px solid var(--line);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .card-dialogue-box {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 20px;
+      margin-bottom: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .dialogue-q {
+      font-size: 15.5px;
+      font-weight: 700;
+      line-height: 1.4;
+      color: var(--ink);
+    }
+
+    .dialogue-a {
+      font-size: 13.5px;
+      line-height: 1.5;
+      color: var(--ink-muted);
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+    }
+
+    .bot-badge {
+      background: var(--ink);
+      color: #FFFFFF;
+      font-family: var(--mono);
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      padding: 2px 7px;
+      border-radius: 6px;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .dialogue-escalate {
+      background: var(--peach-soft);
+      border: 1px solid var(--poppy-a35);
+      border-radius: 12px;
+      padding: 14px 16px;
+      font-size: 13px;
+      line-height: 1.5;
+      color: var(--ink);
+    }
+
+    .escalate-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--vibrant-poppy-deep);
+      font-size: 12.5px;
+      font-family: var(--mono);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 6px;
+    }
+
+    .safe-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--vibrant-poppy);
+      box-shadow: 0 0 0 3px var(--vibrant-poppy-glow);
+    }
+
+    /* Big Concurrency Stat in Card 3 */
+    .card-stat-hero {
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+
+    .stat-number {
+      font-family: var(--mono);
+      font-size: 52px;
+      font-weight: 800;
+      line-height: 1;
+      color: var(--ink);
+      letter-spacing: -0.04em;
+    }
+
+    .stat-unit {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--vibrant-poppy-deep);
+    }
+
+    .card-stat-desc {
+      font-size: 14px;
+      line-height: 1.55;
+      color: var(--ink-muted);
+      margin-bottom: 24px;
+    }
+
+    .card-footer-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding-top: 18px;
+      border-top: 1px solid var(--line);
+    }
+
+    .meta-item {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .meta-label {
+      font-family: var(--mono);
+      font-size: 10.5px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--ink-subtle);
+    }
+
+    .meta-val {
+      font-size: 13.5px;
+      font-weight: 700;
+      color: var(--ink);
+    }
+
+    .meta-val.text-green {
+      color: var(--vibrant-mint);
+    }
+
+    .card-act-btn {
+      flex-shrink: 0;
+    }
+
+    .cards-to-video-cta {
+      margin-top: 50px;
+      text-align: center;
+    }
+
+    @media (max-width: 860px) {
+      .showcase-cards-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* ==========================================================================
+       SECTION 01: VIBRANT POPPY / CORAL FULL-BLEED BLOCK
+       Givingli's bold color punch with giant 01 numbering
+       ========================================================================== */
+    .chapter-poppy {
+      background: var(--vibrant-poppy);
+      color: #FFFFFF;
+      padding: 110px 0;
+      position: relative;
+      overflow: hidden;
+    }
+    .chapter-poppy h2, .chapter-poppy h3 {
+      color: #FFFFFF;
+    }
+    .chapter-poppy .chapter-num {
+      font-family: var(--mono);
+      font-size: clamp(4.5rem, 11vw, 9rem);
+      font-weight: 800;
+      line-height: 0.85;
+      color: rgba(255, 255, 255, 0.35);
+      letter-spacing: -0.05em;
+    }
+
+    .chapter-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 64px;
+      align-items: center;
+    }
+    @media (max-width: 960px) {
+      .chapter-grid {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+    }
+
+    .chapter-tag {
+      font-family: var(--mono);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.8);
+      margin-bottom: 12px;
+      display: block;
+    }
+
+    .chapter-copy {
+      font-size: clamp(1.1rem, 2vw, 1.3rem);
+      line-height: 1.55;
+      color: rgba(255, 255, 255, 0.88);
+      margin: 24px 0 36px;
+    }
+
+    /* Interactive Voice Call & Web Chat Simulator Box */
+    .simulator-box {
+      background: #FFFFFF;
+      color: var(--ink);
+      border-radius: var(--r-card);
+      padding: 28px;
+      box-shadow: 0 30px 70px -15px rgba(0, 0, 0, 0.35);
+    }
+    .sim-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1.5px solid var(--line);
+      padding-bottom: 18px;
+      margin-bottom: 20px;
+    }
+    .sim-caller-info {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .sim-avatar {
+      width: 44px;
+      height: 44px;
+      background: var(--paper-warm);
+      border-radius: var(--r-pill);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+    }
+    .sim-name {
+      font-weight: 700;
+      font-size: 16px;
+      color: var(--ink);
+    }
+    .sim-sub {
+      font-family: var(--mono);
+      font-size: 12px;
+      color: var(--vibrant-poppy);
+      font-weight: 600;
+    }
+
+    /* Waveform Audio Player Simulation */
+    .waveform-strip {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      height: 36px;
+      padding: 0 10px;
+      background: var(--paper-warm);
+      border-radius: var(--r-pill);
+      margin: 16px 0;
+    }
+    .wave-bar {
+      flex: 1;
+      height: 8px;
+      background: var(--vibrant-poppy);
+      border-radius: 4px;
+      transition: height 0.2s ease;
+    }
+    .wave-bar.active {
+      animation: waveDance 1.2s ease-in-out infinite alternate;
+    }
+    @keyframes waveDance {
+      0% { height: 6px; }
+      50% { height: 28px; }
+      100% { height: 12px; }
+    }
+
+    /* Dialogue Transcript */
+    .dialogue-thread {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      margin-top: 20px;
+    }
+    .d-bubble {
+      padding: 14px 18px;
+      border-radius: 18px;
+      font-size: 14.5px;
+      line-height: 1.45;
+      max-width: 88%;
+    }
+    .d-guest {
+      align-self: flex-start;
+      background: var(--paper-warm);
+      color: var(--ink);
+      border-bottom-left-radius: 4px;
+    }
+    .d-bot {
+      align-self: flex-end;
+      background: var(--vibrant-poppy);
+      color: #FFFFFF;
+      border-bottom-right-radius: 4px;
+    }
+    .d-tag {
+      font-family: var(--mono);
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 4px;
+      display: block;
+      opacity: 0.8;
+    }
+
+    /* Audio Playback Trigger Button */
+    .call-btn-trigger {
+      width: 100%;
+      margin-top: 18px;
+      background: var(--ink);
+      color: #FFFFFF;
+      border-radius: var(--r-pill);
+      padding: 14px 24px;
+      font-weight: 700;
+      font-size: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      border: none;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .call-btn-trigger:hover {
+      background: var(--ink-soft);
+      transform: translateY(-2px);
+    }
+
+    /* ==========================================================================
+       SECTION 02: WARM VANILLA / SAND - THE 50 QUESTIONS OPERATORS GET
+       Givingli-style modular category tags & live answers
+       ========================================================================== */
+    .chapter-sand {
+      background: var(--paper-warm);
+      padding: 120px 0;
+      border-bottom: 1.5px solid var(--line);
+    }
+    .chapter-sand .chapter-num {
+      font-family: var(--mono);
+      font-size: clamp(4.5rem, 11vw, 9rem);
+      font-weight: 800;
+      line-height: 0.85;
+      color: rgba(11, 37, 69, 0.16);
+      letter-spacing: -0.05em;
+    }
+
+    .questions-filter-pills {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin: 32px 0 40px;
+    }
+    .q-pill {
+      background: #FFFFFF;
+      border: 1.5px solid var(--line);
+      padding: 10px 20px;
+      border-radius: var(--r-pill);
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--ink);
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .q-pill:hover, .q-pill.active {
+      background: var(--ink);
+      color: #FFFFFF;
+      border-color: var(--ink);
+    }
+    .q-pill.active .pill-count {
+      background: var(--vibrant-poppy);
+      color: #FFF;
+    }
+    .pill-count {
+      font-family: var(--mono);
+      font-size: 11px;
+      background: var(--paper-warm);
+      color: var(--ink-muted);
+      padding: 2px 7px;
+      border-radius: var(--r-pill);
+    }
+
+    .q-cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(min(360px, 100%), 1fr));
+      gap: 24px;
+    }
+    .q-card {
+      background: #FFFFFF;
+      border: 1.5px solid var(--line);
+      border-radius: var(--r-card);
+      padding: 26px;
+      box-shadow: var(--shadow-sm);
+      transition: all 0.25s ease;
+      position: relative;
+    }
+    .q-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-card);
+      border-color: var(--vibrant-poppy);
+    }
+    .q-card-badge {
+      font-family: var(--mono);
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--vibrant-poppy-deep);
+      background: var(--peach);
+      padding: 4px 10px;
+      border-radius: var(--r-pill);
+      display: inline-block;
+      margin-bottom: 12px;
+    }
+    .q-card-query {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--ink);
+      line-height: 1.35;
+      margin-bottom: 10px;
+    }
+    .q-card-answer {
+      font-size: 14.5px;
+      color: var(--ink-muted);
+      line-height: 1.55;
+    }
+
+    /* ==========================================================================
+       SECTION 03: DEEP MIDNIGHT INK - OPERATOR SAFEGUARDS
+       Givingli Pro / High-Tech Section styling
+       ========================================================================== */
+    .chapter-midnight {
+      background: var(--navy-band);
+      color: #FFFFFF;
+      padding: 120px 0;
+      position: relative;
+      overflow: hidden;
+    }
+    .chapter-midnight {
+      background-image: radial-gradient(900px 500px at 85% 0%, rgba(47, 111, 181, 0.35), transparent 70%);
+    }
+    .chapter-midnight h2, .chapter-midnight h3 {
+      color: #FFFFFF;
+    }
+    .chapter-midnight .chapter-num {
+      font-family: var(--mono);
+      font-size: clamp(4.5rem, 11vw, 9rem);
+      font-weight: 800;
+      line-height: 0.85;
+      color: rgba(255, 255, 255, 0.2);
+      letter-spacing: -0.05em;
+    }
+
+    .safeguards-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr));
+      gap: 24px;
+      margin-top: 50px;
+    }
+    .safe-card {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: var(--r-card);
+      padding: 32px 28px;
+      backdrop-filter: blur(10px);
+      transition: all 0.3s ease;
+    }
+    .safe-card:hover {
+      background: rgba(255, 255, 255, 0.09);
+      border-color: var(--vibrant-poppy);
+      transform: translateY(-4px);
+    }
+    .safe-icon {
+      width: 48px;
+      height: 48px;
+      background: var(--poppy-a20);
+      color: var(--vibrant-poppy);
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      margin-bottom: 20px;
+    }
+    .safe-title {
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 12px;
+      color: #FFFFFF;
+    }
+    .safe-body {
+      font-size: 15px;
+      line-height: 1.6;
+      color: rgba(255, 255, 255, 0.75);
+    }
+
+    /* ==========================================================================
+       GIVINGLI-STYLE CINEMA VIDEO SHOWCASE SECTION
+       ========================================================================== */
+    .video-showcase-section {
+      background: var(--paper-warm);
+      border-top: 1.5px solid var(--line);
+      border-bottom: 1.5px solid var(--line);
+      padding: 90px 0 110px;
+      position: relative;
+      overflow: hidden;
+    }
+    .video-showcase-section::before {
+      content: "";
+      position: absolute;
+      top: -15%;
+      right: 15%;
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, var(--vibrant-poppy-glow) 0%, transparent 65%);
+      filter: blur(80px);
+      pointer-events: none;
+    }
+    .video-header-area {
+      text-align: center;
+      max-width: 840px;
+      margin: 0 auto 36px;
+    }
+    .video-tabs-bar {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin: 26px 0 32px;
+    }
+    .v-tab-btn {
+      background: #FFFFFF;
+      border: 1.5px solid var(--line);
+      padding: 10px 22px;
+      border-radius: var(--r-pill);
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--ink);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s ease;
+    }
+    .v-tab-btn:hover, .v-tab-btn.active {
+      background: var(--ink);
+      color: #FFFFFF;
+      border-color: var(--ink);
+      box-shadow: var(--shadow-sm);
+    }
+    .v-tab-btn.active .v-tab-badge {
+      background: var(--vibrant-poppy);
+      color: #FFFFFF;
+    }
+    .v-tab-badge {
+      font-family: var(--mono);
+      font-size: 11px;
+      background: var(--paper-warm);
+      color: var(--ink-muted);
+      padding: 2px 7px;
+      border-radius: var(--r-pill);
+    }
+
+    /* Cinema Video Player Frame */
+    .cinema-frame {
+      max-width: 1080px;
+      margin: 0 auto;
+      background: var(--navy-band);
+      border-radius: 32px;
+      padding: 12px;
+      box-shadow: 0 30px 80px -15px rgba(11, 37, 69, 0.35), 0 0 0 1px rgba(255, 255, 255, 0.1);
+      position: relative;
+    }
+    .video-viewport {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      background: #000000;
+      border-radius: 22px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .video-viewport video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .video-play-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(11, 37, 69, 0.45);
+      backdrop-filter: blur(2px);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+      z-index: 10;
+    }
+    .video-play-overlay.hidden {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+    .play-circle {
+      width: 88px;
+      height: 88px;
+      background: var(--vibrant-poppy);
+      color: #FFFFFF;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 32px;
+      box-shadow: 0 12px 35px var(--vibrant-poppy-glow);
+      transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+      margin-bottom: 16px;
+    }
+    .video-play-overlay:hover .play-circle {
+      transform: scale(1.1);
+    }
+    .play-overlay-title {
+      color: #FFFFFF;
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+    }
+    .play-overlay-sub {
+      color: rgba(255, 255, 255, 0.75);
+      font-family: var(--mono);
+      font-size: 13px;
+      margin-top: 6px;
+    }
+
+    /* Video HUD Badges */
+    .video-hud-top {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      right: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 15;
+      pointer-events: none;
+    }
+    .hud-chip {
+      background: rgba(11, 37, 69, 0.85);
+      backdrop-filter: blur(12px);
+      color: #FFFFFF;
+      font-family: var(--mono);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 6px 14px;
+      border-radius: var(--r-pill);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .hud-chip .live-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--vibrant-poppy);
+      animation: pulseLive 1.5s infinite;
+    }
+    @keyframes pulseLive {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(0.8); }
+    }
+
+    /* Dynamic Captions Banner on Video */
+    .video-caption-hud {
+      position: absolute;
+      bottom: 74px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(11, 37, 69, 0.88);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: #FFFFFF;
+      padding: 10px 22px;
+      border-radius: var(--r-pill);
+      font-size: 14.5px;
+      font-weight: 600;
+      max-width: 90%;
+      text-align: center;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+      z-index: 15;
+      pointer-events: none;
+      transition: all 0.3s ease;
+    }
+
+    /* Custom Player Control Bar */
+    .video-control-bar {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: linear-gradient(to top, rgba(11, 37, 69, 0.95), rgba(11, 37, 69, 0));
+      padding: 20px 24px 16px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      z-index: 20;
+    }
+    .v-ctrl-btn {
+      background: transparent;
+      border: none;
+      color: #FFFFFF;
+      font-size: 18px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 4px 8px;
+      border-radius: 6px;
+      transition: color 0.2s, background 0.2s;
+    }
+    .v-ctrl-btn:hover {
+      color: var(--vibrant-poppy);
+      background: rgba(255, 255, 255, 0.1);
+    }
+    .v-scrubber-track {
+      flex: 1;
+      height: 6px;
+      background: rgba(255, 255, 255, 0.25);
+      border-radius: 3px;
+      position: relative;
+      cursor: pointer;
+      overflow: hidden;
+    }
+    .v-scrubber-fill {
+      height: 100%;
+      width: 0%;
+      background: var(--vibrant-poppy);
+      border-radius: 3px;
+      transition: width 0.1s linear;
+    }
+    .v-time-display {
+      font-family: var(--mono);
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.8);
+      min-width: 80px;
+    }
+
+    /* Local File Dropper Bar */
+    .video-meta-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-top: 18px;
+      padding: 0 10px;
+      font-size: 13.5px;
+      color: rgba(255, 255, 255, 0.7);
+    }
+    .local-picker-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px dashed rgba(255, 255, 255, 0.3);
+      padding: 6px 14px;
+      border-radius: var(--r-pill);
+      font-family: var(--mono);
+      font-size: 12px;
+      font-weight: 600;
+      color: #FFFFFF;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .local-picker-label:hover {
+      border-color: var(--vibrant-poppy);
+      background: rgba(255, 255, 255, 0.18);
+    }
+    .local-picker-label input {
+      display: none;
+    }
+
+    /* ==========================================================================
+       FINAL CTA / READY TO LAUNCH BAND
+       ========================================================================== */
+    .ready-band {
+      background: var(--bg);
+      padding: 70px 0 100px;
+      text-align: center;
+    }
+    .ready-box {
+      background: #FFFFFF;
+      border: 2px solid var(--line);
+      border-radius: 36px;
+      padding: 70px 40px;
+      max-width: 980px;
+      margin: 0 auto;
+      box-shadow: var(--shadow-card);
+      position: relative;
+      overflow: hidden;
+    }
+    .ready-box::before {
+      content: "";
+      position: absolute;
+      top: -50%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 600px;
+      height: 300px;
+      background: radial-gradient(circle, var(--vibrant-poppy-glow) 0%, transparent 70%);
+      filter: blur(50px);
+      pointer-events: none;
+    }
+
+    /* Footer */
+    footer.main-footer {
+      background: var(--navy-band);
+      color: rgba(255, 255, 255, 0.7);
+      padding: 60px 0 40px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      font-size: 14px;
+    }
+    .footer-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 24px;
+      padding-bottom: 40px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .footer-brand {
+      color: #FFFFFF;
+      font-family: var(--wordmark);
+      font-size: 22px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+      padding-top: 30px;
+      font-size: 13px;
+    }
+
+    /* Interactive Live Chat Modal */
+    .chat-drawer {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      width: 380px;
+      max-width: calc(100vw - 32px);
+      background: #FFFFFF;
+      border: 1.5px solid var(--line);
+      border-radius: 24px;
+      box-shadow: 0 24px 60px -10px rgba(0, 0, 0, 0.25);
+      z-index: 1000;
+      display: none;
+      flex-direction: column;
+      overflow: hidden;
+      animation: popIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    @keyframes popIn {
+      from { transform: scale(0.9) translateY(20px); opacity: 0; }
+      to { transform: scale(1) translateY(0); opacity: 1; }
+    }
+    .chat-drawer.open { display: flex; }
+    .drawer-head {
+      background: var(--navy-band);
+      color: #FFFFFF;
+      padding: 16px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .drawer-title { font-weight: 700; font-size: 15px; }
+    .drawer-close {
+      background: transparent;
+      border: none;
+      color: #FFFFFF;
+      font-size: 20px;
+      cursor: pointer;
+    }
+    .drawer-body {
+      padding: 18px;
+      height: 320px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .drawer-foot {
+      padding: 12px 16px;
+      border-top: 1px solid var(--line);
+      display: flex;
+      gap: 8px;
+    }
+    .drawer-input {
+      flex: 1;
+      padding: 10px 14px;
+      border-radius: var(--r-pill);
+      border: 1px solid var(--line);
+      font-size: 14px;
+      outline: none;
+    }
+    .drawer-send {
+      background: var(--vibrant-poppy);
+      color: #FFFFFF;
+      border: none;
+      border-radius: var(--r-pill);
+      padding: 0 16px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    /* Floating Chat Bubble Launcher */
+    .chat-launcher-btn {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: var(--vibrant-poppy);
+      color: #FFFFFF;
+      border: none;
+      border-radius: var(--r-pill);
+      padding: 16px 24px;
+      font-family: var(--body);
+      font-weight: 700;
+      font-size: 15px;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      box-shadow: var(--shadow-glow);
+      cursor: pointer;
+      z-index: 999;
+      transition: transform 0.2s ease;
+    }
+    .chat-launcher-btn:hover {
+      transform: translateY(-3px) scale(1.03);
+    }
+
+    /* ==========================================================================
+       v4 POLISH: accessibility, hero chips, sample labels, responsive nav
+       ========================================================================== */
+    .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+    :focus-visible { outline: 3px solid var(--vibrant-poppy); outline-offset: 3px; border-radius: 8px; }
+    [id] { scroll-margin-top: 90px; }
+
+    .hero-center .audience-toggle { margin-bottom: 22px; }
+    .proof-chips {
+      list-style: none;
+      margin-top: 34px;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .proof-chips li {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: var(--r-pill);
+      padding: 7px 16px;
+      font-size: 13.5px;
+      font-weight: 600;
+      color: var(--ink-muted);
+    }
+
+    /* "Sample" label for any made-up business data */
+    .sample-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-family: var(--mono);
+      font-size: 10.5px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--ink-muted);
+      background: var(--paper);
+      border: 1px dashed var(--line-strong);
+      border-radius: var(--r-pill);
+      padding: 3px 10px;
+    }
+    .chapter-poppy .sample-tag, .chapter-midnight .sample-tag { background: transparent; color: rgba(255,255,255,0.85); border-color: rgba(255,255,255,0.45); }
+
+    .fine-print { font-size: 13px; color: var(--ink-subtle); margin-top: 14px; }
+
+    /* Tier cards (were inline styles) */
+    .tier-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(320px, 100%), 1fr)); gap: 24px; margin-bottom: 24px; }
+    .tier-card { background: var(--paper); border: 1.5px solid var(--line-strong); border-radius: var(--r-card); padding: 36px 30px; box-shadow: var(--shadow-sm); display: flex; flex-direction: column; }
+    .tier-card.featured { border: 2px solid var(--vibrant-poppy); box-shadow: var(--shadow-tilt); }
+    .tier-head { display: flex; justify-content: space-between; align-items: center; gap: 10px; margin-bottom: 16px; }
+    .tier-badge { background: var(--paper-warm); color: var(--ink); font-family: var(--mono); font-size: 11px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; padding: 4px 12px; border-radius: var(--r-pill); border: 1px solid var(--line); }
+    .tier-card.featured .tier-badge { background: var(--vibrant-poppy); color: #FFF; border-color: transparent; }
+    .tier-time { font-family: var(--mono); font-size: 12px; color: var(--ink-muted); font-weight: 700; }
+    .tier-card.featured .tier-time { color: var(--vibrant-poppy-deep); }
+    .tier-card h3 { font-size: 24px; font-weight: 800; margin-bottom: 10px; line-height: 1.1; }
+    .tier-card > p { font-size: 14.5px; color: var(--ink-muted); line-height: 1.55; margin-bottom: 20px; }
+    .tier-card ul { list-style: none; margin: 0 0 24px; font-size: 14px; line-height: 1.5; display: grid; gap: 8px; }
+    .tier-card li { display: flex; gap: 10px; }
+    .tier-card li::before { content: "✓"; color: var(--vibrant-poppy); font-weight: 800; }
+    .tier-card .btn { width: 100%; margin-top: auto; }
+    .tier-note { background: var(--paper-warm); border: 1px solid var(--line); border-radius: var(--r-card); padding: 16px 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; font-size: 14px; font-weight: 600; }
+    .tier-note a { font-family: var(--mono); font-size: 13px; font-weight: 700; color: var(--vibrant-poppy-deep); text-decoration: none; }
+
+    /* Feature grid (was inline styles) */
+    .features-deep-section { padding: 90px 0; background: var(--paper-warm); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+    .feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(320px, 100%), 1fr)); gap: 24px; }
+    .feature-card { background: var(--paper); border: 1.5px solid var(--line); border-radius: var(--r-card); padding: 32px; box-shadow: var(--shadow-sm); transition: transform .25s ease, border-color .25s ease; }
+    .feature-card:hover { transform: translateY(-4px); border-color: var(--vibrant-poppy-soft); }
+    .feature-icon { width: 52px; height: 52px; border-radius: 16px; background: var(--peach); display: grid; place-items: center; font-size: 24px; margin-bottom: 18px; }
+    .feature-card h3 { font-size: 20px; font-weight: 800; margin-bottom: 10px; line-height: 1.15; }
+    .feature-card p { font-size: 15px; color: var(--ink-muted); line-height: 1.55; }
+
+    .section-lede { font-size: 1.18rem; color: var(--ink-muted); line-height: 1.6; margin-top: 16px; text-wrap: balance; }
+    .chapter-label { font-family: var(--mono); font-size: 12px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--vibrant-poppy-deep); margin-bottom: 12px; display: block; }
+    .chapter-midnight .chapter-label { color: var(--vibrant-poppy); }
+
+    .brand-logo span, .nav-cta { white-space: nowrap; }
+    .drawer-body .d-bubble { max-width: 85%; font-size: 14px; }
+    .drawer-body .d-guest { align-self: flex-end; background: var(--ink); color: #FFFFFF; border-radius: 18px 18px 4px 18px; }
+    .drawer-body .d-bot { align-self: flex-start; background: var(--paper-warm); color: var(--ink); border-radius: 18px 18px 18px 4px; }
+    .drawer-title { display: inline-flex; align-items: center; gap: 8px; font-family: var(--wordmark); font-size: 17px; }
+    .chat-online { width: 8px; height: 8px; border-radius: 50%; background: var(--vibrant-mint); box-shadow: 0 0 0 3px rgba(22, 163, 74, 0.25); }
+    .drawer-suggest { display: flex; flex-wrap: wrap; gap: 6px; padding: 0 16px 10px; }
+    .drawer-suggest button { background: var(--peach); color: var(--ink); border: 1px solid var(--vibrant-poppy-soft); border-radius: var(--r-pill); padding: 6px 12px; font: 600 12.5px var(--body); cursor: pointer; }
+    .drawer-suggest button:hover { background: var(--vibrant-poppy); color: #FFFFFF; }
+    .drawer-send { min-width: 42px; font-size: 16px; }
+    .drawer-input:focus { border-color: var(--vibrant-poppy); }
+    .drawer-note { font-family: var(--mono); font-size: 10.5px; color: var(--ink-subtle); text-align: center; padding: 0 16px 12px; }
+
+    /* Responsive */
+    @media (max-width: 1080px) {
+      .nav-links { display: none; }
+    }
+    @media (max-width: 640px) {
+      .container, .container-wide { padding: 0 18px; }
+      .promo-banner { flex-wrap: wrap; font-size: 12.5px; padding: 8px 16px; gap: 6px 10px; }
+      nav.main-nav { padding: 12px 0; }
+      .brand-logo { font-size: 20px; }
+      .hero-canvas { padding: 40px 0 70px; }
+      .hero-actions .btn { width: 100%; }
+      .toggle-opt { padding: 7px 12px; font-size: 12.5px; }
+      .btn { white-space: normal; text-align: center; }
+      .nav-cta { white-space: nowrap; padding: 9px 16px; font-size: 13px; }
+      .video-hud-top, .play-overlay-sub { display: none; }
+      .play-circle { width: 60px; height: 60px; font-size: 22px; margin-bottom: 8px; }
+      .play-overlay-title { font-size: 16px; }
+      .video-control-bar { padding: 12px 12px 10px; gap: 8px; }
+      .v-time-display { min-width: 0; }
+      .chat-launcher-btn { bottom: 16px; right: 16px; padding: 13px 18px; }
+      .chat-drawer { right: 16px; bottom: 16px; }
+      .ready-box { padding: 48px 22px; }
+      .video-caption-hud { display: none; }
+      .q-cards-grid { grid-template-columns: 1fr; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { animation: none !important; transition: none !important; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Announcement Bar -->
+  <div class="promo-banner">
+    <span class="tag">Free demo</span>
+    <span>See an assistant built from your own website. No passwords or system access needed.</span>
+    <a href="#tier1">How it works <span aria-hidden="true">→</span></a>
+  </div>
+
+  <!-- Sticky Main Navigation -->
+  <nav class="main-nav" aria-label="Main">
+    <div class="container-wide nav-inner">
+      <a href="#top" class="brand-logo" aria-label="Alpine Wave home">
+        <svg viewBox="0 0 36 24" aria-hidden="true">
+          <path d="M1 20 L12 5 L18 13 L22 8 L35 20" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linejoin="round" stroke-linecap="round"/>
+          <path d="M1 20 q4.25 -4 8.5 0 t8.5 0 t8.5 0 t8.5 0" fill="none" stroke="var(--vibrant-poppy)" stroke-width="2.6" stroke-linecap="round"/>
+        </svg>
+        <span>Alpine Wave</span>
+      </a>
+
+      <div class="nav-links">
+        <a href="#how-it-works">How it works</a>
+        <a href="#channels">What you get</a>
+        <a href="#questions">Examples</a>
+        <a href="#safeguards">Safeguards</a>
+        <a href="#tier1">Plans</a>
+      </div>
+
+      <button class="btn btn-poppy btn-sm nav-cta" onclick="openChat()">
+        Try the assistant <span class="arr">→</span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ==========================================================================
+       HERO CANVAS: GIVINGLI-STYLE MONUMENTAL CENTERED TYPE
+       ========================================================================== -->
+  <header class="hero-canvas" id="top">
+
+    <div class="container hero-center">
+      <div class="audience-toggle" role="group" aria-label="Show examples for">
+        <button class="toggle-opt active" id="btn-platform" aria-pressed="true" onclick="setAudience('platform')">Any seasonal business</button>
+        <button class="toggle-opt" id="btn-ski" aria-pressed="false" onclick="setAudience('ski')">🎿 Ski &amp; board shops</button>
+      </div>
+
+      <div class="eyebrow-pill">
+        <span class="sparkle">✦</span>
+        <span id="hero-tagline">24/7 phone &amp; website assistants for seasonal businesses</span>
+      </div>
+
+      <h1 class="hero-h1">
+        Your phone &amp; website answer every customer, <br>
+        <span class="accent-word">instantly.</span>
+      </h1>
+
+      <p class="hero-lede" id="hero-lede-text">
+        Peak season should mean serving the people in front of you, not answering the same five calls all morning. Alpine Wave answers phone and website questions from your approved business information, points guests to your booking page, and passes anything unusual to your staff.
+      </p>
+
+      <!-- Question Prompt Bar: routes into the How it works map -->
+      <div class="prompt-bar-wrap">
+        <form class="prompt-bar" onsubmit="event.preventDefault(); submitPrompt();">
+          <span class="prompt-icon" aria-hidden="true">🔍</span>
+          <label for="demo-prompt-input" class="sr-only">Ask a sample question</label>
+          <input type="text" id="demo-prompt-input" class="prompt-input" placeholder="Try: “How long does a tune-up take?”" autocomplete="off">
+          <button type="submit" class="btn btn-poppy btn-sm">Ask <span class="arr">→</span></button>
+        </form>
+      </div>
+
+      <div class="hero-actions">
+        <button class="btn btn-poppy" onclick="openChat()">
+          Chat with Alpine Wave <span class="arr">→</span>
+        </button>
+        <a href="#how-it-works" class="btn btn-white">
+          <span>⚡ See how it works</span>
+        </a>
+        <a href="ski-shop/" class="btn btn-white" style="display:inline-flex; align-items:center; gap:6px;">
+          <span>🎿 Ski Shop Demo</span> <span class="arr">→</span>
+        </a>
+        <a href="tel:+12362057030" class="btn btn-white">
+          <span>📞 (236) 205-7030</span>
+        </a>
+      </div>
+
+      <!-- Honest proof points (no ratings until we have real customers) -->
+      <ul class="proof-chips" aria-label="Key facts">
+        <li><span class="legend-dot orange"></span>Website + phone, one setup</li>
+        <li><span class="legend-dot orange"></span>Answers only from info you approve</li>
+        <li><span class="legend-dot orange"></span>Built in the Okanagan, BC</li>
+      </ul>
+    </div>
+  </header>
+
+  <!-- ==========================================================================
+       SECTION 02: INTERACTIVE SPIDER MAP (INTELLIGENCE HUB)
+       Placed on the 2nd page before the video walkthrough
+       ========================================================================== -->
+  <section class="spider-section" id="how-it-works">
+    <div class="container">
+      
+      <!-- Spider Header Area -->
+      <div class="spider-header">
+        <div class="eyebrow-pill">
+          <span class="sparkle">✦</span>
+          <span>How it works</span>
+        </div>
+        <h2 class="section-h2">Every question gets the right next step.</h2>
+        <p class="section-lede">
+          Your website chat and phone line share one brain, built from the information you approve. It answers what it knows, sends people to your booking page, takes callback details, and passes anything unusual to your staff. If it doesn't know, it says so.
+        </p>
+        <div class="spider-instructions-pill">
+          <span class="live-indicator"></span>
+          <span>Click a question to see how the assistant handles it</span>
+        </div>
+      </div>
+
+      <!-- Sun Spider Diagram -->
+      <div class="sun" id="sun">
+        <svg class="rays" id="rays" aria-hidden="true">
+          <defs>
+            <linearGradient id="shimGrad" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0" stop-color="#FFE5D9" />
+              <stop offset="0.5" stop-color="#FFFFFF" />
+              <stop offset="1" stop-color="#FD632F" />
+            </linearGradient>
+            <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+              <feGaussianBlur stdDeviation="2.4" result="b" />
+              <feMerge>
+                <feMergeNode in="b" />
+                <feMergeNode in="SourceGraphic" />
+              </feMerge>
+            </filter>
+          </defs>
+          <g id="rayG"></g>
+        </svg>
+
+        <!-- Left Node Cluster (Group A) -->
+        <div class="nodes-a" id="nodesA"></div>
+
+        <!-- Central Phone Hub -->
+        <div class="hub">
+          <span class="shoptag">Your business</span>
+          <div class="phone" aria-label="Sample assistant conversation">
+            <span class="notch"></span>
+            <div class="top">
+              <span class="dot"></span>
+              <span>Your assistant</span>
+              <span class="sample-tag" style="margin-left:auto; padding:2px 7px; font-size:9px;">Sample</span>
+            </div>
+            <div class="msgs" id="pmsgs" aria-live="polite">
+              <div class="b u">Is lunch included on the full-day tour?</div>
+              <div class="b a">Yes! Full-day tours include a picnic lunch. Half-day tours include snacks.<span class="src">Inclusions · sample info</span></div>
+              <div class="b u">Can we book a private trip for 14 guests?</div>
+              <div class="b a hand"><span class="tag">Passed to manager</span><br>Groups of 10+ are arranged by our manager. What's the best number to reach you?</div>
+            </div>
+            <div class="bar" onclick="openChat()">
+              <span>Message the business…</span>
+              <i>↑</i>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Node Cluster (Group B) -->
+        <div class="nodes-b" id="nodesB"></div>
+      </div>
+
+      <!-- Spider Legend & Badges -->
+      <div class="spider-legend-bar">
+        <div class="legend-chip">
+          <span class="legend-dot green"></span>
+          <span><strong>Answered:</strong> hours, turnaround times, what's included, policies, booking links</span>
+        </div>
+        <div class="legend-chip">
+          <span class="legend-dot orange"></span>
+          <span><strong>Handed to staff:</strong> group and custom requests, callbacks, anything it can't confirm</span>
+        </div>
+      </div>
+
+      <!-- CTA to Section 03 Channels -->
+      <div class="spider-next-cta">
+        <p class="fine-print">Sample business information, for illustration.</p>
+        <a class="btn btn-white btn-sm" href="#channels" style="margin-top:14px;">
+          <span>See what you get</span>
+          <span class="arr">↓</span>
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       SECTION 03: FOUR CORE CHANNELS & SAFEGUARDS (PAGE 3)
+       Transformed from hero badges into tactile showcase cards
+       Placed after Spider Map (Page 2) and before Video Walkthrough (Page 4)
+       ========================================================================== -->
+  <section class="cards-showcase-section" id="channels">
+    <div class="container">
+      
+      <!-- Section Header Area -->
+      <div class="cards-header text-center">
+        <div class="eyebrow-pill">
+          <span class="sparkle">✦</span>
+          <span>What you get</span>
+        </div>
+        <h2 class="section-h2">A 24/7 front desk for seasonal businesses.</h2>
+        <p class="cards-lede">
+          Built for the four headaches of peak season: the morning phone rush, enquiries that arrive after you close, the same questions all day, and staff getting pulled off the floor.
+        </p>
+      </div>
+
+      <!-- 4 Showcase Cards Grid -->
+      <div class="showcase-cards-grid">
+        
+        <!-- Card 1: Incoming Voice Call -->
+        <div class="showcase-card card-call" onclick="playVoiceCall()">
+          <div class="card-top-row">
+            <span class="card-chip chip-phone">📞 Phone assistant</span>
+            <span class="sample-tag">Sample call</span>
+          </div>
+          <div class="card-dialogue-box">
+            <div class="dialogue-q">"Are you open on stat holidays and what are your rental rates?"</div>
+            <div class="dialogue-a">
+              <span class="bot-badge">Voice Bot</span>
+              <span>"Yes, we're open 8 am to 6 pm on the holiday. Day rentals start at $52, and you can reserve online ahead of time."</span>
+            </div>
+          </div>
+          <div class="card-footer-meta">
+            <div class="meta-item">
+              <span class="meta-label">Answers from</span>
+              <span class="meta-val">Your approved info</span>
+            </div>
+            <button class="btn btn-poppy btn-sm card-act-btn" onclick="playVoiceCall()">
+              <span>🔊 Hear a sample</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Card 2: Website Live Chat -->
+        <div class="showcase-card card-chat" onclick="triggerWebDemo('ski')">
+          <div class="card-top-row">
+            <span class="card-chip chip-chat">💬 Website chat</span>
+            <span class="sample-tag">Sample chat</span>
+          </div>
+          <div class="card-dialogue-box">
+            <div class="dialogue-q">"Can I book a guided morning tour for a group of 6 tomorrow?"</div>
+            <div class="dialogue-a">
+              <span class="bot-badge">Web Bot</span>
+              <span>"Our morning tour leaves at 9 am. Here's the booking page to check spots and sign the waiver."</span>
+            </div>
+          </div>
+          <div class="card-footer-meta">
+            <div class="meta-item">
+              <span class="meta-label">Next step</span>
+              <span class="meta-val">Links to your booking page</span>
+            </div>
+            <button class="btn btn-white btn-sm card-act-btn" onclick="openChat()">
+              <span>💬 Try the chat</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Card 3: Saturday Rush Stats -->
+        <div class="showcase-card card-rush">
+          <div class="card-top-row">
+            <span class="card-chip chip-rush">⚡ The morning rush</span>
+          </div>
+          <div class="card-stat-hero">
+            <span class="stat-number">24/7</span>
+            <span class="stat-unit">including the 9 am rush</span>
+          </div>
+          <div class="card-stat-desc">
+            When fifteen people call at once while your staff are fitting gear or serving guests, callers aren't left on hold or sent to voicemail. The assistant takes several calls at the same time.
+          </div>
+          <div class="card-footer-meta">
+            <div class="meta-item">
+              <span class="meta-label">Busy signal</span>
+              <span class="meta-val">Calls answered in parallel</span>
+            </div>
+            <div class="meta-item">
+              <span class="meta-label">Hours</span>
+              <span class="meta-val">Days, nights, holidays</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 4: Staff Escalation Safeguard -->
+        <div class="showcase-card card-safe" onclick="location.hash='safeguards'">
+          <div class="card-top-row">
+            <span class="card-chip chip-safe">🛡️ Hand-off to staff</span>
+          </div>
+          <div class="card-dialogue-box safe-box">
+            <div class="dialogue-q">"Custom corporate package for 25 guests with catering"</div>
+            <div class="dialogue-escalate">
+              <div class="escalate-header">
+                <span class="safe-dot"></span>
+                <strong>Hand-off to a person</strong>
+              </div>
+              <p>Spots custom or sensitive requests, takes the details, and texts them to your manager instead of guessing.</p>
+            </div>
+          </div>
+          <div class="card-footer-meta">
+            <div class="meta-item">
+              <span class="meta-label">Goes to</span>
+              <span class="meta-val">Text, email or a call transfer</span>
+            </div>
+            <button class="btn btn-white btn-sm card-act-btn" onclick="document.getElementById('safeguards').scrollIntoView({behavior:'smooth'})">
+              <span>See safeguards →</span>
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Quick CTA leading into Video -->
+      <div class="cards-to-video-cta text-center">
+        <button class="btn btn-dark" onclick="scrollToVideoAndPlay()">
+          <span>▶ Watch the walkthrough</span>
+          <span class="arr">↓</span>
+        </button>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       PRODUCT WALKTHROUGH VIDEO SHOWCASE SECTION
+       ========================================================================== -->
+  <section class="video-showcase-section" id="video">
+    <div class="container">
+      
+      <div class="video-header-area">
+        <div class="eyebrow-pill">
+          <span class="sparkle">✦</span>
+          <span>Walkthrough · under 30 seconds</span>
+        </div>
+        <h2 class="section-h2">See Alpine Wave handle a peak-day rush.</h2>
+        <p class="section-lede">
+          A short walkthrough of the assistant answering questions and handing off to staff when it should.
+        </p>
+      </div>
+
+      <!-- Cinema Video Player Frame -->
+      <div class="cinema-frame">
+        <div class="video-viewport" id="video-container">
+          
+          <!-- HTML5 Video Element with Real Local MP4 File -->
+          <video id="main-demo-video" playsinline preload="metadata" loop muted onclick="toggleMainVideo()">
+            <source src="alpine-wave-walkthrough.mp4" type="video/mp4">
+            Your browser does not support HTML5 video.
+          </video>
+
+          <!-- Floating HUD Elements -->
+          <div class="video-hud-top">
+            <div class="hud-chip">
+              <span class="live-dot"></span>
+              <span id="video-hud-label">Sample demo · made-up business</span>
+            </div>
+
+          </div>
+
+          <!-- Custom Play Button Overlay -->
+          <div class="video-play-overlay" id="video-overlay" onclick="toggleMainVideo()">
+            <div class="play-circle">▶</div>
+            <div class="play-overlay-title">Watch the walkthrough</div>
+            <div class="play-overlay-sub">Plays with sound</div>
+          </div>
+
+          <!-- Video Control Bar -->
+          <div class="video-control-bar">
+            <button class="v-ctrl-btn" id="ctrl-play-btn" onclick="toggleMainVideo()" title="Play/Pause" aria-label="Play or pause">
+              ▶
+            </button>
+            <div class="v-scrubber-track" onclick="seekVideo(event)">
+              <div class="v-scrubber-fill" id="video-progress"></div>
+            </div>
+            <div class="v-time-display" id="video-time">0:00 / 0:28</div>
+            <button class="v-ctrl-btn" id="ctrl-mute-btn" onclick="toggleVideoMute()" title="Mute/Unmute" aria-label="Mute or unmute">
+              🔊
+            </button>
+            <button class="v-ctrl-btn" onclick="toggleVideoFullscreen()" title="Fullscreen" aria-label="Fullscreen">
+              ⛶
+            </button>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       CHAPTER 01: VIBRANT POPPY FULL-BLEED EDITORIAL BLOCK
+       ========================================================================== -->
+  <section class="chapter-poppy" id="one-brain">
+    <div class="container">
+      <div class="chapter-grid">
+        
+        <div>
+          <span class="chapter-num">01.</span>
+          <span class="chapter-tag">Chapter 01 / One brain</span>
+          <h2 class="section-h2">Two channels. One set of answers.</h2>
+          <p class="chapter-copy">
+            Whether a guest calls from the car on Highway 97 or chats from their condo at 11 pm, they get the same answer, built only from the facts, rates and policies you've approved.
+          </p>
+          <div style="display:flex; gap:12px; flex-wrap:wrap;">
+            <button class="btn btn-white btn-sm" onclick="playVoiceCall()">
+              ▶ Hear a sample call
+            </button>
+            <button class="btn btn-dark btn-sm" onclick="openChat()">
+              Try the website chat →
+            </button>
+          </div>
+        </div>
+
+        <!-- Simulator Box -->
+        <div class="simulator-box">
+          <div class="sim-header">
+            <div class="sim-caller-info">
+              <div class="sim-avatar">🏔️</div>
+              <div>
+                <div class="sim-name">Phone assistant</div>
+                <div class="sim-sub">Sample call · made-up business</div>
+              </div>
+            </div>
+            <span class="sample-tag" style="color:var(--ink-muted); border-color:var(--line-strong);">Sample</span>
+          </div>
+
+          <!-- Dynamic Audio Waveform -->
+          <div class="waveform-strip" id="waveform">
+            <div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div>
+            <div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div>
+            <div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div>
+            <div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div>
+            <div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div>
+            <div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div>
+          </div>
+
+          <!-- Transcript -->
+          <div class="dialogue-thread" id="call-dialogue">
+            <div class="d-bubble d-guest">
+              <span class="d-tag">Caller</span>
+              "Hi! If the temperature drops below minus 20, do the guided snowmobile tours still run?"
+            </div>
+            <div class="d-bubble d-bot">
+              <span class="d-tag">Assistant</span>
+              "Yes, tours run down to minus 25, and we supply heated grips and full winter suits. If weather closes the trail, you can reschedule for free or get a full refund."
+            </div>
+          </div>
+
+          <button class="call-btn-trigger" id="audio-toggle-btn" onclick="playVoiceCall()">
+            <span>🔊 Play sample call</span>
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       CHAPTER 02: WARM VANILLA / SAND - COMMON ASKS
+       ========================================================================== -->
+  <section class="chapter-sand" id="questions">
+    <div class="container">
+      <div style="max-width:800px;">
+        <span class="chapter-num">02.</span>
+        <span class="chapter-label">Chapter 02 / The questions you hear all day</span>
+        <h2 class="section-h2">Handles the questions your staff answer a hundred times a day.</h2>
+        <p class="section-lede">
+          Most peak-season calls ask the same things: pickup times, what's included, waivers, weather. Alpine Wave answers them from your information, so your crew can look after the guests in front of them.
+        </p>
+        <p style="margin-top:14px;"><span class="sample-tag">Sample answers · made-up businesses</span></p>
+      </div>
+
+      <!-- Category Filter Pills -->
+      <div class="questions-filter-pills">
+        <button class="q-pill active" onclick="filterQuestions('all', this)">All Questions <span class="pill-count">6</span></button>
+        <button class="q-pill" onclick="filterQuestions('gear', this)">Gear &amp; Sizing <span class="pill-count">2</span></button>
+        <button class="q-pill" onclick="filterQuestions('weather', this)">Weather &amp; Snow <span class="pill-count">2</span></button>
+        <button class="q-pill" onclick="filterQuestions('booking', this)">Bookings &amp; Waivers <span class="pill-count">2</span></button>
+      </div>
+
+      <!-- Question Cards Grid -->
+      <div class="q-cards-grid" id="q-grid">
+        
+        <div class="q-card" data-cat="gear">
+          <span class="q-card-badge">Gear &amp; Rentals</span>
+          <div class="q-card-query">"Can we pick up our ski rentals the night before?"</div>
+          <div class="q-card-answer">"Yes! Complimentary early pickup is available between 4:00 PM and 6:30 PM so you can head straight to the lift in the morning."</div>
+        </div>
+
+        <div class="q-card" data-cat="weather">
+          <span class="q-card-badge">Weather &amp; Safety</span>
+          <div class="q-card-query">"What happens if there is smoke or poor air quality?"</div>
+          <div class="q-card-answer">"If the Air Quality Health Index reaches 7 or higher, outdoor activities can be rescheduled or cancelled with full credit at your discretion."</div>
+        </div>
+
+        <div class="q-card" data-cat="booking">
+          <span class="q-card-badge">Bookings</span>
+          <div class="q-card-query">"Do minors need parental signatures on the digital waiver?"</div>
+          <div class="q-card-answer">"Yes, all guests under 19 in British Columbia require a parent or legal guardian's signature on our online waiver prior to departure."</div>
+        </div>
+
+        <div class="q-card" data-cat="gear">
+          <span class="q-card-badge">Gear &amp; Rentals</span>
+          <div class="q-card-query">"Do you provide avalanche transceivers and probes?"</div>
+          <div class="q-card-answer">"Backcountry packages include Mammut Barryvox beacons, probes, and shovels. We conduct a mandatory battery and beacon check before handover."</div>
+        </div>
+
+        <div class="q-card" data-cat="weather">
+          <span class="q-card-badge">Tours &amp; Conditions</span>
+          <div class="q-card-query">"What should we wear for the lake boat cruise?"</div>
+          <div class="q-card-answer">"Layers are recommended! Even on warm Okanagan afternoons, breezes off the water cool quickly once the sun dips behind the ridge."</div>
+        </div>
+
+        <div class="q-card" data-cat="booking">
+          <span class="q-card-badge">Bookings</span>
+          <div class="q-card-query">"Can we change the date of our wine tour reservation?"</div>
+          <div class="q-card-answer">"Modifications made at least 48 hours prior to departure are processed with zero penalty fees, subject to winery tasting room availability."</div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       CHAPTER 03: DEEP MIDNIGHT INK - OPERATOR SAFEGUARDS
+       ========================================================================== -->
+  <section class="chapter-midnight" id="safeguards">
+    <div class="container">
+      <div style="max-width:820px;">
+        <span class="chapter-num">03.</span>
+        <span class="chapter-label">Chapter 03 / Peace of mind</span>
+        <h2 class="section-h2">Answers from your facts. Doesn't guess.</h2>
+        <p class="section-lede" style="color:rgba(255, 255, 255, 0.78);">
+          You can't have a bot making up prices, getting availability wrong or guessing at safety rules. Alpine Wave answers only from the business information you've approved.
+        </p>
+      </div>
+
+      <div class="safeguards-cards">
+        
+        <div class="safe-card">
+          <div class="safe-icon">🔒</div>
+          <div class="safe-title">Only your approved info</div>
+          <div class="safe-body">
+            It answers only from your approved guide, rates and policies. If the answer isn't there, it says so and offers to pass the question on.
+          </div>
+        </div>
+
+        <div class="safe-card">
+          <div class="safe-icon">📱</div>
+          <div class="safe-title">Hand-off to a person</div>
+          <div class="safe-body">
+            Large group bookings, medical questions, custom quotes: it takes the details and texts your desk, or transfers the call where your phone setup allows.
+          </div>
+        </div>
+
+        <div class="safe-card">
+          <div class="safe-icon">🚨</div>
+          <div class="safe-title">One-switch updates</div>
+          <div class="safe-body">
+            Trail closed? Road washed out? Change the notice once and both the phone and the website chat pass it on.
+          </div>
+        </div>
+
+        <div class="safe-card">
+          <div class="safe-icon">🇨🇦</div>
+          <div class="safe-title">Local BC numbers</div>
+          <div class="safe-body">
+            A local area code (236, 250 or 604) so callers see a number they recognise, or forward your existing line.
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ==========================================================================
+       FEATURE GRID: WHAT'S UNDER THE HOOD
+       ========================================================================== -->
+  <section class="features-deep-section" id="features">
+    <div class="container">
+      <div style="max-width: 820px; margin-bottom: 48px;">
+        <div class="eyebrow-pill"><span class="sparkle">✦</span><span>What's under the hood</span></div>
+        <h2 class="section-h2">Built for how local businesses actually run.</h2>
+        <p class="section-lede">
+          It isn't a generic chatbot or an answering machine. It's set up around your information, your booking page and your staff.
+        </p>
+      </div>
+
+      <div class="feature-grid">
+        <div class="feature-card">
+          <div class="feature-icon" aria-hidden="true">🔗</div>
+          <h3>Website and phone, one setup</h3>
+          <p>One set of approved answers powers both the chat on your website and the phone line. Update it once and both stay in step.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon" aria-hidden="true">📅</div>
+          <h3>Booking hand-off</h3>
+          <p>Sends callers and website visitors straight to your existing booking page, so a ready-to-book guest doesn't drift away.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon" aria-hidden="true">🗣️</div>
+          <h3>Natural phone conversations</h3>
+          <p>Callers just talk. No press-1 menus, no voicemail maze, and replies quick enough to feel like a conversation.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon" aria-hidden="true">📱</div>
+          <h3>Staff alerts by text and email</h3>
+          <p>Leads, callback requests and after-hours enquiries arrive on your manager's phone as a short summary with the full transcript.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon" aria-hidden="true">🔄</div>
+          <h3>Warm call transfer</h3>
+          <p>When a caller needs a person, the assistant can put them through to your counter phone and give your staff a quick briefing first.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon" aria-hidden="true">🌙</div>
+          <h3>After-hours capture</h3>
+          <p>Enquiries at 11 pm still get an answer, and anything that needs you is waiting in the morning with the caller's details.</p>
+        </div>
+      </div>
+      <p class="fine-print">Call transfer and system connections depend on your phone and booking setup; we check before we quote.</p>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       PLANS: THE 3-TIER PATH (Tier 1 proof → Tier 2 triage → Tier 3 systems)
+       ========================================================================== -->
+  <section class="tier-progression-section" id="tier1" style="padding: 100px 0 40px;">
+    <div class="container">
+      <div style="max-width: 860px; margin-bottom: 40px;">
+        <div class="eyebrow-pill"><span class="sparkle">✦</span><span>Start small · go deeper when you're ready</span></div>
+        <h2 class="section-h2" style="font-size: clamp(2.2rem, 5vw, 3.8rem);">
+          See it first. <br>
+          <span class="accent-word">Trust it before you go further.</span>
+        </h2>
+        <p class="section-lede">
+          We never ask for passwords or system access up front. First you see a demo built from your own website. Then a 7-day shadow trial shows you exactly what you're missing. You decide from there.
+        </p>
+      </div>
+
+      <div class="tier-grid">
+        <article class="tier-card featured">
+          <div class="tier-head"><span class="tier-badge">Tier 1 · The way in</span><span class="tier-time">Free demo</span></div>
+          <h3>A demo built from your own website</h3>
+          <p><strong>Nothing to set up.</strong> We read your public website and build a demo assistant from what you've already published. You get a private link to try it.</p>
+          <ul>
+            <li>Answers questions using your own published info</li>
+            <li>No passwords, logins or system access</li>
+            <li>Try it yourself and show your staff</li>
+            <li>Nothing goes on your site unless you say so</li>
+          </ul>
+          <button class="btn btn-poppy btn-sm" onclick="openChat()">Ask for a demo <span class="arr">→</span></button>
+        </article>
+
+        <article class="tier-card">
+          <div class="tier-head"><span class="tier-badge">Tier 2 · Prove it</span><span class="tier-time">7-day trial</span></div>
+          <h3>7-day shadow trial &amp; report</h3>
+          <p><strong>Your staff still answer first.</strong> If nobody picks up, day or night, the assistant does. Every call and chat is recorded so the report shows the full picture.</p>
+          <ul>
+            <li>Missed and after-hours calls answered by the assistant</li>
+            <li>Staff calls recorded too, with a one-tap stop for private moments</li>
+            <li>Website chats and visitor clicks logged</li>
+            <li>Callers hear a short recording notice</li>
+            <li>Day-7 report: what came in, what was missed, what it would have caught</li>
+          </ul>
+          <button class="btn btn-white btn-sm" onclick="openChat()">Ask about the trial <span class="arr">→</span></button>
+        </article>
+
+        <article class="tier-card">
+          <div class="tier-head"><span class="tier-badge">Tier 3 · Full partner</span><span class="tier-time">When you're ready</span></div>
+          <h3>Connected to how you work</h3>
+          <p><strong>Once you trust it.</strong> We connect the assistant to your stock, bookings and email so it can do more than answer questions.</p>
+          <ul>
+            <li>Live stock and availability checks</li>
+            <li>Bookings straight into your calendar or booking tool</li>
+            <li>Email enquiries answered or sorted for your team</li>
+            <li>Full-time cover, with warm transfers to your front desk</li>
+          </ul>
+          <button class="btn btn-white btn-sm" onclick="openChat()">Ask about going further <span class="arr">→</span></button>
+        </article>
+      </div>
+
+      <div class="tier-note">
+        <span>⚡ Every business starts at Tier 1. Tier 3 connections are checked against your systems before we quote.</span>
+        <a href="tel:+12362057030">📞 (236) 205-7030</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       FINAL READY SECTION
+       ========================================================================== -->
+  <section class="ready-band">
+    <div class="container">
+      <div class="ready-box">
+        <span class="eyebrow-pill"><span class="sparkle">✦</span><span>Next step</span></span>
+        <h2 style="font-size:clamp(2.4rem, 5vw, 4.2rem); margin:18px 0; line-height:1;">
+          Ready to stop missing calls <br>
+          <span class="accent-word">this season?</span>
+        </h2>
+        <p style="font-size:1.2rem; color:var(--ink-muted); max-width:620px; margin:0 auto 36px;">
+          Send us your website. We'll build a free demo assistant from it and send you a private link to try.
+        </p>
+        <div style="display:flex; justify-content:center; gap:16px; flex-wrap:wrap;">
+          <button class="btn btn-poppy" onclick="openChat()">
+            Chat with Alpine Wave <span class="arr">→</span>
+          </button>
+          <a href="tel:+12362057030" class="btn btn-white">
+            📞 (236) 205-7030
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Footer -->
+  <footer class="main-footer">
+    <div class="container-wide">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <svg viewBox="0 0 36 24" width="36" height="24" aria-hidden="true">
+            <path d="M1 20 L12 5 L18 13 L22 8 L35 20" fill="none" stroke="#FFFFFF" stroke-width="2.6" stroke-linejoin="round" stroke-linecap="round"/>
+            <path d="M1 20 q4.25 -4 8.5 0 t8.5 0 t8.5 0 t8.5 0" fill="none" stroke="var(--vibrant-poppy)" stroke-width="2.6" stroke-linecap="round"/>
+          </svg>
+          <span>Alpine Wave</span>
+        </div>
+        <div style="display:flex; gap:24px;">
+          <a href="#how-it-works" style="color:rgba(255,255,255,0.8); text-decoration:none;">How it works</a>
+          <a href="#tier1" style="color:rgba(255,255,255,0.8); text-decoration:none;">Plans</a>
+          <a href="#safeguards" style="color:rgba(255,255,255,0.8); text-decoration:none;">Safeguards</a>
+          <a href="mailto:info@alpinewave.ca" style="color:var(--vibrant-poppy); text-decoration:none; font-weight:700;">info@alpinewave.ca</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div>© 2026 Alpine Wave Studio · Okanagan, British Columbia</div>
+        <div style="font-family:var(--mono); font-size:12px; color:rgba(255,255,255,0.65);">
+          Sample conversations on this page use made-up business information.
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Floating Chat Launcher Pill -->
+  <button class="chat-launcher-btn" onclick="openChat()" aria-label="Open Interactive Chat Assistant">
+    <span>💬 Ask Alpine Wave AI</span>
+  </button>
+
+  <!-- Chat Drawer
+       In the Next.js build this becomes <Chat/> posting to /api/chat,
+       which is the single place to plug in the real assistant. -->
+  <div class="chat-drawer" id="chat-drawer" role="dialog" aria-label="Chat with Alpine Wave">
+    <div class="drawer-head">
+      <div class="drawer-title"><span class="chat-online"></span> Alpine Wave</div>
+      <button class="drawer-close" onclick="closeChat()" aria-label="Close chat">✕</button>
+    </div>
+    <div class="drawer-body" id="drawer-messages" role="log" aria-live="polite">
+      <div class="d-bubble d-bot">
+        Hi! Ask me what Alpine Wave does, how setup works, or what happens when the assistant doesn't know an answer.
+      </div>
+    </div>
+    <div class="drawer-suggest" id="drawer-suggest">
+      <button type="button" onclick="askDrawer(this.textContent)">What does Alpine Wave do?</button>
+      <button type="button" onclick="askDrawer(this.textContent)">How much does it cost?</button>
+    </div>
+    <form class="drawer-foot" onsubmit="event.preventDefault(); sendChatMessage();">
+      <label for="drawer-input" class="sr-only">Your question</label>
+      <input type="text" id="drawer-input" class="drawer-input" placeholder="Ask a question…" autocomplete="off" maxlength="800">
+      <button type="submit" class="drawer-send" aria-label="Send">↑</button>
+    </form>
+    <p class="drawer-note">Prepared answers · no staff hand-off yet</p>
+  </div>
+
+  <!-- JavaScript Interactivity -->
+  <script>
+    // Audience Switcher: swaps hero copy between the broad and ski-shop framing
+    const audienceCopy = {
+      platform: {
+        tagline: "24/7 phone & website assistants for seasonal businesses",
+        lede: "Peak season should mean serving the people in front of you, not answering the same five calls all morning. Alpine Wave answers phone and website questions from your approved business information, points guests to your booking page, and passes anything unusual to your staff.",
+        placeholder: "Try: “How long does a tune-up take?”"
+      },
+      ski: {
+        tagline: "Phone & website assistants for ski and board shops",
+        lede: "Pickup times, tune turnaround, what's in a rental package, the Saturday 8 am phone rush: Alpine Wave answers the routine questions so your techs stay on the floor, and sends sizing and safety questions to your staff.",
+        placeholder: "Try: “Can I pick up my rentals the night before?”"
+      }
+    };
+    function setAudience(type) {
+      const copy = audienceCopy[type] || audienceCopy.platform;
+      document.querySelectorAll('.toggle-opt').forEach(b => {
+        const on = b.id === 'btn-' + type;
+        b.classList.toggle('active', on);
+        b.setAttribute('aria-pressed', on);
+      });
+      document.getElementById('hero-tagline').textContent = copy.tagline;
+      document.getElementById('hero-lede-text').textContent = copy.lede;
+      document.getElementById('demo-prompt-input').placeholder = copy.placeholder;
+    }
+
+    // Filter Question Cards
+    function filterQuestions(category, btn) {
+      document.querySelectorAll('.q-pill').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      const cards = document.querySelectorAll('.q-card');
+      cards.forEach(card => {
+        if (category === 'all' || card.getAttribute('data-cat') === category) {
+          card.style.display = 'block';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+
+    // ==========================================================================
+    // Video Player Interactivity (HTML5 + Custom HUD & Clip Selector)
+    // ==========================================================================
+    const mainVideo = document.getElementById('main-demo-video');
+    const videoOverlay = document.getElementById('video-overlay');
+    const ctrlPlayBtn = document.getElementById('ctrl-play-btn');
+    const ctrlMuteBtn = document.getElementById('ctrl-mute-btn');
+    const videoProgress = document.getElementById('video-progress');
+    const videoTime = document.getElementById('video-time');
+
+    function toggleMainVideo() {
+      if (!mainVideo) return;
+      if (mainVideo.paused) {
+        // User explicitly clicked play -> unmute sound!
+        mainVideo.muted = false;
+        if (ctrlMuteBtn) ctrlMuteBtn.textContent = '🔊';
+        mainVideo.play().then(() => {
+          if (videoOverlay) videoOverlay.classList.add('hidden');
+          if (ctrlPlayBtn) ctrlPlayBtn.textContent = '⏸';
+        }).catch(err => {
+          // If browser policy blocks unmuted, fall back to muted
+          mainVideo.muted = true;
+          if (ctrlMuteBtn) ctrlMuteBtn.textContent = '🔇';
+          mainVideo.play();
+          if (videoOverlay) videoOverlay.classList.add('hidden');
+          if (ctrlPlayBtn) ctrlPlayBtn.textContent = '⏸';
+        });
+      } else {
+        mainVideo.pause();
+        if (videoOverlay) videoOverlay.classList.remove('hidden');
+        if (ctrlPlayBtn) ctrlPlayBtn.textContent = '▶';
+      }
+    }
+
+    // Initialize silent background preview on page load (muted for browser policy compliance)
+    if (mainVideo && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      mainVideo.muted = true;
+      mainVideo.play().then(() => {
+        // Keeps muted looping preview until user clicks
+      }).catch(e => {
+        // Overlay remains visible so user clicks once
+      });
+    }
+
+    function scrollToVideoAndPlay() {
+      const vidSection = document.getElementById('video');
+      if (vidSection) {
+        vidSection.scrollIntoView({ behavior: 'smooth' });
+        setTimeout(() => {
+          if (mainVideo) mainVideo.muted = false;
+          if (ctrlMuteBtn) ctrlMuteBtn.textContent = '🔊';
+          toggleMainVideo();
+        }, 600);
+      }
+    }
+
+    function toggleVideoMute() {
+      if (!mainVideo) return;
+      mainVideo.muted = !mainVideo.muted;
+      if (ctrlMuteBtn) ctrlMuteBtn.textContent = mainVideo.muted ? '🔇' : '🔊';
+      if (!mainVideo.muted && mainVideo.paused) {
+        mainVideo.play();
+      }
+    }
+
+    function toggleVideoFullscreen() {
+      const container = document.getElementById('video-container');
+      if (!container) return;
+      if (!document.fullscreenElement) {
+        container.requestFullscreen().catch(err => {});
+      } else {
+        document.exitFullscreen();
+      }
+    }
+
+    function seekVideo(e) {
+      if (!mainVideo || !mainVideo.duration) return;
+      const rect = e.currentTarget.getBoundingClientRect();
+      const pos = (e.clientX - rect.left) / rect.width;
+      mainVideo.currentTime = pos * mainVideo.duration;
+    }
+
+    if (mainVideo) {
+      mainVideo.addEventListener('timeupdate', () => {
+        if (!mainVideo.duration) return;
+        const pct = (mainVideo.currentTime / mainVideo.duration) * 100;
+        if (videoProgress) videoProgress.style.width = pct + '%';
+        
+        const curMins = Math.floor(mainVideo.currentTime / 60);
+        const curSecs = Math.floor(mainVideo.currentTime % 60);
+        const durMins = Math.floor(mainVideo.duration / 60) || 0;
+        const durSecs = Math.floor(mainVideo.duration % 60) || 0;
+        if (videoTime) {
+          videoTime.textContent = `${curMins}:${curSecs < 10 ? '0' : ''}${curSecs} / ${durMins}:${durSecs < 10 ? '0' : ''}${durSecs}`;
+        }
+      });
+
+      mainVideo.addEventListener('ended', () => {
+        if (videoOverlay) videoOverlay.classList.remove('hidden');
+        if (ctrlPlayBtn) ctrlPlayBtn.textContent = '▶';
+      });
+    }
+
+    // Web Speech API Voice Call Audio Simulation
+    let isSpeaking = false;
+    function playVoiceCall() {
+      if (!('speechSynthesis' in window)) {
+        alert("Audio playback is not supported in this browser, but you can read the sample transcript on screen!");
+        return;
+      }
+
+      const waveBars = document.querySelectorAll('.wave-bar');
+      const audioBtn = document.getElementById('audio-toggle-btn');
+
+      if (isSpeaking) {
+        window.speechSynthesis.cancel();
+        isSpeaking = false;
+        waveBars.forEach(b => b.classList.remove('active'));
+        if (audioBtn) audioBtn.innerHTML = '<span>🔊 Play sample call</span>';
+        return;
+      }
+
+      window.speechSynthesis.cancel();
+      isSpeaking = true;
+      waveBars.forEach(b => b.classList.add('active'));
+      if (audioBtn) audioBtn.innerHTML = '<span>⏹ Stop sample</span>';
+
+      const guestText = "Hi! If the temperature drops below minus 20, do the guided snowmobile tours still run?";
+      const botText = "Yes, tours run down to minus 25, and we supply heated grips and full winter suits. If weather closes the trail, you can reschedule for free or get a full refund.";
+
+      const utter1 = new SpeechSynthesisUtterance(guestText);
+      utter1.rate = 1.05;
+      utter1.pitch = 1.1;
+
+      const utter2 = new SpeechSynthesisUtterance(botText);
+      utter2.rate = 1.0;
+      utter2.pitch = 0.95;
+
+      utter1.onend = () => {
+        if (isSpeaking) window.speechSynthesis.speak(utter2);
+      };
+
+      utter2.onend = () => {
+        isSpeaking = false;
+        waveBars.forEach(b => b.classList.remove('active'));
+        if (audioBtn) audioBtn.innerHTML = '<span>🔊 Play sample call</span>';
+      };
+
+      window.speechSynthesis.speak(utter1);
+    }
+
+    // Trigger demos from cards
+    function triggerWebDemo() {
+      openChat();
+    }
+
+    // Prompt Bar in Hero: routes to Spider Map or chat
+    function submitPrompt() {
+      const val = document.getElementById('demo-prompt-input').value.trim();
+      if (!val) return;
+      document.getElementById('how-it-works').scrollIntoView({ behavior: 'smooth' });
+      stopSpiderAuto();
+      const id = matchSpiderIntent(val);
+      const i = id ? spiderEls.findIndex(b => b.dataset.intent === id) : -1;
+      fireSpider(i, val);
+    }
+
+    // Live Chat Drawer Controls
+    function openChat() {
+      document.getElementById('chat-drawer').classList.add('open');
+      document.getElementById('drawer-input').focus();
+    }
+    document.addEventListener('keydown', e => { if (e.code === 'Escape') closeChat(); });
+
+    function closeChat() {
+      document.getElementById('chat-drawer').classList.remove('open');
+    }
+
+    // Prepared company answers (same facts as website/lib/knowledge.mjs).
+    const knowledgeQA = [
+      { k: /\b(cost|price|pricing|how much|quote|fee|trial)\b/, a: "We don't have fixed pricing to share yet. A price is agreed after we scope your website, the questions to answer, and whether you want phone as well as chat." },
+      { k: /\b(phone|call|voice|number)\b/, a: "The phone assistant answers from the same approved information as the website chat. Our number is (236) 205-7030; the phone assistant on it is still being set up." },
+      { k: /\b(need from|set ?up|get started|start|information)\b/, a: "It starts with a free demo built from your public website. If you like it, a 7-day shadow trial answers the calls nobody picks up and records what comes in, with a report at the end. Deeper connections come later, once you trust it." },
+      { k: /\b(existing|wordpress|shopify|wix|squarespace|integrat|pos|booking system)/, a: "That's the plan, but it depends on your platform. We check your website, booking and phone setup before promising any connection." },
+      { k: /(n'?t know|not know|wrong|guess|limit|unsure)/, a: "It says when it doesn't have an answer and offers to pass the question on. It won't invent a price, confirm a booking, or pretend staff got a message." },
+      { k: /\b(demo|try|example|sample)\b/, a: "This chat is one example. The conversations elsewhere on this page are samples using made-up business information." },
+      { k: /\b(ski|snowboard|rental|shop)/, a: "For a ski or board shop it could explain your rental packages, pickup times, tune turnaround and return policy, and send sizing or safety questions to your staff." },
+      { k: /(alpine wave|what do you do|who are you|services|offer)/, a: "Alpine Wave builds website and phone assistants that answer routine customer questions for seasonal businesses in BC, starting with ski and snowboard shops." },
+      { k: /\b(person|human|contact|talk|speak|callback)\b/, a: "The simplest first step is to send us your website and three questions your customers ask a lot. This chat can't book a meeting or message staff yet." }
+    ];
+    const fallbackAnswer = "I don't have a confirmed answer to that. I can help with what Alpine Wave does, setup, pricing and demos.";
+
+    function askDrawer(text) {
+      document.getElementById('drawer-input').value = text;
+      sendChatMessage();
+    }
+
+    function addDrawerBubble(cls, text) {
+      const body = document.getElementById('drawer-messages');
+      const el = document.createElement('div');
+      el.className = 'd-bubble ' + cls;
+      el.textContent = text;
+      body.appendChild(el);
+      body.scrollTop = body.scrollHeight;
+      return el;
+    }
+
+    // In the Next.js build this becomes a fetch('/api/chat') call.
+    function sendChatMessage() {
+      const input = document.getElementById('drawer-input');
+      const text = input.value.trim();
+      if (!text) return;
+      input.value = '';
+      addDrawerBubble('d-guest', text);
+      const lower = text.toLowerCase();
+      const hit = knowledgeQA.find(item => item.k.test(lower));
+      setTimeout(() => addDrawerBubble('d-bot', hit ? hit.a : fallbackAnswer), 350);
+    }
+
+    function escapeHTML(str) {
+      return str.replace(/[&<>'"]/g, 
+        tag => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[tag] || tag)
+      );
+    }
+
+    // ==========================================================================
+    // SECTION 02: SPIDER MAP JAVASCRIPT LOGIC
+    // Interactive sun diagram with animated SVG bezier rays & live phone demo
+    // ==========================================================================
+    // Sample business answers. Each node shows one thing Alpine Wave does:
+    // answer from approved info, send to booking, capture a callback,
+    // hand off to a person, or refuse to guess.
+    const spiderIntents = {
+      hours: {
+        k: ['open', 'opening', 'close', 'hours', 'sunday', 'holiday'],
+        a: "We're open 8 am to 6 pm every day in season, holidays included.",
+        src: 'Hours · sample info'
+      },
+      tune: {
+        k: ['tune', 'wax', 'sharpen', 'repair', 'service'],
+        a: "Drop it off before 5 pm and it's ready by 8 am the next morning. Rush tunes take about 2 hours.",
+        src: 'Workshop · sample info'
+      },
+      lunch: {
+        k: ['lunch', 'food', 'meal', 'included', 'include'],
+        a: "Full-day tours include a picnic lunch. Half-day tours include snacks and drinks.",
+        src: "What's included · sample info"
+      },
+      cancel: {
+        k: ['cancel', 'refund', 'change', 'reschedule', 'weather'],
+        a: "Cancel or change up to 48 hours before for a full refund. If we cancel for weather, you choose a new date or a refund.",
+        src: 'Policy · sample info'
+      },
+      book: {
+        k: ['book', 'reserve', 'saturday', 'availability', 'spot'],
+        tag: 'Booking link sent',
+        a: "You can pick a time and pay on our booking page. I've sent you the link.",
+        src: 'Booking page · sample'
+      },
+      group: {
+        k: ['group', '14', 'corporate', 'large', 'private'],
+        hand: true,
+        tag: 'Passed to manager',
+        a: "Groups of 10 or more are arranged by our manager. What's the best number to reach you?"
+      },
+      callback: {
+        k: ['call me', 'callback', 'call back', 'someone call', 'tomorrow'],
+        hand: true,
+        tag: 'Callback captured',
+        a: "Sure. What's your name and number? I'll have someone call you when we open at 8 am."
+      }
+    };
+
+    const spiderOrder = ['group', 'callback', 'book', 'cancel', 'tune', 'lunch', 'hours'];
+    function matchSpiderIntent(q) {
+      const s = q.toLowerCase();
+      for (const id of spiderOrder) {
+        if (spiderIntents[id].k.some(w => s.includes(w))) return id;
+      }
+      return null;
+    }
+
+    // [side, question, function label, intent, top%, offset% from outer edge]
+    // intent null = not in the business info, so the assistant won't guess.
+    const spiderNodes = [
+      ['a', 'What are your opening hours?', 'Answers · Hours', 'hours', 6, 11],
+      ['a', 'How long does a tune-up take?', 'Answers · Service times', 'tune', 30, 4],
+      ['a', 'Is lunch included on the tour?', "Answers · What's included", 'lunch', 54, 4],
+      ['a', 'Can I cancel if the weather turns?', 'Answers · Policies', 'cancel', 78, 11],
+      ['b', 'Can I book for Saturday morning?', 'Sends · Booking link', 'book', 6, 11],
+      ['b', 'Can we book for a group of 14?', 'Hands off · To manager', 'group', 30, 4],
+      ['b', 'Can someone call me back tomorrow?', 'Captures · Callback', 'callback', 54, 4],
+      ['b', 'Will it snow this weekend?', "Won't guess", null, 78, 11]
+    ];
+
+    const sunEl = document.getElementById('sun');
+    const rayGEl = document.getElementById('rayG');
+    const phoneEl = document.querySelector('.phone');
+    const spiderReduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    const spiderEls = spiderNodes.map(([side, q, label, intent, top, off]) => {
+      const b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'node';
+      b.innerHTML = '<small>' + escapeHTML(label) + '</small>' + escapeHTML(q);
+      b.style.top = top + '%';
+      b.style[side === 'a' ? 'left' : 'right'] = off + '%';
+      b.dataset.intent = intent || '';
+      b.dataset.side = side;
+      b.addEventListener('click', () => {
+        stopSpiderAuto();
+        fireSpider(spiderEls.indexOf(b));
+      });
+      const container = document.getElementById(side === 'a' ? 'nodesA' : 'nodesB');
+      if (container) container.appendChild(b);
+      return b;
+    });
+
+    const SVG_NS = 'http://www.w3.org/2000/svg';
+    let spiderPaths = [];
+
+    function drawSpiderRays() {
+      if (!rayGEl || !sunEl || !phoneEl) return;
+      rayGEl.innerHTML = '';
+      spiderPaths = [];
+      if (window.innerWidth <= 860) return;
+
+      const S = sunEl.getBoundingClientRect();
+      const P = phoneEl.getBoundingClientRect();
+
+      spiderEls.forEach((b, i) => {
+        const r = b.getBoundingClientRect();
+        const left = b.dataset.side === 'a';
+        const x1 = (left ? r.right : r.left) - S.left;
+        const y1 = r.top + r.height / 2 - S.top;
+        const rank = [0.2, 0.4, 0.6, 0.8][i % 4];
+        const x2 = (left ? P.left : P.right) - S.left;
+        const y2 = P.top - S.top + P.height * rank;
+        const dx = (x2 - x1) * 0.55;
+        const d = `M${x1},${y1} C${x1 + dx},${y1} ${x2 - dx},${y2} ${x2},${y2}`;
+
+        const base = document.createElementNS(SVG_NS, 'path');
+        base.setAttribute('d', d);
+        base.setAttribute('class', 'ray');
+
+        const shim = document.createElementNS(SVG_NS, 'path');
+        shim.setAttribute('d', d);
+        shim.setAttribute('class', 'shim');
+        shim.style.animationDelay = (-i * 0.4) + 's';
+
+        rayGEl.appendChild(base);
+        if (!spiderReduce) rayGEl.appendChild(shim);
+        spiderPaths.push(base);
+      });
+    }
+
+    function travelSpider(path) {
+      if (spiderReduce || !path || !rayGEl) return Promise.resolve();
+      return new Promise(res => {
+        const dot = document.createElementNS(SVG_NS, 'circle');
+        dot.setAttribute('r', '6');
+        dot.setAttribute('class', 'pulse');
+        rayGEl.appendChild(dot);
+        const L = path.getTotalLength();
+        const t0 = performance.now();
+        const dur = 650;
+
+        function step(now) {
+          const k = Math.min((now - t0) / dur, 1);
+          const e = k < 0.5 ? 2 * k * k : 1 - Math.pow(-2 * k + 2, 2) / 2;
+          const p = path.getPointAtLength(L * e);
+          dot.setAttribute('cx', p.x);
+          dot.setAttribute('cy', p.y);
+          if (k < 1) {
+            requestAnimationFrame(step);
+          } else {
+            dot.remove();
+            res();
+          }
+        }
+        requestAnimationFrame(step);
+      });
+    }
+
+    const pmEl = document.getElementById('pmsgs');
+    function addSpiderMsg(cls, html) {
+      if (!pmEl) return;
+      const d = document.createElement('div');
+      d.className = 'b ' + cls;
+      d.innerHTML = html;
+      pmEl.appendChild(d);
+      pmEl.scrollTop = pmEl.scrollHeight;
+      while (pmEl.children.length > 5) {
+        pmEl.removeChild(pmEl.firstChild);
+      }
+      return d;
+    }
+
+    function replySpider(id) {
+      const r = id && spiderIntents[id] ? spiderIntents[id] : {
+        hand: true,
+        tag: "Won't guess",
+        a: "I don't have that in our information, so I won't guess. Want me to pass your question to the team?"
+      };
+      const typing = addSpiderMsg('a', '<span class="typing"><i></i><i></i><i></i></span>');
+      setTimeout(() => {
+        if (typing) typing.remove();
+        addSpiderMsg('a' + (r.hand ? ' hand' : ''), (r.tag ? '<span class="tag">' + r.tag + '</span><br>' : '') + escapeHTML(r.a) + (r.src ? '<span class="src">' + r.src + '</span>' : ''));
+      }, spiderReduce ? 0 : 650);
+    }
+
+    let spiderBusy = false;
+    let spiderLastQ = '';
+
+    async function fireSpider(i, textOverride) {
+      if (spiderBusy) return;
+      spiderBusy = true;
+      spiderEls.forEach(e => e.classList.remove('on'));
+      spiderPaths.forEach(p => p.classList.remove('on'));
+
+      const id = i >= 0 ? (spiderEls[i].dataset.intent || null) : matchSpiderIntent(textOverride);
+      const q = textOverride || (i >= 0 ? spiderEls[i].textContent.replace(spiderEls[i].querySelector('small').textContent, '') : '');
+
+      if (i >= 0 && spiderEls[i]) {
+        spiderEls[i].classList.add('on');
+        if (spiderPaths[i]) spiderPaths[i].classList.add('on');
+      }
+
+      if (i >= 0 && spiderPaths[i]) {
+        await travelSpider(spiderPaths[i]);
+      }
+
+      if (q.trim() !== spiderLastQ) {
+        addSpiderMsg('u', escapeHTML(q));
+        replySpider(id);
+        spiderLastQ = q.trim();
+      }
+
+      setTimeout(() => {
+        spiderBusy = false;
+      }, spiderReduce ? 0 : 850);
+    }
+
+    // Auto-rotation through questions until user interacts
+    let spiderAuto = null;
+    let spiderAi = 0;
+    function stopSpiderAuto() {
+      if (spiderAuto) {
+        clearInterval(spiderAuto);
+        spiderAuto = null;
+      }
+    }
+    function startSpiderAuto() {
+      if (spiderReduce) return;
+      const seq = [0, 5, 2, 6, 3, 4, 1, 7];
+      spiderAuto = setInterval(() => {
+        fireSpider(seq[spiderAi % seq.length]);
+        spiderAi++;
+      }, 4400);
+      setTimeout(() => {
+        fireSpider(seq[0]);
+        spiderAi = 1;
+      }, 1000);
+    }
+
+    // Initialize Spider Diagram rays & observers
+    if ('ResizeObserver' in window && sunEl) {
+      const ro = new ResizeObserver(drawSpiderRays);
+      ro.observe(sunEl);
+    }
+    window.addEventListener('resize', drawSpiderRays);
+
+    (document.fonts && document.fonts.ready ? document.fonts.ready : Promise.resolve()).then(() => {
+      drawSpiderRays();
+      startSpiderAuto();
+    });
+    setTimeout(drawSpiderRays, 150);
+  </script>
+</body>
+</html>

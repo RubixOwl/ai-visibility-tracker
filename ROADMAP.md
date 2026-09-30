@@ -16,11 +16,19 @@ Target: October 24, 2026. Dates are delivery targets, not measured capacity or s
 
 - [x] Build local Next.js company website (`website/`) with automated tests passing (49 checks).
 
+- [x] Finalize Alpine Wave v4 handover with Choice 2 Okanagan coral palette, all channel buttons made interactive, cinema frame primed for talkover, and `/api/chat` integration seam.
+
+- [x] Build and verify dedicated synthetic ski & snowboard showcase V2 ("Everything in the Mountains") with Mountain Conditions HUD, 6 gear packages, category filter tabs, live rate calculator, and DID `(236) 205-7030` phone simulator.
+
+- [x] Define Tier 2 7-day shadow trial specification (staff-first dual recording, missed-call bot failover, PCI staff pause button, day-7 impact reporting).
+
+- [x] Deploy self-contained public demo suite to GitHub Pages (`docs/`).
+
 ## Build and verify
 
 | Target | Deliverable | Evidence required |
 | --- | --- | --- |
-| Oct 1 | Website structure, reviewed facts and conversation cases | Dated facts; stale/unknown flags; labelled synthetic fixtures |
+| Oct 1 | Website structure, reviewed facts and conversation cases | Dated facts; stale/unknown flags; labelled synthetic fixtures; v4 handover & ski shop V2 complete |
 | Oct 5 | Company website and first chat journey | Browser-tested answer, follow-up, unknown and handoff; keyboard access |
 | Oct 9 | Own inbound telephone bot | Real authorized call; interruption, silence and failure handling |
 | Oct 14 | Enquiry demonstration and staff summary | Fake data first; durable receipt before receipt claims; live delivery only after tested setup |

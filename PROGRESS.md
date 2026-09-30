@@ -1,5 +1,49 @@
 # Progress log
 
+## 2026-09-30: Alpine Wave v4 handover, Tier 2 shadow trial specification, and Everything in the Mountains V2 showcase
+
+### Completed
+
+- **Alpine Wave Platform v4 Handover (`docs/index.html`):**
+  - Finalized v4 Givingli-inspired editorial platform prototype: locked 4-page narrative flow, Sun-Drenched Okanagan palette with brand coral (`#FD632F`) and deep navy (`#15395F`) section bands.
+  - Resolved all interactive channel card buttons: Sample Call simulation triggers audio speech synthesis, Website Live Chat triggers the slide-out drawer, and Safeguards card scrolls smoothly to truth-bounded safeguards.
+  - Video walkthrough container primed: clean responsive cinema frame with custom HUD controls prepared for the upcoming voiceover talkover file drop-in.
+  - Preserved clear seam for `/api/chat` integration for Next.js company port.
+
+- **Dedicated Synthetic Ski & Snowboard Showcase V2 ("Everything in the Mountains" — `docs/ski-shop/index.html`):**
+  - Delivered dedicated synthetic ski & snowboard retail showcase for Whistler & Okanagan winter rental operations.
+  - Mountain Conditions HUD: 290px compact frosted alpine glass widget (`rgba(255,255,255,0.88)` with backdrop blur) reporting live resort stats (8:00 AM – 6:00 PM open, 184cm mountain base, 12cm fresh powder overnight).
+  - All 6 verified rental fleet packages from synthetic dataset (`synthetic_shop_data.json`): High-Performance Demo Skis (Blizzard Rustler 10/9 @ $75/day, Armada ARV 106 Freeride Twin @ $75/day), Backcountry Splitboards (Jones Solution @ $85/day), Standard Recreational Cruiser (Salomon QST / Atomic Vantage @ $52/day), Junior Complete Package ($32/day), and BCA Tracker3 Avalanche Safety Kit ($35/day).
+  - Added dynamic Category Filter Tabs (All Categories, Demo Skis, Splitboards, Recreational, Junior Packages, Avalanche Gear) with smooth animation.
+  - Implemented interactive Hero Booking Bar rate calculator: automatically computes multi-day totals, displays 15% discount for 3+ days, updates live savings badge, and pre-populates concierge reservation inquiry.
+  - Interactive Front Counter DID `(236) 205-7030` phone simulator with 4 caller scenarios (powder condition swap, boot pain relief, heated locker late pickup code 4482, overnight $65 full tune).
+
+- **Tier 2 Shadow Trial Plan Specification:**
+  - Architected the 7-day shadow trial model: staff answer first with Twilio dual-channel recording; on no-answer (~20s), the voice assistant takes over.
+  - Mandatory caller recording notice and staff "pause/stop recording" button for PCI compliance (taking payment card numbers).
+  - Click and chat analytics on shop and platform sites.
+  - Comprehensive Day-7 performance and lead value report.
+
+- **Public GitHub Pages Deployment (`docs/`):**
+  - Created public, self-contained demonstration suite under `docs/` for one-click browser evaluation:
+    - `docs/index.html`: Alpine Wave Platform (v4 Handover).
+    - `docs/ski-shop/index.html`: Everything in the Mountains V2 ski shop showcase.
+    - Verified all asset links, images, and audio simulation hooks.
+
+### Current limits
+
+- Public demos run as client-side standalone web pages; live carrier telephony wiring (Twilio SIP/webhooks) and public cloud API endpoints are not yet connected.
+- Walkthrough video uses a prepared cinema player container awaiting the new live voiceover walkthrough recording.
+- All customer scenarios and shop catalog items use verified synthetic fixtures; no real customer data or private credentials are included.
+
+### Next
+
+- Record/drop in the live video talkover asset for the Alpine Wave v4 cinema player.
+- Port v4 layout into `website/` (Next.js) with the chat drawer wired to `/api/chat`.
+- Implement Twilio voice webhook and call forwarding flow for the Tier 2 shadow trial.
+
+---
+
 ## 2026-09-29: Alpine Wave company website redesign & Givingli editorial showcase
 
 ### Completed
