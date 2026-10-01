@@ -1,5 +1,23 @@
 # Progress log
 
+## 2026-10-01: Multi-agent factory established, workspace organized, and Stage 1 plan approved
+
+### Delivered
+- **Multi-Agent Pipeline Established:** Set up the card-based development factory with four physical stage directories (`1-todo`, `2-building`, `3-review`, `4-done`), standardized card templates, written domain quality standards, and automated board integrity tooling (`check-in.mjs`, `archive.mjs`).
+- **Workspace Reorganization:** Completed directory tidying to establish canonical masters for website application code, resort showcase assets, and data files, archiving obsolete duplicates with full audit logs.
+- **Stage 1 Execution Plan Approved:** Approved the three-stage delivery sequence (Stage 1: Alpine Wave data & bots; Stage 2: Everything in the Mountains showcase; Stage 3: Real-business demonstration), followed by a 7-day shadow trial.
+- **Canonical Data Masters:** Created initial structured data models for Alpine Wave services (`data/alpine-wave/alpine-wave-services.json`) and the multi-season resort rental catalog (`data/everything-in-the-mountains/`).
+- **Public Pipeline Documentation (`HOW-WE-BUILD.md`):** Written documentation detailing how independent AI agents build collaboratively against strict human review gates and written Done Standards (publishing waits for the owner's yes).
+
+### Current limits
+- Voice answering integration remains in planning; no carrier phone numbers are connected yet.
+- Full cloud deployment has not been executed; client demonstrations run locally or as static GitHub Pages previews.
+
+### Next
+- Connect telephony provider via SIP trunking for inbound test calls (planned, pending the stack check).
+- Wire website assistant directly to the canonical services data file.
+- Update private repository backup and public documentation.
+
 ## 2026-09-30: Alpine Wave v4 handover, Tier 2 shadow trial specification, and Everything in the Mountains V2 showcase
 
 ### Completed

@@ -1,48 +1,66 @@
 # Alpine Wave
 
-Website and telephone bots for businesses. Repository name retained from the earlier AI Visibility Tracker exploration.
+Website and telephone assistants for tourism, rental, and activity businesses that operate all year round.
 
-**Status: Alpine Wave v4 handover finalized (Givingli editorial layout, Sun-Drenched Okanagan coral palette, cinema frame prepared for talkover/walkthrough, and seam for `/api/chat` assistant connection). Dedicated synthetic ski & snowboard showcase 'Everything in the Mountains' V2 built with Mountain Conditions HUD, complete 6-item rental fleet, interactive category filter tabs, real-time rate calculator, and front counter phone simulator (`(236) 205-7030`). Live clickable previews published via GitHub Pages. Target: October 24, 2026.**
+Repository name `ai-visibility-tracker` is retained from earlier project discovery.
 
-## Live Clickable Previews (GitHub Pages)
+---
 
-- **[Alpine Wave Platform (v4 Handover)](https://rubixowl.github.io/ai-visibility-tracker/)**: Editorial platform showcase with interactive spider map, core channels, interactive question filters, audio sample simulation, and prepared video cinema player.
-- **[Everything in the Mountains (Ski Shop Showcase V2)](https://rubixowl.github.io/ai-visibility-tracker/ski-shop/)**: Dedicated retail & rental shop demo with Mountain Conditions HUD, interactive category filter tabs, live rental rate calculator, and front-counter DID `(236) 205-7030` phone simulator.
+## What Alpine Wave Is
 
-## What we are building
+Alpine Wave builds grounded AI assistants for independent tourism businesses—such as ski & snowboard rental shops, tour operators, and outdoor outfitters. 
 
-- Our own business website with a website assistant and a real inbound telephone assistant.
+Tourism businesses face heavy inquiry spikes during morning gear pickups, weather changes, and seasonal transitions. Alpine Wave provides:
+1. **Website Chat Assistant:** Answers visitor questions on pricing, gear selection, packages, and seasonal hours directly from structured business data.
+2. **Inbound Phone Assistant:** Answers voice calls, assists with common inquiries, routes complex booking requests to staff, and takes messages when staff are busy on the counter.
 
-- A separate demonstration for winter ski/snowboard rental and retail enquiries.
+Design goal: assistants should be strictly bounded by canonical business facts to prevent inaccurate commitments or invented pricing. (Evaluation against the written Bot Replies quality standard has not been checked yet).
 
-- Shared bot infrastructure with separate business facts and instructions.
+---
 
-The proposed showcase covers rental, retail and servicing questions, follow-up conversations, booking guidance and a synthetic enquiry with a useful staff summary. Unknown availability stays unknown; an enquiry is not a confirmed booking.
+## How We Build
 
-## Work completed
+All development follows an asynchronous multi-agent pipeline governed by task cards, strict file boundaries, re-runnable proof, and written standards.
 
-The delivery scope, sequence and acceptance criteria are documented in the [roadmap](ROADMAP.md). Today's work delivered:
-1. **Alpine Wave v4 Handover:** Fully clickable editorial platform mockup with Choice 2 Sun-Drenched Okanagan coral palette, verified sample conversation cards, interactive question routing, and video walkthrough cinema frame primed for live voiceover.
-2. **Everything in the Mountains V2:** Complete dedicated synthetic ski & snowboard retail showcase featuring 6 verified gear packages, interactive category filter tabs, real-time rental rate calculator (15% savings on 3+ days), and DID `(236) 205-7030` phone simulator.
-3. **Tier 2 Shadow Trial Plan:** Architected the 7-day shadow trial model (staff-first answering, automated after-hours/missed-call bot failover, PCI pause recording controls, click/chat logging, and Day-7 executive report).
-4. **Public GitHub Pages Suite (`docs/`):** Self-contained, sanitized web demos enabling instant browser review without local setup.
+See **[How We Build (HOW-WE-BUILD.md)](HOW-WE-BUILD.md)** for details on:
+* The 4-stage board (`1-todo → 2-building → 3-review → 4-done`).
+* The division between human owner authority, the checking agent, and independent AI builder agents.
+* Verification standards and automated pipeline checks.
 
-This update records local implementation, architecture, and design progress. It does not demonstrate live telephony carrier integrations or public cloud deployment. A potential demo prospect is not a customer; its identity and source details are excluded.
+---
 
-## Build approach
+## Current Status (October 2026)
 
-Start with the company website and a working chat slice, then add inbound phone and the separate shop showcase. Keep provider interfaces replaceable and reuse one core system. The custom backend is a starting proposal; final hosting, voice/model configuration and costs remain unresolved. Low cost is a design goal, not a measured result.
+### What Works Locally
+* **Alpine Wave Company Website (`website/`):** Next.js application with company messaging, interactive assistant drawer, and structured service offerings.
+* **Resort Shop Showcase ("Everything in the Mountains" — `shop-showcase/`):** Standalone web showcase demonstrating multi-season inventory (winter ski/snowboard rentals, summer tours, year-round retail), dynamic rate estimation, and inquiry flows.
+* **Structured Data Masters (`data/`):** Canonical data masters for business facts (`data/alpine-wave/alpine-wave-services.json`) and resort gear catalogs (`data/everything-in-the-mountains/`).
+* **Assistant Guidance:** Local prompt rules drafted to guide unknown availability or unlisted services toward staff contact handoffs; not yet tested against live visitor traffic.
 
-Live inventory, completed bookings, payments and a large dashboard are outside the first planned delivery. Both website and telephone channels remain required.
+### What Is Not Built Yet
+* **Live Carrier Telephony:** Connecting live phone numbers via SIP trunking to our voice runtime is in research and planning; no live carrier phone numbers are answering live calls yet.
+* **Cloud Hosting:** Core applications currently run in local development or static previews; live cloud hosting with backend API execution is not yet deployed.
+* **External Systems:** Direct integration with live merchant POS inventory, credit card payment processing, and third-party calendar booking engines are outside the current milestone.
 
-## Evidence and feedback
+### Not Checked / Untested
+* **Live Carrier Latency:** Real-world audible latency across cellular networks under high concurrency has not been measured on live phone lines.
+* **End-to-End Voice Handoff:** Automated call transfer from the voice assistant to live mobile handsets has not been tested over public carriers.
 
-- [Roadmap and acceptance criteria](ROADMAP.md)
+---
 
-- [Dated progress log](PROGRESS.md)
+## Live Previews (GitHub Pages)
 
-- [Historical discovery](DISCOVERY-2026-09-27.md)
+Static, client-side demonstration previews are available via GitHub Pages:
 
-- [Feedback guidance](CONTRIBUTING.md)
+* **[Alpine Wave Platform Preview](https://rubixowl.github.io/ai-visibility-tracker/)**: Platform overview and editorial demonstration layout.
+* **[Everything in the Mountains Showcase Preview](https://rubixowl.github.io/ai-visibility-tracker/ski-shop/)**: Showcase demonstrating retail and rental catalog browsing. *(Note: the preview currently still displays Alpine Wave's phone number `(236) 205-7030`; it is scheduled to move to its own separate number once provisioned).*
 
-Next evidence milestone: a browser-tested company website/chat journey, followed by a verified inbound call. Share only public examples; never post customer information or credentials.
+---
+
+## Documentation and Records
+
+* **[How We Build](HOW-WE-BUILD.md)**: The multi-agent development factory and pipeline rules.
+* **[Roadmap and Acceptance Criteria](ROADMAP.md)**: Target milestones and delivery plan.
+* **[Progress Log](PROGRESS.md)**: Chronological record of milestones, work delivered, and updates.
+* **[Feedback Guidance](CONTRIBUTING.md)**: Guidelines for reviews and community feedback.
+* **[Historical Discovery](DISCOVERY-2026-09-27.md)**: Earlier niche exploration records.
