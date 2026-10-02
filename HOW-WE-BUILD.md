@@ -1,83 +1,129 @@
 # How We Build: The Multi-Agent Card Factory
 
-This repository is built using an asynchronous, multi-agent development factory where multiple AI coding agents collaborate with a human project owner and a dedicated AI project manager (PM) agent.
+This project is built by several AI models (Claude, Gemini, Codex) working on the same repository with one human owner. Nobody works freely on the real product. Every change to it goes through a **task card**, is built against an explicit file list, and only counts as done when an AI project manager (PM) has re-checked the proof against a written **Done Standard**.
 
-Instead of unconstrained agent execution, all work follows a disciplined card-based pipeline governed by strict file boundaries, re-runnable proof, and written quality standards.
+The factory has run since 2026-10-01. This page describes it as it works today (2026-10-02).
 
 ---
 
-## 1. The Pipeline
+## 1. Two Places to Work
 
-The development pipeline runs across four physical folders. **The directory a card sits in is its active status.**
+| Where | What goes there | Card needed? |
+|---|---|---|
+| **A model's own Ideas folder** (one per AI) | Brainstorms, research, drafts, prototypes, that model's own handoff note | No. Work freely with the owner |
+| **The masters** (website app, data files, phone/chat bot code, showcase, scripts) | The real product | Yes. Only the files the card lists |
+
+Ideas folders are private working space and never public. Code only ever reads masters. When an idea is ready, its author writes a **proposal card**.
+
+---
+
+## 2. The Board
+
+The board is five folders. **The folder a card sits in is its status.**
 
 ```mermaid
 flowchart LR
-    A["1-todo<br/>(Backlog)"] -->|Any Builder takes card| B["2-building<br/>(In Progress)"]
-    B -->|Builder hands in with proof| C["3-review<br/>(Verification)"]
-    C -->|PM passes checks| D["4-done<br/>(Completed)"]
-    C -->|PM fails checks| B
+    Z["0-draft<br/>(Proposed)"] -->|PM tightens and releases| A["1-todo<br/>(Ready)"]
+    A -->|Any builder takes it| B["2-building<br/>(In progress)"]
+    B -->|Builder hands in with proof| C["3-review<br/>(Checking)"]
+    C -->|PM passes| D["4-done"]
+    C -->|PM fails, with notes| B
+    B -->|Builder hands over| B
 ```
 
-| Stage | Owner / Role | What Happens |
+| Step | Who | What happens |
 |---|---|---|
-| **`1-todo`** | PM Agent | The PM agent (with the owner) authors cards specifying goals, scope, and acceptance criteria. |
-| **`2-building`** | Any AI Builder | A builder takes a card, records claim details, moves the card to `2-building`, and modifies only the approved files. |
-| **`3-review`** | PM Agent | The builder documents exact changes and re-runnable proof, then hands the card in. The PM agent independently re-runs the checks. |
-| **`4-done`** | PM Agent | If all criteria pass, the PM agent moves the card to `4-done`. Any superseded files listed under `Replaces` are archived into an organized archive folder. |
+| **Propose** (`0-draft`) | Any AI, or the owner | Copies the card template, fills in goal and task, points to the Ideas work behind it |
+| **Release** (`0-draft → 1-todo`) | PM only | Tightens the card (facts with sources, file list, "Done looks like", Done Standard), gives it a T number. A reviewer agent comments on every draft first |
+| **Take** (`1-todo → 2-building`) | Any AI builder | Writes its name and claim time on the card |
+| **Hand over** (stays in `2-building`) | The builder, if it can't finish | Writes "Where I got to" and sets `Builder: open (was <name>)`. Any AI can pick it up |
+| **Hand in** (`2-building → 3-review`) | The builder | Writes what changed (exact paths), re-runnable proof, and which "Done looks like" lines it thinks are met |
+| **Check** (`3-review → 4-done` or back) | PM, plus the reviewer agent | Re-runs the checks. PASS moves to `4-done`; FAIL goes back with the exact line that failed |
 
-Every card transition is recorded with a single timestamped line in a central line log.
+Every move is one timestamped line in a shared `log.md`. After **three FAILs** a card stops and goes to the owner with the PM's recommendation.
 
----
-
-## 2. The Task Card
-
-Every task is defined in a single markdown card. Work cannot begin without an active card.
-
-A card contains:
-* **Metadata:** Assigned builder, claim timestamp, relevant Done Standard, and whether owner approval is required.
-* **Goal & Task:** A clear, non-technical explanation of the business need and specific delivery requirements.
-* **Scope & Boundaries:** An explicit list of allowed files. Builders must touch **only** the files listed on the card; touching unlisted files triggers an automated pipeline flag.
-* **Done Looks Like:** An unambiguous checklist of verifiable conditions.
-* **Replaces:** Any files made obsolete by the work.
-* **Build Handoff & Proof:** Where the builder documents the solution and attaches re-runnable verification commands, logs, or outputs.
+**Quick lane:** a fix of roughly 15 minutes or less that the owner explicitly says "just do it" to needs no card. It gets one log line instead.
 
 ---
 
-## 3. Roles and Responsibilities
+## 3. The Task Card
 
-* **The Project Owner (Human):** Sets project priorities, sets boundaries, and holds sole authority over external actions.
-* **The PM Agent (AI):** The sole writer of task cards and the single authority permitted to evaluate review submissions and pass cards to `4-done`.
-* **The Builders (Any AI Agent):** Multiple independent AI models (e.g. Gemini, Claude, Codex) can claim available cards from `1-todo`, work within the same repository—with the card's explicit file list establishing the task boundary—and submit them for review.
+One task = one markdown file. A card holds:
 
----
-
-## 4. Quality Standards & "Trust the Proof"
-
-Claims like "complete", "100%", or "verified" are prohibited unless accompanied by verifiable proof. Work is judged against specific written standards:
-
-* **Website:** Pages must load without console errors, render responsively without horizontal overflow, match canonical facts, and contain no dead links.
-* **Bot & Telephony Replies:** Every factual claim must be traceable to a specific source line. If knowledge is missing, the assistant must state its boundary rather than guessing.
-* **Data Masters:** Must maintain accurate schemas, validate cleanly in consumer runtimes, and distinguish synthetic test data from real business facts.
-* **Research:** All market and pricing claims must cite primary provider URLs with retrieval dates.
-* **Three-Strike Rule:** If a card fails PM review three times, work immediately halts for human owner escalation.
+* **Header:** builder, claim time, which Done Standard applies, and any owner approval it needs (spend, push, deploy, contact, delete).
+* **Goal & Task:** why the card exists, and what to do, with the facts the builder needs copied in alongside their sources.
+* **Implementation:** a suggested approach (the builder may change it and say why).
+* **Done looks like:** a checklist the PM can open, run or ask.
+* **Files:** every file or folder the card may touch. Touching anything else is flagged.
+* **Replaces:** files this work makes out of date (archived after the PASS, never deleted).
+* **Working notes, Build handoff, Proof, PM's checks:** the back-and-forth stays on the card, not in new files.
 
 ---
 
-## 5. Automated Pipeline Safety
+## 4. Roles
 
-To prevent accidental regressions, drift, or scope creep, automated factory utilities are run on-demand to check pipeline integrity:
-
-* **Board Integrity (`check-in.mjs`):** Checks the board state and flags cards stalled in development, cards handed in without proof, or unauthorized file changes outside active card scope.
-* **Safe Archiving (`archive.mjs`):** When a card passes review, the archiver script (`archive.mjs`) is run to move superseded files listed under `Replaces` into an organized historical archive with a logged manifest. Nothing is deleted.
-* **Strict Human Gates:** AI agents are strictly barred from autonomous spending, paid API calls, remote git pushes, external deployments, or external business outreach. Each action requires the owner's explicit yes.
+* **Project owner (human):** sets priorities and makes every outward-facing decision. Spending, paid API calls, deploys, GitHub pushes, posts, deleting files and contacting businesses each need the owner's yes for that specific action. One yes doesn't cover the next action.
+* **PM agent (Claude):** the only one who releases cards, passes or fails them, and edits the live status page, decisions log and Done Standards. Never builds.
+* **Reviewer agent (Codex):** a second pair of eyes. Comments on every draft before release and checks all finished work alongside the PM. Advises only. When the PM and reviewer disagree, the owner decides.
+* **Builders (any AI):** Claude, Gemini or Codex take cards from `1-todo`, one at a time. Each card names the model that suits it best and gives the reason.
+* **Helper agent (small Claude model):** runs check-in scans, carries out the archive moves the PM lists, and writes each Ideas folder a note on what in it is no longer true. Never moves cards or decides.
 
 ---
 
-## 6. Worked Example: Task Card T01
+## 5. Done Standards ("Trust the Proof")
 
-To illustrate the pipeline in practice, consider task **T01 (Workspace Organization)**:
+"Done", "tested", "verified" or "works" on their own are not proof. Proof is something the PM can open or re-run, such as command output, screenshots, or "asked X, bot said Y, source Z". Each card names one written standard:
 
-1. **Card Created in `1-todo`:** The PM agent specified a target directory layout to separate master application code, data generators, research, and public distribution copies.
-2. **Claimed to `2-building`:** A builder claimed the card, updated the log, verified script dependency paths, and staged file moves.
-3. **Handed in to `3-review`:** The builder documented the exact paths moved, verified that file sizes remained non-zero, tested that generator scripts still ran cleanly, and logged the handoff.
-4. **PM Verification & `4-done`:** The PM agent independently verified that directory structures and scripts remained intact. When the check-in script flagged 8 file modifications, the PM re-verified each against the card's explicit file list, confirmed all 8 were authorized, logged the false alarm as a check-in script bug, and awarded a **PASS Round 1**, moving the card to `4-done`.
+| Standard | In short |
+|---|---|
+| **Website** | Loads without console errors, no horizontal overflow on mobile, facts match the data master, no dead links |
+| **Bot replies** | Every factual claim traces to a source line; missing knowledge gets an honest "I don't know" and a handoff to staff, never a guess |
+| **Phone bot** | The same grounding rules as the chat bot, checked by voice; nobody may call the phone service live until a number-connection card passes |
+| **Data file** | Valid schema, loads in the code that reads it, synthetic test data clearly separate from real business facts |
+| **Research** | Market and pricing claims cite primary sources with retrieval dates; assumptions are labelled as assumptions |
+| **Docs and records** | Paths exist, claims match the files, plain English |
+| **Repo and publishing** | Allow-list `.gitignore`, staged paths listed and checked, no personal data, keys or real-business identities, owner's yes per push |
+| **Real-business demo** | A real business's details stay out of anything public; demos live in private folders |
+
+---
+
+## 6. Factory Tooling
+
+Two small Node scripts keep the board honest. Neither one builds anything.
+
+* **`check-in.mjs` (run on demand, read-only):** prints the board and flags problems. These include cards in building for more than 2 days, cards handed in with no proof, cards in done without a PM PASS, cards on 3+ FAILs not escalated, a card whose folder doesn't match the log, moves made by someone not allowed to make them, two open cards holding the same file, and **recently changed files that no card lists** (work done outside a card). It doesn't read `0-draft` yet. An open card adds that, plus a "waiting on whom" column.
+* **`archive.mjs` (run after a PASS):** run with `--dry-run` first, then for real. It moves the card's "Replaces" files into `archive/` and appends a row per move to `archive/MOVES.md`. The PM then checks those rows. Nothing is deleted.
+
+Neither script runs on a schedule. Hand-offs between AIs are still manual: the owner opens the next AI when check-in shows a card waiting on it.
+
+---
+
+## 7. Where the Board Stands (2026-10-02)
+
+| Card | Title | Builder | Status |
+|---|---|---|---|
+| T01 | Tidy the project folder: one master per thing | Claude | done |
+| T02 | Archive automatically when a card passes | Claude | done |
+| T03 | Alpine Wave services data file | Gemini | done |
+| T04 | Everything in the Mountains data (Excel master + JSON export) | Gemini | done |
+| T05 | Stack check: voice, phone numbers, hosting, reply writer | Gemini | done (hosting question moved to a later card) |
+| T06 | Update both GitHub repos | Claude (was Gemini) | done |
+| T08 | Brief for the reviewer agent | Codex | done |
+| T10 | Test questions for the Alpine Wave bots (27 cases, each tagged with the bot it applies to) | Claude | done, PASS on round 3 |
+| T07 | `move-card` script; check-in shows drafts and who each card waits on | Codex or Gemini | to do |
+| T11 | Website chat answers from the data file | Codex | to do |
+| T12 | Phone bot: a browser-tested voice prototype | Gemini | to do |
+| T13 | Recommend the best model for each card | any | to do |
+| T14 | Phone bot limits in the services data file | Gemini | to do |
+| T09 | Rules update for the reviewer role | Gemini or Codex | draft, waits for T07 |
+
+---
+
+## 8. Worked Example: Task Card T01
+
+1. **Card in `1-todo`:** the PM specified a target layout that separates master application code, data generators, research and the public copy.
+2. **Taken to `2-building`:** a builder claimed the card, logged it, checked script dependency paths and staged the file moves.
+3. **Handed in to `3-review`:** the builder listed the exact paths moved, showed file sizes were still non-zero, re-ran the generator scripts and logged the hand-in.
+4. **PM check and `4-done`:** the PM independently checked that the directory structure and scripts still worked. Check-in flagged 8 file modifications. The PM re-checked each one against the card's file list, confirmed all 8 were allowed, logged the false alarm as a check-in bug and gave a **PASS on round 1**.
+
+A less tidy example: **T10** (bot test questions) failed round 2. The reviewer spotted that five cases cited chat-only limits for both bots. The builder added an `applies_to` tag to every case (21 apply to both bots, 6 to the website only), and the card passed on round 3.

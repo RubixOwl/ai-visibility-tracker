@@ -1,5 +1,19 @@
 # Progress log
 
+## 2026-10-02: Factory widened to drafts, reviewer and Ideas folders; bot test set done; bot cards released
+
+### Delivered
+- **Factory pipeline extended:** added a `0-draft` stage so any AI can propose a card, plus a private Ideas folder per model for free brainstorming. Also added card hand-over between models, a quick lane for small owner-approved fixes, and a reviewer agent that comments on every draft and checks all finished work alongside the PM. See [HOW-WE-BUILD.md](HOW-WE-BUILD.md).
+- **Cards passed:** T05 (stack check: voice, phone numbers, hosting, reply writer; the hosting question moved to a later card), T06 (both GitHub repos updated), T08 (reviewer brief) and T10 (27 bot test questions, each traced to a source and tagged with the bot it applies to; passed on round 3 after a reviewer-caught FAIL).
+- **Released to build:** T07 (`move-card` script; check-in shows drafts and who each card waits on), T11 (website chat answers from the services data file), T12 (browser-tested phone bot prototype), T13 (recommend a model per card) and T14 (phone limits in the services data file).
+
+### Current limits
+- Neither bot has been tested yet. T11 and T12 are waiting to be taken, and each needs the owner's yes and a spending cap before its first paid call.
+- Hand-offs between AIs are manual. The owner opens the next model when check-in shows a card waiting on it.
+
+### Next
+- Build T11 and T12 in parallel, tested on the T10 cases. T14 runs alongside, and T07 and T13 run in parallel with the product cards.
+
 ## 2026-10-01: Multi-agent factory established, workspace organized, and Stage 1 plan approved
 
 ### Delivered
@@ -7,7 +21,7 @@
 - **Workspace Reorganization:** Completed directory tidying to establish canonical masters for website application code, resort showcase assets, and data files, archiving obsolete duplicates with full audit logs.
 - **Stage 1 Execution Plan Approved:** Approved the three-stage delivery sequence (Stage 1: Alpine Wave data & bots; Stage 2: Everything in the Mountains showcase; Stage 3: Real-business demonstration), followed by a 7-day shadow trial.
 - **Canonical Data Masters:** Created initial structured data models for Alpine Wave services (`data/alpine-wave/alpine-wave-services.json`) and the multi-season resort rental catalog (`data/everything-in-the-mountains/`).
-- **Public Pipeline Documentation (`HOW-WE-BUILD.md`):** Written documentation detailing how independent AI agents build collaboratively against strict human review gates and written Done Standards (publishing waits for the owner's yes).
+- **Public Pipeline Documentation (`HOW-WE-BUILD.md`):** Wrote documentation on how independent AI agents build together against human review gates and written Done Standards (publishing waits for the owner's yes).
 
 ### Current limits
 - Voice answering integration remains in planning; no carrier phone numbers are connected yet.
