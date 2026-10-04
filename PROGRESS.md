@@ -1,5 +1,20 @@
 # Progress log
 
+## 2026-10-03: Phone limits done; model-picking experiment; PM picks models, reviewers paired by builder
+
+### Delivered
+- **Card passed:** T14 (phone bot limits in the services data file, scoped to Alpine Wave's own phone line). It failed round 1, was fixed, and passed on round 2 after the owner settled a PM/reviewer disagreement.
+- **Model-picking experiment (T13, in review):** a decision model scored 54 model and effort options for three cards. The three calls cost $0.000678 in total, and its pick matched the PM's hand pick on 2 of 3 cards. T13 failed review round 1 and is back in review after fixes.
+- **Factory rule change:** the PM now picks the builder, model and effort for each card, with the reason written on the card; the decision model's pick is advisory. Independent checks are paired by builder: Codex-built work is checked by the PM, Claude-built and Gemini-built work by the Codex reviewer, then the PM decides. See [HOW-WE-BUILD.md](HOW-WE-BUILD.md).
+- **Spending guard:** every model call now goes through a local key proxy, under a $2 project cap for model calls ($0.000678 spent so far).
+
+### Current limits
+- Neither bot has been tested yet. The website bot (T11) still answers from a prepared rules file; switching it to the services data file is ready to build. The phone bot prototype (T12) waits for the owner's sign-up with the voice provider. No bot answers live phone calls yet.
+- Hand-offs between AIs are still manual.
+
+### Next
+- T11 is the pilot for the new picking and review flow, tested on the T10 cases. T12 starts once the voice provider sign-up is done. Build order stays Stage 1 (Alpine Wave data and bots), Stage 2 (showcase), Stage 3 (a demo from a real local business), with a 2026-10-24 deadline.
+
 ## 2026-10-02: Factory widened to drafts, reviewer and Ideas folders; bot test set done; bot cards released
 
 ### Delivered

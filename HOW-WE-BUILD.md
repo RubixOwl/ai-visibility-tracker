@@ -2,7 +2,7 @@
 
 This project is built by several AI models (Claude, Gemini, Codex) working on the same repository with one human owner. Nobody works freely on the real product. Every change to it goes through a **task card**, is built against an explicit file list, and only counts as done when an AI project manager (PM) has re-checked the proof against a written **Done Standard**.
 
-The factory has run since 2026-10-01. This page describes it as it works today (2026-10-02).
+The factory has run since 2026-10-01. This page describes it as it works today (2026-10-03).
 
 ---
 
@@ -38,7 +38,7 @@ flowchart LR
 | **Take** (`1-todo → 2-building`) | Any AI builder | Writes its name and claim time on the card |
 | **Hand over** (stays in `2-building`) | The builder, if it can't finish | Writes "Where I got to" and sets `Builder: open (was <name>)`. Any AI can pick it up |
 | **Hand in** (`2-building → 3-review`) | The builder | Writes what changed (exact paths), re-runnable proof, and which "Done looks like" lines it thinks are met |
-| **Check** (`3-review → 4-done` or back) | PM, plus the reviewer agent | Re-runs the checks. PASS moves to `4-done`; FAIL goes back with the exact line that failed |
+| **Check** (`3-review → 4-done` or back) | An independent reviewer first, then the PM decides | Re-runs the checks. PASS moves to `4-done`; FAIL goes back with the exact line that failed |
 
 Every move is one timestamped line in a shared `log.md`. After **three FAILs** a card stops and goes to the owner with the PM's recommendation.
 
@@ -64,9 +64,21 @@ One task = one markdown file. A card holds:
 
 * **Project owner (human):** sets priorities and makes every outward-facing decision. Spending, paid API calls, deploys, GitHub pushes, posts, deleting files and contacting businesses each need the owner's yes for that specific action. One yes doesn't cover the next action.
 * **PM agent (Claude):** the only one who releases cards, passes or fails them, and edits the live status page, decisions log and Done Standards. Never builds.
-* **Reviewer agent (Codex):** a second pair of eyes. Comments on every draft before release and checks all finished work alongside the PM. Advises only. When the PM and reviewer disagree, the owner decides.
-* **Builders (any AI):** Claude, Gemini or Codex take cards from `1-todo`, one at a time. Each card names the model that suits it best and gives the reason.
+* **Reviewer agent (Codex):** a second pair of eyes. Comments on every draft before release and checks finished work before the PM decides. Advises only. When the PM and reviewer disagree, the owner decides.
+* **Builders (any AI):** Claude, Gemini or Codex take cards from `1-todo`, one at a time. The PM picks the builder, the model and its effort setting for each card, and writes a one-line reason on the card. If that model isn't available, the builder says so on the card and uses the next suitable one.
 * **Helper agent (small Claude model):** runs check-in scans, carries out the archive moves the PM lists, and writes each Ideas folder a note on what in it is no longer true. Never moves cards or decides.
+
+**Who checks whose work (from 2026-10-03).** Every card gets an independent check before the PM's decision, by someone other than the AI family that built it:
+
+| Built by | Checked by |
+|---|---|
+| Codex | the PM agent (Claude) |
+| Claude | the reviewer agent (Codex), then the PM |
+| Gemini | the reviewer agent (Codex), then the PM |
+
+Only the PM passes or fails a card.
+
+**Model calls and spending.** Every paid model call goes through a local key proxy that adds the key, so no agent handles a raw key. The owner set a $2 cap for all model calls in the project; inside it, builders don't need a fresh yes per call, and each paid call is logged with the running total. Spent so far: $0.000678.
 
 ---
 
@@ -98,7 +110,15 @@ Neither script runs on a schedule. Hand-offs between AIs are still manual: the o
 
 ---
 
-## 7. Where the Board Stands (2026-10-02)
+## 7. Picking the Model: an Experiment (T13)
+
+Card T13 tried letting a decision model choose. For each card it scored 54 options (each model in the owner's three AI subscriptions, at each effort setting) against the card's text and recommended one. Three routing calls, one each for T07, T11 and T14, cost **$0.000678** in total. Its pick matched the PM's hand pick on **2 of 3** cards (T07 and T11; for T14 it picked Claude, the PM had picked Gemini).
+
+What changed on 2026-10-03: the PM now picks the builder, model and effort for every card, and the decision model's pick is advisory only. No card waits for it. The takeaway so far is that choosing the model was slowing the line down, while the independent review rounds are what caught real problems. T13 itself is in review (round 2) and isn't done.
+
+---
+
+## 8. Where the Board Stands (2026-10-03)
 
 | Card | Title | Builder | Status |
 |---|---|---|---|
@@ -110,16 +130,16 @@ Neither script runs on a schedule. Hand-offs between AIs are still manual: the o
 | T06 | Update both GitHub repos | Claude (was Gemini) | done |
 | T08 | Brief for the reviewer agent | Codex | done |
 | T10 | Test questions for the Alpine Wave bots (27 cases, each tagged with the bot it applies to) | Claude | done, PASS on round 3 |
-| T07 | `move-card` script; check-in shows drafts and who each card waits on | Codex or Gemini | to do |
-| T11 | Website chat answers from the data file | Codex | to do |
-| T12 | Phone bot: a browser-tested voice prototype | Gemini | to do |
-| T13 | Recommend the best model for each card | any | to do |
-| T14 | Phone bot limits in the services data file | Gemini | to do |
-| T09 | Rules update for the reviewer role | Gemini or Codex | draft, waits for T07 |
+| T14 | Phone bot limits in the services data file | Gemini | done, PASS on round 2 |
+| T13 | Recommend the best model for each card | Claude | in review, round 2 (failed round 1) |
+| T07 | `move-card` script; check-in shows drafts and who each card waits on | Codex | to do |
+| T11 | Website chat answers from the data file (the pilot for the new picking and review flow) | Codex | to do |
+| T12 | Phone bot: a browser-tested voice prototype | Gemini | to do, waits for the owner's voice provider sign-up |
+| T09 | Rules update for the reviewer role | not picked yet | draft, waits for T07 |
 
 ---
 
-## 8. Worked Example: Task Card T01
+## 9. Worked Example: Task Card T01
 
 1. **Card in `1-todo`:** the PM specified a target layout that separates master application code, data generators, research and the public copy.
 2. **Taken to `2-building`:** a builder claimed the card, logged it, checked script dependency paths and staged the file moves.
@@ -127,3 +147,5 @@ Neither script runs on a schedule. Hand-offs between AIs are still manual: the o
 4. **PM check and `4-done`:** the PM independently checked that the directory structure and scripts still worked. Check-in flagged 8 file modifications. The PM re-checked each one against the card's file list, confirmed all 8 were allowed, logged the false alarm as a check-in bug and gave a **PASS on round 1**.
 
 A less tidy example: **T10** (bot test questions) failed round 2. The reviewer spotted that five cases cited chat-only limits for both bots. The builder added an `applies_to` tag to every case (21 apply to both bots, 6 to the website only), and the card passed on round 3.
+
+A disagreement example: **T14** (phone limits in the data file) failed round 1 because the new limits clashed with what the phone product offers to clients; the builder scoped them to Alpine Wave's own line. On round 2 the PM's checks were clean but the reviewer couldn't confirm that only the card's files had changed. PM and reviewer disagreed, so the owner decided, and the card passed.

@@ -26,11 +26,14 @@ Several AI models (Claude, Gemini, Codex) build this project together through a 
 0-draft → 1-todo → 2-building → 3-review → 4-done
 ```
 
-As of 2026-10-02: **8 cards done** (T01–T06, T08, T10), **5 to do** (T07, T11–T14), 1 in draft (T09).
+As of 2026-10-03: **9 cards done** (T01–T06, T08, T10, T14), **1 in review** (T13), **3 to do** (T07, T11, T12), 1 in draft (T09).
+
+Since 2026-10-03 the PM agent picks the builder, model and effort setting for each card and writes the reason on the card. Each finished card gets an independent check before the PM decides, and checks do fail: T13 and T14 each failed a round and were fixed.
 
 See **[How We Build (HOW-WE-BUILD.md)](HOW-WE-BUILD.md)** for:
 * The board, the card format, and the quick lane for small fixes.
-* Roles: human owner, PM agent, reviewer agent, builders, helper agent.
+* Roles: human owner, PM agent, reviewer agent, builders, helper agent, and who checks whose work.
+* The model-picking experiment: a decision model ranking models for each card.
 * The eight Done Standards and the two factory scripts (`check-in.mjs`, `archive.mjs`).
 * The current board, with every card, its builder and its status.
 
@@ -44,9 +47,12 @@ See **[How We Build (HOW-WE-BUILD.md)](HOW-WE-BUILD.md)** for:
 * **Structured Data Masters (`data/`):** Canonical data masters for business facts (`data/alpine-wave/alpine-wave-services.json`) and resort gear catalogs (`data/everything-in-the-mountains/`).
 * **Assistant Guidance:** Local prompt rules drafted to send unknown availability or unlisted services to a staff contact handoff. Not yet tested against live visitor traffic.
 * **Bot Test Set (T10):** 27 written test questions for the Alpine Wave bots, each traced to a source line and tagged with the bot it applies to (21 both, 6 website only).
+* **Phone Limits in the Data File (T14):** the services data file now says what Alpine Wave's own phone line can't do (book, take payments, arrange callbacks, transfer calls), so the phone bot tests can cite a source.
 * **Factory Tooling:** `check-in.mjs` (board and problem report) and `archive.mjs` (moves superseded files to the archive with a manifest; never deletes).
 
 ### What Is Not Built Yet
+* **Website Bot on the Data File (T11):** the site chat still answers from a prepared rules file. Switching it to answer from the services data file is ready to build, not started.
+* **Phone Bot Prototype (T12):** a browser-tested voice prototype is ready to build and waits for the owner to sign up with the voice provider. No bot answers live phone calls yet.
 * **Live Carrier Telephony:** Connecting live phone numbers via SIP trunking to our voice runtime is in research and planning; no live carrier phone numbers are answering live calls yet.
 * **Cloud Hosting:** Core applications currently run in local development or static previews; live cloud hosting with backend API execution is not yet deployed.
 * **External Systems:** Direct integration with live merchant POS inventory, credit card payment processing, and third-party calendar booking engines are outside the current milestone.
