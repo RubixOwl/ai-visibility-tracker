@@ -1,0 +1,49 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><meta name="viewport" content="width=1400"><title>Which model and effort for which job</title><meta property="og:title" content="Which model and effort for which job"><meta property="og:image" content="https://rubixowl.github.io/ai-visibility-tracker/model-chart.png">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { width: 1400px; background: #faf6f0; font-family: "Segoe UI", system-ui, sans-serif; color: #2b2622; padding: 48px 56px; }
+  h1 { font-size: 40px; font-weight: 800; letter-spacing: -0.5px; }
+  h1 span { color: #e8664f; }
+  .sub { font-size: 18px; color: #6b625a; margin-top: 8px; }
+  table { width: 100%; border-collapse: separate; border-spacing: 0 8px; margin-top: 28px; }
+  th { text-align: left; font-size: 15px; text-transform: uppercase; letter-spacing: 1px; color: #6b625a; padding: 0 14px 4px; }
+  th.m { font-size: 20px; text-transform: none; letter-spacing: 0; color: #2b2622; font-weight: 800; }
+  td { background: #fff; padding: 14px; font-size: 18px; }
+  td:first-child { border-radius: 16px 0 0 16px; font-weight: 700; width: 30%; }
+  td:last-child { border-radius: 0 16px 16px 0; }
+  .pill { display: inline-block; padding: 6px 14px; border-radius: 999px; font-weight: 600; font-size: 16px; white-space: nowrap; }
+  .low { background: #e7f3ec; color: #24704a; }
+  .medium { background: #e6eefb; color: #2a5bb0; }
+  .high { background: #fdeee9; color: #c4482f; }
+  .xhigh { background: #f3e8fb; color: #7a3fb0; }
+  .max { background: #2b2622; color: #fff; }
+  .none { color: #a59c93; font-style: italic; }
+  tr.star td:first-child::after { content: " *"; color: #e8664f; }
+  .notes { display: flex; gap: 16px; margin-top: 22px; }
+  .card { flex: 1; background: #fff; border-radius: 16px; padding: 18px 20px; font-size: 16px; line-height: 1.5; }
+  .card b { color: #e8664f; }
+  .foot { margin-top: 18px; font-size: 14px; color: #8a8178; display: flex; justify-content: space-between; }
+</style></head><body>
+<h1>Which <span>model</span> and <span>effort</span> for which job</h1>
+<div class="sub">Pick the lightest setting that does the job. Not enough? Move up one step.</div>
+<table>
+<tr><th>Job</th><th class="m">Claude</th><th class="m">ChatGPT / Codex</th><th class="m">Gemini</th></tr>
+<tr><td>Quick scans, housekeeping</td><td>Sonnet 5.5 <span class="pill low">low</span></td><td>GPT-6 Astra <span class="pill low">low</span></td><td>3.8 Flash <span class="pill low">low</span></td></tr>
+<tr><td>Small scripts</td><td>Sonnet 5.5 <span class="pill low">low</span></td><td>GPT-6.1 Sol <span class="pill low">low</span></td><td>3.8 Flash <span class="pill low">low</span></td></tr>
+<tr><td>Data files (JSON, sheets)</td><td>Sonnet 5.5 <span class="pill medium">medium</span></td><td>GPT-6.1 Sol <span class="pill low">low</span></td><td>3.8 Flash <span class="pill medium">medium</span></td></tr>
+<tr><td>Docs, rules, records</td><td>Sonnet 5.5 <span class="pill medium">medium</span></td><td>GPT-6 Luna <span class="pill medium">medium</span></td><td>3.8 Flash <span class="pill medium">medium</span></td></tr>
+<tr><td>Website chat bot</td><td>Sonnet 5.5 <span class="pill high">high</span></td><td>GPT-6.1 Sol <span class="pill high">high</span></td><td>3.1 Pro <span class="pill medium">medium</span></td></tr>
+<tr><td>Phone bot</td><td>Sonnet 5.5 <span class="pill high">high</span></td><td>GPT-6.1 Sol <span class="pill high">high</span></td><td>3.1 Pro <span class="pill high">high</span></td></tr>
+<tr><td>Research with sources</td><td>Opus 5.5 <span class="pill high">high</span></td><td>GPT-6.1 Sol <span class="pill high">high</span></td><td>3.1 Pro <span class="pill medium">medium</span></td></tr>
+<tr class="star"><td>Long or hard builds</td><td>Opus 5.5 <span class="pill xhigh">xhigh</span></td><td>GPT-6.1 Sol <span class="pill xhigh">xhigh</span></td><td>3.1 Pro <span class="pill high">high</span></td></tr>
+<tr class="star"><td>Reviews, hard reasoning</td><td>Opus 5.5 <span class="pill xhigh">xhigh</span></td><td>GPT-6.1 Sol <span class="pill xhigh">xhigh</span></td><td>3.1 Pro <span class="pill high">high</span></td></tr>
+<tr><td>Last resort (failed lower)</td><td>Opus 5.5 <span class="pill max">max</span></td><td>GPT-6.1 Sol <span class="pill max">max</span></td><td><span class="none">nothing higher</span></td></tr>
+</table>
+<div class="notes">
+  <div class="card"><b>low</b> look around · <b>medium</b> write files and docs · <b>high</b> build bots · <b>xhigh</b> long builds and reviews · <b>max</b> only after a failure</div>
+  <div class="card"><b>Sonnet before Opus</b> for building. Opus for research, long builds and checking work.</div>
+  <div class="card"><b>Gemini 3.1 Pro tops out at high.</b> Flash is cheaper but not for bot builds.</div>
+</div>
+<div class="foot"><span>Based on each AI's own description of its models and settings. Not benchmarked. * = our judgement.</span><span>Alpine Wave · Oct 2026</span></div>
+</body></html>
