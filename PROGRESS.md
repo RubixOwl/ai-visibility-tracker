@@ -1,5 +1,21 @@
 # Progress log
 
+## 2026-10-04: Phone bot prototype passed; real-business facts card started
+
+### Delivered
+- **Card passed:** T12 (phone bot, a browser-tested voice prototype built by Gemini on Retell, browser calls only). It failed rounds 1 and 2 and passed on round 3. Round 2 caught the bot wrongly saying the phone assistant was live and implying the 7-day trial was free; both were fixed in prompt v1.2.
+- **How it was tested:** 10 browser test calls by the owner, with every answer traced to the services data file. About $1.25 of the voice provider's $10 free credit was used, with no paid overage.
+- **What the prototype does:** it answers only from `data/alpine-wave/alpine-wave-services.json`, never claims to transfer, call back or text, and sends hand-offs to the company email.
+- **Started building:** T11 (website chat answers from the data file, Codex) and T15 (a facts file for a real local business, taken from its public website and kept private, Claude). T16 (website chat status text) is in the to-do column.
+
+### Current limits
+- The phone bot is not connected to a phone number, so no bot answers live phone calls yet. A later number-connection card must re-test it before anyone calls the phone service live.
+- The website bot still answers from a prepared rules file until T11 passes.
+- Hand-offs between AIs are still manual.
+
+### Next
+- Finish T11 and test it on the T10 cases. Finish T15 for the Stage 3 real-business demo, which stays private. T13 waits for the PM's decision, and T07 and T16 wait to be taken. Deadline stays 2026-10-24.
+
 ## 2026-10-03: Phone limits done; model-picking experiment; PM picks models, reviewers paired by builder
 
 ### Delivered

@@ -14,7 +14,7 @@ Tourism businesses face heavy inquiry spikes during morning gear pickups, weathe
 1. **Website Chat Assistant:** Answers visitor questions on pricing, gear selection, packages, and seasonal hours directly from structured business data.
 2. **Inbound Phone Assistant:** Answers voice calls, assists with common inquiries, routes complex booking requests to staff, and takes messages when staff are busy on the counter.
 
-Design goal: assistants answer only from canonical business facts, so they never make inaccurate commitments or invent prices. The bots have not yet been checked against the written Bot replies standard. That is cards T11 and T12, tested on the 27 cases from T10.
+Design goal: assistants answer only from canonical business facts, so they never make inaccurate commitments or invent prices. The phone bot prototype (T12) passed its check on 2026-10-04 in browser test calls. The website bot (T11) is being built and will be tested on the 27 cases from T10.
 
 ---
 
@@ -26,7 +26,7 @@ Several AI models (Claude, Gemini, Codex) build this project together through a 
 0-draft → 1-todo → 2-building → 3-review → 4-done
 ```
 
-As of 2026-10-03: **9 cards done** (T01–T06, T08, T10, T14), **1 in review** (T13), **3 to do** (T07, T11, T12), 1 in draft (T09).
+As of 2026-10-04: **10 cards done** (T01–T06, T08, T10, T12, T14), **1 in review** (T13), **2 building** (T11, T15), **2 to do** (T07, T16), 3 in draft (T09 and two unnumbered proposals).
 
 Since 2026-10-03 the PM agent picks the builder, model and effort setting for each card and writes the reason on the card. Each finished card gets an independent check before the PM decides, and checks do fail: T13 and T14 each failed a round and were fixed.
 
@@ -48,12 +48,12 @@ See **[How We Build (HOW-WE-BUILD.md)](HOW-WE-BUILD.md)** for:
 * **Assistant Guidance:** Local prompt rules drafted to send unknown availability or unlisted services to a staff contact handoff. Not yet tested against live visitor traffic.
 * **Bot Test Set (T10):** 27 written test questions for the Alpine Wave bots, each traced to a source line and tagged with the bot it applies to (21 both, 6 website only).
 * **Phone Limits in the Data File (T14):** the services data file now says what Alpine Wave's own phone line can't do (book, take payments, arrange callbacks, transfer calls), so the phone bot tests can cite a source.
+* **Phone Bot Prototype (T12):** a browser-tested voice prototype, passed on 2026-10-04 (round 3). It answers only from the services data file, never claims to transfer, call back or text, and sends hand-offs to the company email. Tested in 10 browser calls by the owner, with every answer traced to the data file. It is not connected to a phone number, so no bot answers live phone calls yet.
 * **Factory Tooling:** `check-in.mjs` (board and problem report) and `archive.mjs` (moves superseded files to the archive with a manifest; never deletes).
 
 ### What Is Not Built Yet
-* **Website Bot on the Data File (T11):** the site chat still answers from a prepared rules file. Switching it to answer from the services data file is ready to build, not started.
-* **Phone Bot Prototype (T12):** a browser-tested voice prototype is ready to build and waits for the owner to sign up with the voice provider. No bot answers live phone calls yet.
-* **Live Carrier Telephony:** Connecting live phone numbers via SIP trunking to our voice runtime is in research and planning; no live carrier phone numbers are answering live calls yet.
+* **Website Bot on the Data File (T11):** the site chat still answers from a prepared rules file. Switching it to answer from the services data file is being built.
+* **Live Carrier Telephony:** Connecting live phone numbers via SIP trunking to our voice runtime is in research and planning; no live carrier phone numbers are answering live calls yet. A later number-connection card must re-test the phone bot before anyone calls the phone service live.
 * **Cloud Hosting:** Core applications currently run in local development or static previews; live cloud hosting with backend API execution is not yet deployed.
 * **External Systems:** Direct integration with live merchant POS inventory, credit card payment processing, and third-party calendar booking engines are outside the current milestone.
 

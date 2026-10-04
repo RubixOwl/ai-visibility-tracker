@@ -2,7 +2,7 @@
 
 This project is built by several AI models (Claude, Gemini, Codex) working on the same repository with one human owner. Nobody works freely on the real product. Every change to it goes through a **task card**, is built against an explicit file list, and only counts as done when an AI project manager (PM) has re-checked the proof against a written **Done Standard**.
 
-The factory has run since 2026-10-01. This page describes it as it works today (2026-10-03).
+The factory has run since 2026-10-01. This page describes it as it works today (2026-10-04).
 
 ---
 
@@ -118,7 +118,7 @@ What changed on 2026-10-03: the PM now picks the builder, model and effort for e
 
 ---
 
-## 8. Where the Board Stands (2026-10-03)
+## 8. Where the Board Stands (2026-10-04)
 
 | Card | Title | Builder | Status |
 |---|---|---|---|
@@ -130,12 +130,15 @@ What changed on 2026-10-03: the PM now picks the builder, model and effort for e
 | T06 | Update both GitHub repos | Claude (was Gemini) | done |
 | T08 | Brief for the reviewer agent | Codex | done |
 | T10 | Test questions for the Alpine Wave bots (27 cases, each tagged with the bot it applies to) | Claude | done, PASS on round 3 |
+| T12 | Phone bot: a browser-tested voice prototype (not connected to a phone number) | Gemini | done, PASS on round 3 |
 | T14 | Phone bot limits in the services data file | Gemini | done, PASS on round 2 |
 | T13 | Recommend the best model for each card | Claude | in review, round 2 (failed round 1) |
+| T11 | Website chat answers from the data file (the pilot for the new picking and review flow) | Codex | building |
+| T15 | Facts file for a real local business, from its public website, kept private | Claude | building |
 | T07 | `move-card` script; check-in shows drafts and who each card waits on | Codex | to do |
-| T11 | Website chat answers from the data file (the pilot for the new picking and review flow) | Codex | to do |
-| T12 | Phone bot: a browser-tested voice prototype | Gemini | to do, waits for the owner's voice provider sign-up |
+| T16 | Website chat status text | not set yet | to do |
 | T09 | Rules update for the reviewer role | not picked yet | draft, waits for T07 |
+| (unnumbered) | Phone text-back idea; reviewer corrections | — | drafts (proposals) |
 
 ---
 
