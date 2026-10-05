@@ -14,7 +14,7 @@ Tourism businesses face heavy inquiry spikes during morning gear pickups, weathe
 1. **Website Chat Assistant:** Answers visitor questions on pricing, gear selection, packages, and seasonal hours directly from structured business data.
 2. **Inbound Phone Assistant:** Answers voice calls, assists with common inquiries, routes complex booking requests to staff, and takes messages when staff are busy on the counter.
 
-Design goal: assistants answer only from canonical business facts, so they never make inaccurate commitments or invent prices. The phone bot prototype (T12) passed its check on 2026-10-04 in browser test calls. The website bot (T11) is being built and will be tested on the 27 cases from T10.
+Design goal: assistants answer only from canonical business facts, so they never make inaccurate commitments or invent prices. The phone bot prototype (T12) passed its check on 2026-10-04 in browser test calls. The website bot (T11) answers from the data file in local tests and is in review round 7, tested on the 27 cases from T10.
 
 ---
 
@@ -26,7 +26,7 @@ Several AI models (Claude, Gemini, Codex) build this project together through a 
 0-draft → 1-todo → 2-building → 3-review → 4-done
 ```
 
-As of 2026-10-04: **10 cards done** (T01–T06, T08, T10, T12, T14), **1 in review** (T13), **2 building** (T11, T15), **2 to do** (T07, T16), 3 in draft (T09 and two unnumbered proposals).
+As of 2026-10-05: **13 cards done** (T01–T06, T08, T10, T12, T14, T16–T18), **1 in review** (T13), **2 building** (T11, T15), **1 to do** (T07), 3 in draft (T09 and two unnumbered proposals).
 
 Since 2026-10-03 the PM agent picks the builder, model and effort setting for each card and writes the reason on the card. Each finished card gets an independent check before the PM decides, and checks do fail: T13 and T14 each failed a round and were fixed.
 
@@ -52,7 +52,7 @@ See **[How We Build (HOW-WE-BUILD.md)](HOW-WE-BUILD.md)** for:
 * **Factory Tooling:** `check-in.mjs` (board and problem report) and `archive.mjs` (moves superseded files to the archive with a manifest; never deletes).
 
 ### What Is Not Built Yet
-* **Website Bot on the Data File (T11):** the site chat still answers from a prepared rules file. Switching it to answer from the services data file is being built.
+* **Website Bot on the Data File (T11):** in local tests the site chat answers from the services data file (gpt-4o-mini through a local key proxy, capped, with the rules file as fallback). It has not passed review yet and is not live on the public site.
 * **Live Carrier Telephony:** Connecting live phone numbers via SIP trunking to our voice runtime is in research and planning; no live carrier phone numbers are answering live calls yet. A later number-connection card must re-test the phone bot before anyone calls the phone service live.
 * **Cloud Hosting:** Core applications currently run in local development or static previews; live cloud hosting with backend API execution is not yet deployed.
 * **External Systems:** Direct integration with live merchant POS inventory, credit card payment processing, and third-party calendar booking engines are outside the current milestone.

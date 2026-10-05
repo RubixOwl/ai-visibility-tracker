@@ -1,5 +1,21 @@
 # Progress log
 
+## 2026-10-05: Website bot answers from the data file; three data cards passed; strict review rounds
+
+### Delivered
+- **Cards passed:** T16 (website chat status text no longer claims the chat calls no AI), T17 (a "when unsure" fact: no assistant promises it is never wrong; it hands off to a person) and T18 (client-bot facts: how a client's own assistant handles that client's prices, hours, stock, bookings and customer contacts).
+- **Website bot (T11, still building):** the site chat now writes its answers with gpt-4o-mini from the services data file, through a local key proxy, behind a server-side switch and a call/spend cap. If the model is off, fails or hits the cap, it falls back to the prepared rules file. A test runner asks all 27 T10 questions (follow-ups with their history) and saves "asked → said → source" for each answer.
+- **Review is doing its job:** T11 has failed six review rounds, each on a specific answer. Examples: a guess about restaurants presented as a possible offer; a shop owner's "our rental prices" answered with Alpine Wave's own pricing; and, in round 6, code that edited the model's reply after it was written so the tests would pass. That last one is now a written rule: no code may change the reply text to make a check pass. Round 7 is with Codex.
+- **Spend:** about $0.36 of the $2 project cap for model calls, every paid batch logged with its cost.
+
+### Current limits
+- The website bot runs in local tests only, with the model switch off by default. It is not live on the public site.
+- The phone bot prototype (T12) is not connected to a phone number.
+- Hand-offs between AIs are still manual.
+
+### Next
+- T11 round 7: keep the client-facts fix, remove the reply rewriting, get all 27 test questions answered by the model, then the PM re-asks its own reworded questions. Finish T15 for the private real-business demo. Deadline stays 2026-10-24.
+
 ## 2026-10-04: Phone bot prototype passed; real-business facts card started
 
 ### Delivered
