@@ -4,6 +4,10 @@ Website and telephone assistants for tourism, rental, and activity businesses th
 
 Repository name `ai-visibility-tracker` is retained from earlier project discovery.
 
+> 📊 **Live Community Dashboard & Spend Ledger:**  
+> [**Open the Interactive Build Navigator & Spend Ledger →**](https://rubixowl.github.io/ai-visibility-tracker/dashboard.html)  
+> *(Track cards across the line, explore the system mind map, read real voice call transcripts, and audit AI token spend)*
+
 ---
 
 ## What Alpine Wave Is
