@@ -18,7 +18,7 @@ Tourism businesses face heavy inquiry spikes during morning gear pickups, weathe
 1. **Website Chat Assistant:** Answers visitor questions on pricing, gear selection, packages, and seasonal hours directly from structured business data.
 2. **Inbound Phone Assistant:** Answers voice calls, assists with common inquiries, routes complex booking requests to staff, and takes messages when staff are busy on the counter.
 
-Design goal: assistants answer only from canonical business facts, so they never make inaccurate commitments or invent prices. The phone bot prototype (T12) passed its check on 2026-10-04 in browser test calls. The website bot (T11) answers from the data file in local tests and is in review round 7, tested on the 27 cases from T10.
+Design goal: assistants answer only from canonical business facts, so they never make inaccurate commitments or invent prices. The phone bot prototype (T12) passed its check on 2026-10-04 in browser test calls. The website bot (T11) passed its check on 2026-10-05 in local tests: 27/27 test questions from T10 answered by the model, plus the PM's 12 reworded questions. Neither bot is live yet.
 
 ---
 
@@ -30,14 +30,14 @@ Several AI models (Claude, Gemini, Codex) build this project together through a 
 0-draft → 1-todo → 2-building → 3-review → 4-done
 ```
 
-As of 2026-10-05: **13 cards done** (T01–T06, T08, T10, T12, T14, T16–T18), **1 in review** (T13), **2 building** (T11, T15), **1 to do** (T07), 3 in draft (T09 and two unnumbered proposals).
+As of 2026-10-07: **17 cards done** (T01–T06, T08, T10–T12, T14–T18, T20, T23), **2 in review** (T07; T13, on hold), **2 building** (T19, T22), **3 to do** (T21, T24, T25), 3 in draft (T09 and two unnumbered proposals).
 
-Since 2026-10-03 the PM agent picks the builder, model and effort setting for each card and writes the reason on the card. Each finished card gets an independent check before the PM decides, and checks do fail: T13 and T14 each failed a round and were fixed.
+Since 2026-10-03 the PM agent picks the builder, model and effort setting for each card and writes the reason on the card. Each finished card gets an independent check before the PM decides, and checks do fail: T11 took 9 rounds, T23 failed 2 rounds, T07 failed 2, and T20 and T22 each failed 1. Since 2026-10-05 a trial reviewer, Katy (a Claude agent that uses a second model, Jev, as a judge), checks Claude-built cards before the PM, so no Claude-built card is passed by Claude alone.
 
 See **[How We Build (HOW-WE-BUILD.md)](HOW-WE-BUILD.md)** for:
 * The board, the card format, and the quick lane for small fixes.
-* Roles: human owner, PM agent, reviewer agent, builders, helper agent, and who checks whose work.
-* The model-picking experiment: a decision model ranking models for each card.
+* Roles: human owner, PM agent, reviewer agents, builders, helper agent, and who checks whose work.
+* Jev, a decision model: first an experiment in picking models for each card, now the reply check every bot build gets.
 * The eight Done Standards and the two factory scripts (`check-in.mjs`, `archive.mjs`).
 * The current board, with every card, its builder and its status.
 
@@ -53,12 +53,16 @@ See **[How We Build (HOW-WE-BUILD.md)](HOW-WE-BUILD.md)** for:
 * **Bot Test Set (T10):** 27 written test questions for the Alpine Wave bots, each traced to a source line and tagged with the bot it applies to (21 both, 6 website only).
 * **Phone Limits in the Data File (T14):** the services data file now says what Alpine Wave's own phone line can't do (book, take payments, arrange callbacks, transfer calls), so the phone bot tests can cite a source.
 * **Phone Bot Prototype (T12):** a browser-tested voice prototype, passed on 2026-10-04 (round 3). It answers only from the services data file, never claims to transfer, call back or text, and sends hand-offs to the company email. Tested in 10 browser calls by the owner, with every answer traced to the data file. It is not connected to a phone number, so no bot answers live phone calls yet.
+* **Website Bot on the Data File (T11):** passed on 2026-10-05. The site chat writes answers with gpt-4o-mini from the services data file, through a local key proxy, under a call and spend cap. Passed on the model path: 27/27 test questions and the PM's 12 reworded questions. The simple backup for when the model is off is a separate card (T22, building).
+* **Jev Reply Check (T23):** passed on 2026-10-07. A reusable part that has a second model score each bot reply against the business facts and blocks it when the facts don't clearly back it (bar 0.67). Every bot build now gets it. Tuned on recorded replies from the private real-business demo.
+* **Real-Business Facts (T15):** passed on 2026-10-05. A private facts file taken from a real local business's public website, every fact cited (23 pages, 152 sources). Kept private.
 * **Factory Tooling:** `check-in.mjs` (board and problem report) and `archive.mjs` (moves superseded files to the archive with a manifest; never deletes).
 
 ### What Is Not Built Yet
-* **Website Bot on the Data File (T11):** in local tests the site chat answers from the services data file (gpt-4o-mini through a local key proxy, capped, with the rules file as fallback). It has not passed review yet and is not live on the public site.
+* **Live Website Bot:** the website bot runs in local tests only and is not live on the public site.
+* **Real-Business Demo (T19):** being built privately; it restarts with the Jev reply check connected. The aim is a demo online by about 2026-10-14, so the 7-day trial can start by 2026-10-17.
 * **Live Carrier Telephony:** Connecting live phone numbers via SIP trunking to our voice runtime is in research and planning; no live carrier phone numbers are answering live calls yet. A later number-connection card must re-test the phone bot before anyone calls the phone service live.
-* **Cloud Hosting:** Core applications currently run in local development or static previews; live cloud hosting with backend API execution is not yet deployed.
+* **Cloud Hosting:** chosen but not deployed. Hosting research (T20, passed 2026-10-07) led to the owner's decision: a Vercel Pro trial with model calls through the Vercel AI Gateway, $5 of gateway credits approved. Each sign-up, purchase and deploy still needs its own yes. Today the apps run locally or as static previews.
 * **External Systems:** Direct integration with live merchant POS inventory, credit card payment processing, and third-party calendar booking engines are outside the current milestone.
 
 ### Not Checked / Untested

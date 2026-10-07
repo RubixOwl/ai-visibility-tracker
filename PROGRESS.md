@@ -1,5 +1,24 @@
 # Progress log
 
+## 2026-10-07: Website bot passed; Jev reply check passed; hosting chosen; a second reviewer on trial
+
+### Delivered
+- **Card passed:** T11 (website chat answers from the services data file) passed on 2026-10-05 after 9 review rounds. The owner narrowed the card to the model path: 27/27 test questions answered by the model, plus 12/12 on the PM's own reworded questions. The backup for when the model is off was taken off T11 and moved to a new, simpler card (T22: fixed answers to the question buttons, otherwise "can't answer right now" plus the contact details).
+- **Card passed:** T15 (2026-10-05). A private facts file for a real local business, taken from its public website. Every fact is cited: 23 pages checked, 152 sources. It stays private.
+- **Card passed:** T23 (2026-10-07, round 4). The "Jev reply check": a reusable part that has a second model (Jev) score each bot reply against the business facts and blocks the reply when it isn't confident the facts back it. Every bot build now gets it. Tuned on recorded replies from the private real-business demo with a bar of 0.67: it caught 11 of 11 wrong replies in the tuning batches and 2 of 2 in the report batches, and wrongly blocked 4 of 27 and 7 of 48 right replies. The PM's own test: 3 of 3 wrong replies blocked, 0 of 2 right replies blocked. Median 186 ms a call. Only 2 wrong replies were in the report batches, so those numbers are small.
+- **Card passed:** T20 (2026-10-07). Hosting research. The owner's decision: a Vercel Pro trial for the demo, with model calls through the Vercel AI Gateway (no raw key stored), $5 of prepaid gateway credits approved. Nothing is deployed yet; each sign-up, purchase and deploy still needs its own yes.
+- **New reviewer on trial:** Katy, a Claude agent that re-checks a card herself and then has Jev judge each "Done looks like" line against her evidence. She reviews Claude-built cards before the PM, so a Claude-built card isn't passed by Claude alone. Her advice counted only after she passed a decoy card with three planted faults. Each review has a $0.10 cap on Jev calls.
+- **Checks fail:** T23 failed rounds 2 and 3 (round 3 for a local file path in a folder that may become public, found by Katy). T07 failed 2 rounds, T22 failed 1 and T20 failed 1. T19 (the private real-business demo) failed round 1 and was paused for a design check, which became T23.
+- **Spend:** about $0.96 of the $2 project cap for model calls, every paid call logged with its cost.
+
+### Current limits
+- The website bot passed in local tests but is not live on the public site. Nothing is hosted yet.
+- The phone bot prototype (T12) is not connected to a phone number.
+- T13 (model picking) is on hold. Hand-offs between AIs are still manual.
+
+### Next
+- T19 restarts with the Jev reply check connected. T22 (simple backup chat) is being fixed after its round 1 fail. Then a deploy card, to get the private demo online by about 10-14; the 7-day trial must start by 10-17. Deadline stays 2026-10-24.
+
 ## 2026-10-05: Website bot answers from the data file; three data cards passed; strict review rounds
 
 ### Delivered
