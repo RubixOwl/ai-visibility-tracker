@@ -103,7 +103,7 @@ A Claude-built card is never passed by Claude alone: Jev's judgement is the non-
 
 Two small Node scripts keep the board honest. Neither one builds anything.
 
-* **`check-in.mjs` (run on demand, read-only):** prints the board and flags problems. These include cards in building for more than 2 days, cards handed in with no proof, cards in done without a PM PASS, cards on 3+ FAILs not escalated, a card whose folder doesn't match the log, moves made by someone not allowed to make them, two open cards holding the same file, and **recently changed files that no card lists** (work done outside a card). Card T07 (in review, round 3) adds a `move-card` script, shows drafts, and says who each card waits on.
+* **`check-in.mjs` (run on demand, read-only):** prints the board and flags problems. These include cards in building for more than 2 days, cards handed in with no proof, cards in done without a PM PASS, cards on 3+ FAILs not escalated, a card whose folder doesn't match the log, moves made by someone not allowed to make them, two open cards holding the same file, and **recently changed files that no card lists** (work done outside a card). Card T07 (passed 2026-10-07) added a `move-card` script, shows drafts, and says who each card waits on.
 * **`archive.mjs` (run after a PASS):** run with `--dry-run` first, then for real. It moves the card's "Replaces" files into `archive/` and appends a row per move to `archive/MOVES.md`. The PM then checks those rows. Nothing is deleted.
 
 Neither script runs on a schedule. Hand-offs between AIs are still manual: the owner opens the next AI when check-in shows a card waiting on it.
@@ -141,13 +141,13 @@ Jev went back to its first job instead: checking bot replies. Card **T23** (pass
 | T18 | "What a client's bot does for that client" facts in the services data | Codex | done |
 | T20 | Hosting: which host, what it costs, how the model key gets there | Claude | done, PASS on round 2 |
 | T23 | Jev reply check: a reusable part every bot build gets | Claude | done, PASS on round 4 |
-| T07 | `move-card` script; check-in shows drafts and who each card waits on | Gemini | in review, round 3 (failed rounds 1 and 2) |
+| T07 | `move-card` script; check-in shows drafts and who each card waits on | Gemini | done, PASS on round 3 |
 | T13 | Recommend the best model for each card | Claude | in review, on hold |
 | T19 | Real-business website chat demo, kept private | Claude | building (failed round 1; restarts with the Jev reply check) |
 | T22 | Simple, safe backup for the website chat | Codex | building (failed round 1) |
 | T21 | Publish the build code to the public repo | not taken yet | to do |
 | T24 | Retell chat widget vs our own chat, on Retell's free credit | not taken yet | to do |
-| T25 | Review the Katy + Jev trial: what works, what to change | not taken yet | to do |
+| T25 | Review the Katy + Jev trial: what works, what to change | Gemini | in review |
 | T09 | Rules update for the reviewer role | not picked yet | draft |
 | (unnumbered) | Phone text-back idea; reviewer corrections | — | drafts (proposals) |
 

@@ -30,9 +30,9 @@ Several AI models (Claude, Gemini, Codex) build this project together through a 
 0-draft → 1-todo → 2-building → 3-review → 4-done
 ```
 
-As of 2026-10-07: **17 cards done** (T01–T06, T08, T10–T12, T14–T18, T20, T23), **2 in review** (T07; T13, on hold), **2 building** (T19, T22), **3 to do** (T21, T24, T25), 3 in draft (T09 and two unnumbered proposals).
+As of 2026-10-07: **18 cards done** (T01–T08, T10–T12, T14–T18, T20, T23), **2 in review** (T25; T13, on hold), **2 building** (T19, T22), **2 to do** (T21, T24), 3 in draft (T09 and two unnumbered proposals).
 
-Since 2026-10-03 the PM agent picks the builder, model and effort setting for each card and writes the reason on the card. Each finished card gets an independent check before the PM decides, and checks do fail: T11 took 9 rounds, T23 failed 2 rounds, T07 failed 2, and T20 and T22 each failed 1. Since 2026-10-05 a trial reviewer, Katy (a Claude agent that uses a second model, Jev, as a judge), checks Claude-built cards before the PM, so no Claude-built card is passed by Claude alone.
+Since 2026-10-03 the PM agent picks the builder, model and effort setting for each card and writes the reason on the card. Each finished card gets an independent check before the PM decides, and checks do fail: T11 took 9 rounds, T23 failed 2 rounds, T07 failed 2 and passed on round 3, and T20 and T22 each failed 1. Since 2026-10-05 a trial reviewer, Katy (a Claude agent that uses a second model, Jev, as a judge), checks Claude-built cards before the PM, so no Claude-built card is passed by Claude alone.
 
 See **[How We Build (HOW-WE-BUILD.md)](HOW-WE-BUILD.md)** for:
 * The board, the card format, and the quick lane for small fixes.
