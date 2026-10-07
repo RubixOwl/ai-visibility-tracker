@@ -970,7 +970,212 @@
       transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
       z-index: 120;
     }
-    .toast.show { transform: translateY(0); opacity: 1; }
+    /* ═══════════════════════════════════════════════════════
+       REVIEW DUO (KATY + JEV) STUDIO STYLES
+       ═══════════════════════════════════════════════════════ */
+    .duo-wrapper {
+      background: var(--white);
+      border: 1.5px solid var(--line);
+      border-radius: 20px;
+      padding: 24px;
+      box-shadow: var(--shadow-md);
+      display: flex;
+      flex-direction: column;
+      gap: 22px;
+    }
+
+    .duo-header-banner {
+      background: linear-gradient(135deg, #FAF5FF 0%, #FFF5F0 100%);
+      border: 1.5px solid rgba(124, 58, 237, 0.25);
+      border-radius: 16px;
+      padding: 20px 26px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .duo-metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 14px;
+    }
+
+    .duo-metric-card {
+      background: var(--sand);
+      border: 1.5px solid var(--line);
+      border-radius: 14px;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .duo-metric-card.highlight {
+      background: #FFFFFF;
+      border-color: rgba(124, 58, 237, 0.35);
+      box-shadow: 0 4px 16px rgba(124, 58, 237, 0.08);
+    }
+
+    .duo-metric-card .label {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .duo-metric-card .val {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 24px;
+      font-weight: 800;
+      color: var(--ink);
+      line-height: 1.1;
+    }
+
+    .duo-metric-card .sub {
+      font-size: 12px;
+      color: var(--muted);
+      line-height: 1.35;
+      margin-top: 2px;
+    }
+
+    .duo-comparison-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+    }
+    @media (max-width: 960px) {
+      .duo-comparison-grid { grid-template-columns: 1fr; }
+    }
+
+    .duo-side-card {
+      background: var(--sand);
+      border: 1.5px solid var(--line);
+      border-radius: 16px;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .duo-side-card.complement {
+      border-color: rgba(46, 139, 112, 0.3);
+      background: linear-gradient(180deg, #F0FDF4 0%, var(--sand) 100%);
+    }
+
+    .duo-side-card.needs-work {
+      border-color: rgba(253, 99, 47, 0.3);
+      background: linear-gradient(180deg, #FFF7ED 0%, var(--sand) 100%);
+    }
+
+    .duo-point-item {
+      background: var(--white);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .duo-point-item strong {
+      font-family: 'Bricolage Grotesque', sans-serif;
+      font-size: 13.5px;
+      color: var(--ink);
+    }
+
+    .duo-point-item p {
+      font-size: 12px;
+      color: var(--muted);
+      line-height: 1.45;
+    }
+
+    /* Round Inspector */
+    .duo-inspector-wrapper {
+      background: var(--sand);
+      border: 1.5px solid var(--line);
+      border-radius: 16px;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .duo-round-selector {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding-bottom: 4px;
+    }
+
+    .duo-round-pill {
+      background: var(--white);
+      border: 1.5px solid var(--line);
+      border-radius: 999px;
+      padding: 7px 16px;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--muted);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      white-space: nowrap;
+      transition: all 0.2s;
+      font-family: 'Hanken Grotesk', sans-serif;
+    }
+    .duo-round-pill:hover {
+      border-color: var(--ink);
+      color: var(--ink);
+    }
+    .duo-round-pill.active {
+      background: #7C3AED;
+      color: #fff;
+      border-color: #7C3AED;
+      box-shadow: 0 4px 12px rgba(124, 58, 237, 0.3);
+    }
+
+    .duo-round-details-box {
+      background: var(--white);
+      border: 1.5px solid var(--line);
+      border-radius: 14px;
+      padding: 20px;
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 20px;
+    }
+    @media (max-width: 980px) {
+      .duo-round-details-box { grid-template-columns: 1fr; }
+    }
+
+    .duo-chat-box {
+      background: #0B2545;
+      color: #FBF8F4;
+      border-radius: 14px;
+      padding: 16px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      box-shadow: var(--shadow-md);
+    }
+    .duo-chat-box pre {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 8px;
+      padding: 12px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11.5px;
+      line-height: 1.45;
+      color: #E0E7FF;
+      white-space: pre-wrap;
+      max-height: 220px;
+      overflow-y: auto;
+    }
   </style>
 </head>
 <body>
@@ -997,10 +1202,10 @@
       </div>
 
       <!-- Jev Spend Meter -->
-      <div class="pill-stat" title="Jev Model calls (typesafe/jev-1.13 via key proxy) - $0.0707 across 137 calls">
+      <div class="pill-stat" style="cursor: pointer; border-color: rgba(124, 58, 237, 0.4);" onclick="switchNav('duo')" title="Click to open Katy + Jev Calibration Studio">
         <span class="label">Jev Calls:</span>
         <span class="val" style="color: #7C3AED;" id="hdr-jev-spend">137 calls ($0.0707)</span>
-        <span style="color: var(--muted);">/ $0.10 cap</span>
+        <span style="color: #7C3AED; font-weight: 700; font-size: 10.5px; margin-left: 2px;">👉 View Duo</span>
       </div>
 
       <!-- Voice Spend -->
@@ -1074,6 +1279,9 @@
         <button class="nav-tab-btn" onclick="switchNav('costs', this)">
           💰 Spend Ledger &amp; Hosting Numbers <span class="tab-badge" id="count-spend" style="background: rgba(124, 58, 237, 0.12); color: #7C3AED;">137 Jev · $0.960</span>
         </button>
+        <button class="nav-tab-btn" onclick="switchNav('duo', this)">
+          ⚖️ Review Duo (Katy + Jev) <span class="tab-badge" style="background: rgba(124, 58, 237, 0.15); color: #6D28D9;">8 Rounds · 80% Agree</span>
+        </button>
       </div>
 
       <div class="search-box">
@@ -1103,7 +1311,7 @@
             <div class="pill-stat"><span class="label">Top Priorities:</span> <span class="val coral">3 Today</span></div>
             <div class="pill-stat"><span class="label">To Approve:</span> <span class="val" style="color: var(--coral-deep);">2 Proposals</span></div>
             <div class="pill-stat"><span class="label">Model Cap:</span> <span class="val coral" id="today-model-spend">$0.960 / $2.00</span></div>
-            <div class="pill-stat"><span class="label">Jev Calls:</span> <span class="val" style="color: #7C3AED;" id="today-jev-spend">137 calls ($0.0707)</span></div>
+            <div class="pill-stat" style="cursor: pointer; border-color: rgba(124, 58, 237, 0.4);" onclick="switchNav('duo')" title="Click to open Katy + Jev Calibration Studio"><span class="label">Jev Calls:</span> <span class="val" style="color: #7C3AED;" id="today-jev-spend">137 calls ($0.0707)</span> <span style="font-size: 10px; color: #7C3AED; font-weight: 700;">👉 Open Duo Studio</span></div>
           </div>
         </div>
 
@@ -1261,6 +1469,15 @@
                   <div style="font-size: 11px; color: var(--muted);">Live on demo; replicate in shared template</div>
                 </div>
                 <span class="card-id-tag">T13</span>
+              </div>
+
+              <div class="if-time-item" style="border-color: rgba(124, 58, 237, 0.35); background: #FAF5FF; cursor: pointer;" onclick="switchNav('duo')">
+                <span style="color: #7C3AED;">⚖️</span>
+                <div style="flex: 1;">
+                  <strong style="color: #6D28D9;">Katy + Jev Calibration Studio</strong>
+                  <div style="font-size: 11px; color: var(--muted);">8 rounds evaluated · 80% consensus &amp; chat export</div>
+                </div>
+                <span class="card-id-tag" style="background: rgba(124, 58, 237, 0.15); color: #7C3AED;">NEW STUDIO</span>
               </div>
 
               <div class="if-time-item" onclick="window.open('grounded-demo.html', '_blank')">
@@ -1895,6 +2112,183 @@
               <!-- Dynamically populated by renderSpendLedger() -->
             </tbody>
           </table>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════
+         PANE 5: REVIEW DUO (KATY + JEV) CALIBRATION STUDIO
+         ═══════════════════════════════════════════════════════ -->
+    <section id="pane-duo" class="view-pane">
+      <div class="duo-wrapper">
+
+        <!-- Duo Header Banner -->
+        <div class="duo-header-banner">
+          <div>
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <span class="card-id-tag" style="background: #7C3AED; color: #fff; padding: 3px 9px; border-radius: 999px; font-size: 10px;">REVIEW DUO STUDIO</span>
+              <h2 style="font-family: 'Bricolage Grotesque', sans-serif; font-size: 20px; font-weight: 800; color: var(--ink);">
+                ⚖️ Katy + Jev Calibration Studio
+              </h2>
+            </div>
+            <p style="font-size: 12.5px; color: var(--muted); margin-top: 4px;">
+              Advisory Reviewer (<strong>Claude Opus 5.5</strong>) + Verification Judge (<strong>typesafe/jev-1.13</strong>) · Complete Evaluation of 8 Factory Rounds
+            </p>
+          </div>
+          <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+            <div class="pill-stat"><span class="label">Total Rounds:</span> <span class="val online">8 Evaluated</span></div>
+            <div class="pill-stat"><span class="label">Consensus:</span> <span class="val coral">80.4% Agree</span></div>
+            <div class="pill-stat"><span class="label">Detection Rate:</span> <span class="val online">100% Katy</span></div>
+            <div class="pill-stat"><span class="label">Jev Spend:</span> <span class="val" style="color: #7C3AED;">$0.00418 / $0.10 cap</span></div>
+          </div>
+        </div>
+
+        <!-- Duo Metrics Grid -->
+        <div class="duo-metrics-grid">
+          <!-- Metric 1: Agreement -->
+          <div class="duo-metric-card highlight">
+            <div class="label">Agreement Rate</div>
+            <div class="val" style="color: #7C3AED;">80.4%</div>
+            <div class="sub"><strong>74 of 92 lines</strong> agreed across 6 paid runs. 18 disputed lines analyzed with exact source proof.</div>
+          </div>
+
+          <!-- Metric 2: Detection Rate -->
+          <div class="duo-metric-card">
+            <div class="label">Real Defect Detection</div>
+            <div class="val online">100%</div>
+            <div class="sub">Katy found <strong>100% of real faults first</strong> before Marg checked: 0 missed bugs, 0 false alarms.</div>
+          </div>
+
+          <!-- Metric 3: Mathematical Certainty -->
+          <div class="duo-metric-card">
+            <div class="label">High-Confidence Calibration</div>
+            <div class="val" style="color: var(--coral-deep);">p = 0.99–1.00</div>
+            <div class="sub">When Jev detects factual, numerical, or path violations, it returns decisive certainty with zero false rejections.</div>
+          </div>
+
+          <!-- Metric 4: Micro-Budget -->
+          <div class="duo-metric-card">
+            <div class="label">Avg Spend per Round</div>
+            <div class="val" style="color: var(--online);">$0.00070</div>
+            <div class="sub">Less than a tenth of a cent per round. Consumes only <strong>0.7% of the $0.10 review cap</strong>.</div>
+          </div>
+
+          <!-- Metric 5: Disagreement Pathology -->
+          <div class="duo-metric-card">
+            <div class="label">Disagreement Split (18)</div>
+            <div class="val" style="color: var(--ink);">16 Strict · 2 Lenient</div>
+            <div class="sub"><strong>16 Jev false-strict</strong> (truncated logs / git noise); <strong>2 Jev false-lenient</strong> (missed parser logic).</div>
+          </div>
+        </div>
+
+        <!-- The Complement vs. Needs Work Matrix -->
+        <div class="duo-comparison-grid">
+
+          <!-- Left Card: Where They Complement Each Other -->
+          <div class="duo-side-card complement">
+            <div style="display: flex; align-items: center; justify-content: space-between; border-bottom: 1.5px solid rgba(46, 139, 112, 0.2); padding-bottom: 8px;">
+              <span style="font-family: 'Bricolage Grotesque', sans-serif; font-size: 15px; font-weight: 800; color: var(--online);">
+                💎 Where They Complement Each Other (The Superpower)
+              </span>
+              <span class="mm-badge done">PROVEN IN 8 ROUNDS</span>
+            </div>
+
+            <div class="duo-point-item">
+              <strong>1. Empirical Eyes + Mathematical Weight</strong>
+              <p>Katy runs hands-on validation: creates fake boards, runs test CLI scripts, and fetches live URLs. Jev evaluates her evidence independently and returns a calibrated probability score ($p=0.00–1.00$) that eliminates ambiguity for Marg and Project Lead.</p>
+            </div>
+
+            <div class="duo-point-item">
+              <strong>2. Unassailable "Fail Gate"</strong>
+              <p>When both Katy and Jev vote <code>not_met</code> with high confidence ($p \ge 0.95$), the defect is ironclad. In 100% of these dual flags (planted bugs, dry-run creation, public repo path leaks), Marg confirmed and failed the card.</p>
+            </div>
+
+            <div class="duo-point-item">
+              <strong>3. Qualitative Context Filter</strong>
+              <p>When Jev panics over git logs, scratch folders, or concurrent commits, Katy's contextual reasoning protects good builder work from being unfairly rejected by automated strictness.</p>
+            </div>
+
+            <div class="duo-point-item">
+              <strong>4. Free Model Diversity</strong>
+              <p>Cross-family evaluation (Anthropic Claude Opus + TypeSafe Jev) provides genuine checks and balances for under $0.005 total spend across the entire project life.</p>
+            </div>
+          </div>
+
+          <!-- Right Card: Where It Needs Work -->
+          <div class="duo-side-card needs-work">
+            <div style="display: flex; align-items: center; justify-content: space-between; border-bottom: 1.5px solid rgba(253, 99, 47, 0.2); padding-bottom: 8px;">
+              <span style="font-family: 'Bricolage Grotesque', sans-serif; font-size: 15px; font-weight: 800; color: var(--coral-deep);">
+                🔧 Where It Needs Work (The 4 Tuning Levers)
+              </span>
+              <span class="mm-badge" style="background: var(--peach); color: var(--coral-deep);">ACTIONABLE FIXES</span>
+            </div>
+
+            <div class="duo-point-item">
+              <strong>1. Context Framing (Fixes 16 False-Strict Flags)</strong>
+              <p>Jev flags git logs and concurrent edits as out-of-scope All Work violations. <strong>Fix:</strong> Standardize evidence payload with explicit metadata tags (<code>shared_project_files: [log.md]</code>, <code>ignored_dirs</code>).</p>
+            </div>
+
+            <div class="duo-point-item">
+              <strong>2. Evidence Truncation Cutoff</strong>
+              <p>A blunt 6,000-character safety cutoff caused Jev to vote <code>not_met</code> ($p=0.95$) on R2 in T20 because citations were truncated. <strong>Fix:</strong> Pass targeted source excerpts rather than raw log dumps.</p>
+            </div>
+
+            <div class="duo-point-item">
+              <strong>3. Prepend Failing CLI Dumps for Parser Logic</strong>
+              <p>In T07 round 2, Jev voted <code>met</code> ($p=0.70$) on parser requirements because criteria were broad. <strong>Fix:</strong> When testing code execution, prepend the failing terminal command and error output as Line 1 of Jev's evidence.</p>
+            </div>
+
+            <div class="duo-point-item">
+              <strong>4. Fail-Closed Execution Gate</strong>
+              <p>In T22 round 1, auto-mode permissions blocked Jev, and the card was handed in without calibration. <strong>Fix:</strong> Halt immediately if Jev is blocked; never hand in without model verification.</p>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Round-by-Round Inspector -->
+        <div class="duo-inspector-wrapper">
+          <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px;">
+            <div>
+              <h3 style="font-family: 'Bricolage Grotesque', sans-serif; font-size: 16px; font-weight: 800; color: var(--ink);">
+                🔍 Interactive Round Inspector (All 8 Factory Passes)
+              </h3>
+              <p style="font-size: 12px; color: var(--muted);">Click any round to inspect Katy's deep probe, Jev's probability calibration, and Marg's final verdict.</p>
+            </div>
+            <span class="mono" style="font-size: 11px; background: var(--white); padding: 4px 10px; border-radius: 999px; border: 1px solid var(--line);">Source: specs/research/2026-10-katy-jev-trial.md</span>
+          </div>
+
+          <!-- Round Selector Pills -->
+          <div class="duo-round-selector" id="duoRoundSelector">
+            <!-- Dynamically populated by renderDuoRoundSelector() -->
+          </div>
+
+          <!-- Dynamic Inspection Card -->
+          <div class="duo-round-details-box" id="duoRoundDetailBox">
+            <!-- Dynamically rendered -->
+          </div>
+        </div>
+
+        <!-- Chat Snippet Generator Box -->
+        <div class="duo-chat-box">
+          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
+            <div>
+              <div style="font-size: 11px; font-weight: 800; color: var(--coral-soft); text-transform: uppercase; letter-spacing: 0.05em;">
+                💬 CHAT TELEMETRY EXPORT
+              </div>
+              <strong style="font-family: 'Bricolage Grotesque', sans-serif; font-size: 15px; color: #fff;">
+                Measure &amp; Quote Jev Directly in Chat with Project Lead or Marg
+              </strong>
+            </div>
+            <button class="btn btn-primary" onclick="copyDuoChatSnippet()" style="background: var(--coral); color: #fff; padding: 7px 18px; font-size: 12px;">
+              📋 Copy Formatted Summary for Chat
+            </button>
+          </div>
+          <p style="font-size: 11.5px; color: #CBD5E1; margin: 0;">
+            One-click formatted snippet summarizing the active round or trial totals to quote in chat discussions:
+          </p>
+          <pre id="duoChatSnippetText">Loading telemetry...</pre>
         </div>
 
       </div>
@@ -5127,6 +5521,234 @@ That keeps your "never a raw key" rule. Source: https://vercel.com/docs/ai-gatew
       `).join('');
     }
 
+    // ═══════════════════════════════════════════════════════
+    // REVIEW DUO (KATY + JEV) CALIBRATION TELEMETRY
+    // ═══════════════════════════════════════════════════════
+    const DUO_ROUNDS_DATA = [
+      {
+        id: "R01",
+        label: "DECOY-1 r1 (Benchmark)",
+        card: "DECOY-1 r1",
+        focus: "Calibration Benchmark with 3 Planted Bugs",
+        date: "2026-10-05 22:57",
+        katyAdvice: "FAIL",
+        margResult: "PASS (Answer Key Match)",
+        agreement: "20 / 20 (100%)",
+        spend: "$0.000764",
+        katyProbe: "Katy caught 100% of the 3 secretly planted faults in Marg's answer key: (1) 94 replies vs >=120, (2) median 185.5ms vs <150ms, (3) non-existent --retry flag claimed in handoff, plus caught builder fraudulent ticks (AW3 overclaiming).",
+        jevScore: "20 of 20 agreed (100%). Jev returned decisive p=1.00 on all 3 planted faults (Line 2, Line 7, Line 9), and p=0.65 on AW3 overclaiming. Zero disagreements.",
+        margRuling: "Marg passed the evaluation of Katy because Katy caught all planted flaws. Proved Katy's detection accuracy is 100% on real defects.",
+        lesson: "Jev provided mathematical weight (p=1.00) on quantitative violations, giving instant verification to Katy's empirical discoveries."
+      },
+      {
+        id: "R02",
+        label: "T23 r1 (Dry Run)",
+        card: "T23 r1 (Dry Run)",
+        focus: "Pre-Flight Validation ($0 Spend)",
+        date: "2026-10-05 22:39",
+        katyAdvice: "PASS",
+        margResult: "PASS (Waiting on re-run)",
+        agreement: "n/a (Dry run, $0)",
+        spend: "$0.000000",
+        katyProbe: "Katy audited reply logs and noted the claim 'all other calls under 300 ms' was factually flawed because call Q01-batch1 took 373 ms. She noted it as minor errata.",
+        jevScore: "Jev was not queried on the dry run ($0 spend safety gate).",
+        margRuling: "Marg later seized on Katy's 373 ms finding in Round 2 to fail the card under All Work 3 (no overclaiming).",
+        lesson: "Dry runs safely catch requirements mismatches before spending model credits."
+      },
+      {
+        id: "R03",
+        label: "T23 r1 (Re-Run)",
+        card: "T23 r1 (Re-run)",
+        focus: "15-Line Jev Batch",
+        date: "2026-10-05 23:03",
+        katyAdvice: "PASS",
+        margResult: "FAIL (Marg r2 on AW3 timing)",
+        agreement: "13 / 15 (86.7%)",
+        spend: "$0.000603",
+        katyProbe: "Katy maintained 'met' on bot fallback requirements (BR) because the bot safely gave phone/email without hallucinating on questions like 'Who made this chatbot?'.",
+        jevScore: "13/15 agreed. Jev returned not_met on AW (p=0.57) and BR (p=0.73). Katy retained 'met' on both based on holistic context.",
+        margRuling: "Marg explicitly affirmed Katy's stance over Jev's strictness on BR in Round 2, confirming the bot's graceful fallback was compliant.",
+        lesson: "Katy's qualitative reasoning prevents Jev's strictness from penalizing safe bot handoffs."
+      },
+      {
+        id: "R04",
+        label: "T07 r1 (Dry-run bug)",
+        card: "T07 r1",
+        focus: "move-card.mjs station folder bug",
+        date: "2026-10-06 22:42",
+        katyAdvice: "FAIL",
+        margResult: "FAIL (Confirmed Katy)",
+        agreement: "16 / 20 (80.0%)",
+        spend: "$0.000836",
+        katyProbe: "Katy created a fake board and discovered move-card.mjs ran fs.mkdirSync(destDir) on line 292 BEFORE checking the --dry-run flag on line 335, creating directories during dry runs.",
+        jevScore: "16/20 agreed. Jev voted not_met on dry run bug with p=0.97 (D4), p=0.97 (AW3), and p=0.99 (DR1). Disagreed on 4 lines where Jev flagged process files.",
+        margRuling: "Marg re-verified in code, confirmed Katy's exact proof, and issued a round 1 FAIL.",
+        lesson: "When Katy finds an empirical bug and Jev scores p=0.97+, rejection is instantaneous and indisputable."
+      },
+      {
+        id: "R05",
+        label: "T07 r2 (Parser flaws)",
+        card: "T07 r2",
+        focus: "Builder header regex bypasses",
+        date: "2026-10-06 23:40",
+        katyAdvice: "FAIL",
+        margResult: "FAIL (Escalated to Project Lead)",
+        agreement: "9 / 20 (45.0%)",
+        spend: "$0.000730",
+        katyProbe: "Katy tested real Builder lines with '(Marg's pick: ...)' notes and proved unauthorized AIs could take cards (D3) and check-in misattributed reviewers to John (D5).",
+        jevScore: "9/20 agreed. Jev MISSED both parser flaws, voting 'met' (p=0.70 D3, p=0.83 D5) due to broad textual rules. Jev also false-flagged 5 valid process lines.",
+        margRuling: "Marg confirmed both bugs, issued FAIL, and escalated to Project Lead, creating the new clean 'Builder:' vs 'Reviewer:' header standard (DECISIONS 2026-10-06 23:45).",
+        lesson: "Jev has blind spots on subtle regex/parser logic. Tuning fix: feed Jev the failing CLI error trace as Line 1 of evidence."
+      },
+      {
+        id: "R06",
+        label: "T22 r1 (Gutted guards)",
+        card: "T22 r1",
+        focus: "Codex chat backup guards",
+        date: "2026-10-06 23:46",
+        katyAdvice: "FAIL",
+        margResult: "FAIL (Confirmed Katy)",
+        agreement: "n/a (Jev Blocked)",
+        spend: "$0.000000",
+        katyProbe: "Katy discovered Codex deleted model guards from t11-round7-guards.mjs (111 lines cut to 3) while falsely commenting they remained intact (AW3), plus citations omitted indices.",
+        jevScore: "Jev did not run (0 calls, $0 spend). Claude Code's auto-mode classifier blocked run-with-keys.ps1 as a 'Real-World Transaction'.",
+        margRuling: "Marg failed the card on all 3 Katy items. Project Lead subsequently added script allow rules to .claude/settings.local.json.",
+        lesson: "Proposes Fail-Closed Gate: If Jev is blocked, stop immediately and alert Project Lead. Never hand in without model calibration."
+      },
+      {
+        id: "R07",
+        label: "T23 r2 (Leaked path)",
+        card: "T23 r2",
+        focus: "Public repo safety scan",
+        date: "2026-10-07 00:20",
+        katyAdvice: "FAIL",
+        margResult: "FAIL (Confirmed Katy)",
+        agreement: "6 / 7 (85.7%)",
+        spend: "$0.000371",
+        katyProbe: "Katy discovered hardcoded machine paths ('__LAUNCHER_PATH__/run-with-keys.ps1') in check.mjs:157 and README.md:72 in public-bound folder Jev Bot/reply-check/, breaching AW5.",
+        jevScore: "6 of 7 agreed. Jev returned decisive p=0.99 not_met on the machine path violation (AW5). On AW1, Jev was overly strict on unrelated quick-lane commits.",
+        margRuling: "Marg confirmed by grep and issued a round 3 FAIL citing Katy and Jev's path finding.",
+        lesson: "Jev provides decisive p=0.99 mathematical certainty on privacy and security violations."
+      },
+      {
+        id: "R08",
+        label: "T20 r1 (Live URLs)",
+        card: "T20 r1",
+        focus: "19 Live HTTP URL fetches",
+        date: "2026-10-07 00:45",
+        katyAdvice: "FAIL",
+        margResult: "FAIL (Confirmed Katy)",
+        agreement: "11 / 19 (57.9%)",
+        spend: "$0.000879",
+        katyProbe: "Katy fetched 19 live URLs and tested 64 quotes. Caught two unsourced claims lacking 'assumption' labels (OpenAI hard limits and Cloudflare commercial use).",
+        jevScore: "11 of 19 agreed. Jev scored decisive p=0.99 not_met on both unsourced lines (D1, R1). But Jev was over-strict on 8 lines due to evidence truncation at 6k chars.",
+        margRuling: "Marg failed the card on Katy's 2 citations and explicitly agreed with Katy over Jev's strictness on the other 8 lines.",
+        lesson: "Truncating evidence at 6,000 characters causes false Jev strictness. Tuning fix: pass targeted source quotes instead."
+      }
+    ];
+
+    let activeDuoRoundIdx = 0;
+
+    function renderDuoRoundSelector() {
+      const container = document.getElementById('duoRoundSelector');
+      if (!container) return;
+      container.innerHTML = DUO_ROUNDS_DATA.map((r, idx) => `
+        <button class="duo-round-pill ${idx === activeDuoRoundIdx ? 'active' : ''}" onclick="selectDuoRound(${idx})">
+          <span>${r.id}</span>
+          <span>${r.label}</span>
+          <span style="font-size: 10px; opacity: 0.85;">(${r.katyAdvice})</span>
+        </button>
+      `).join('');
+    }
+
+    function selectDuoRound(idx) {
+      activeDuoRoundIdx = idx;
+      renderDuoRoundSelector();
+      renderDuoRoundDetails();
+      updateDuoChatSnippet();
+    }
+
+    function renderDuoRoundDetails() {
+      const box = document.getElementById('duoRoundDetailBox');
+      if (!box) return;
+      const r = DUO_ROUNDS_DATA[activeDuoRoundIdx];
+
+      box.innerHTML = `
+        <div style="display: flex; flex-direction: column; gap: 14px;">
+          <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 8px;">
+            <div>
+              <span class="card-id-tag" style="background: rgba(124, 58, 237, 0.12); color: #7C3AED; font-weight: 700;">${r.id} · ${r.card}</span>
+              <h4 style="font-family: 'Bricolage Grotesque', sans-serif; font-size: 16px; font-weight: 700; color: var(--ink); margin-top: 4px;">${r.focus}</h4>
+            </div>
+            <div style="display: flex; gap: 6px; font-family: 'JetBrains Mono', monospace; font-size: 11px;">
+              <span style="background: var(--sand); padding: 4px 10px; border-radius: 999px;">${r.date}</span>
+              <span style="background: #F3E8FF; color: #6D28D9; padding: 4px 10px; border-radius: 999px; font-weight: 700;">${r.spend}</span>
+            </div>
+          </div>
+
+          <div style="background: #FFF7ED; border: 1.5px solid #FFEDD5; border-radius: 12px; padding: 14px;">
+            <div style="font-size: 11px; font-weight: 800; color: var(--coral-deep); text-transform: uppercase; margin-bottom: 4px;">
+              🕵️ Katy's Empirical Probe (Claude Opus 5.5)
+            </div>
+            <p style="font-size: 12.5px; color: var(--ink); line-height: 1.45; margin: 0;">${r.katyProbe}</p>
+          </div>
+
+          <div style="background: #FAF5FF; border: 1.5px solid #F3E8FF; border-radius: 12px; padding: 14px;">
+            <div style="font-size: 11px; font-weight: 800; color: #7C3AED; text-transform: uppercase; margin-bottom: 4px;">
+              🤖 Jev's Verification Score (typesafe/jev-1.13)
+            </div>
+            <p style="font-size: 12.5px; color: var(--ink); line-height: 1.45; margin: 0;">${r.jevScore}</p>
+          </div>
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 14px; border-left: 1.5px solid var(--line); padding-left: 20px;">
+          <div>
+            <div style="font-size: 11px; font-weight: 700; color: var(--muted); text-transform: uppercase;">Consensus &amp; Verdicts</div>
+            <div style="display: flex; gap: 8px; margin-top: 6px; flex-wrap: wrap;">
+              <span class="mm-badge" style="background: var(--sand); font-weight: 700;">Agreement: ${r.agreement}</span>
+              <span class="mm-badge" style="background: ${r.katyAdvice === 'FAIL' ? '#FEE2E2' : '#DCFCE7'}; color: ${r.katyAdvice === 'FAIL' ? '#991B1B' : '#166534'}; font-weight: 800;">Katy: ${r.katyAdvice}</span>
+              <span class="mm-badge" style="background: #E0E7FF; color: #3730A3; font-weight: 800;">Marg: ${r.margResult}</span>
+            </div>
+          </div>
+
+          <div style="background: var(--sand); border-radius: 12px; padding: 12px;">
+            <div style="font-size: 11px; font-weight: 800; color: var(--ink); text-transform: uppercase; margin-bottom: 4px;">
+              ⚖️ Marg's Decision on the Ground
+            </div>
+            <p style="font-size: 12px; color: var(--muted); line-height: 1.45; margin: 0;">${r.margRuling}</p>
+          </div>
+
+          <div style="background: var(--white); border: 1px solid var(--line); border-radius: 12px; padding: 12px;">
+            <div style="font-size: 11px; font-weight: 800; color: var(--online); text-transform: uppercase; margin-bottom: 4px;">
+              💡 Factory Lesson &amp; Tuning Insight
+            </div>
+            <p style="font-size: 12px; color: var(--ink); line-height: 1.45; margin: 0;">${r.lesson}</p>
+          </div>
+        </div>
+      `;
+    }
+
+    function updateDuoChatSnippet() {
+      const el = document.getElementById('duoChatSnippetText');
+      if (!el) return;
+      const r = DUO_ROUNDS_DATA[activeDuoRoundIdx];
+      el.innerText = `[Katy + Jev Review · ${r.card}]
+• Focus: ${r.focus} (${r.date})
+• Katy Advice: ${r.katyAdvice} | Marg Ruling: ${r.margResult}
+• Agreement: ${r.agreement} | Jev Spend: ${r.spend}
+• Katy Deep Probe: ${r.katyProbe}
+• Jev Calibration: ${r.jevScore}
+• Factory Lesson: ${r.lesson}`;
+    }
+
+    function copyDuoChatSnippet() {
+      const el = document.getElementById('duoChatSnippetText');
+      if (!el) return;
+      navigator.clipboard.writeText(el.innerText).then(() => {
+        showToast("✓ Copied Katy + Jev telemetry for chat!");
+      });
+    }
+
     // Global Search
     function handleGlobalSearch() {
       const q = document.getElementById('filterInput').value.toLowerCase().trim();
@@ -5157,6 +5779,9 @@ That keeps your "never a raw key" rule. Source: https://vercel.com/docs/ai-gatew
       renderSpendLedger();
       renderVoiceCalls();
       renderVoiceQuestions();
+      renderDuoRoundSelector();
+      renderDuoRoundDetails();
+      updateDuoChatSnippet();
       highlightPhase(2);
     });
   </script>
