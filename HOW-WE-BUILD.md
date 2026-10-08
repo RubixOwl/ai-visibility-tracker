@@ -2,7 +2,7 @@
 
 This project is built by several AI models (Claude, Gemini, Codex) working on the same repository with one human owner. Nobody works freely on the real product. Every change to it goes through a **task card**, is built against an explicit file list, and only counts as done when an AI project manager (PM) has re-checked the proof against a written **Done Standard**.
 
-The factory has run since 2026-10-01. This page describes it as it works today (2026-10-07).
+The factory has run since 2026-10-01. This page describes it as it works today (2026-10-08).
 
 ---
 
@@ -78,7 +78,7 @@ One task = one markdown file. A card holds:
 
 A Claude-built card is never passed by Claude alone: Jev's judgement is the non-Claude check, and if the PM is still in doubt it asks the owner for a Gemini or Codex look. The owner can also ask Katy to look at any card. Only the PM passes or fails a card.
 
-**Model calls and spending.** Every paid model call goes through a local key proxy that adds the key, so no agent handles a raw key. The owner set a $2 cap for all model calls in the project; inside it, builders don't need a fresh yes per call, and each paid call is logged with the running total. Spent so far: about $0.96.
+**Model calls and spending.** Every paid model call goes through a local key proxy that adds the key, so no agent handles a raw key. The owner set a cap for all model calls in the project, raised from $2 to $10 total on 2026-10-08 as a safety net, not a budget. Inside it, builders don't need a fresh yes per call, and each paid call is logged with the running total. Jev has $2 a day inside the cap and $0.10 per review. Spent so far: about $0.96.
 
 ---
 
@@ -106,7 +106,7 @@ Two small Node scripts keep the board honest. Neither one builds anything.
 * **`check-in.mjs` (run on demand, read-only):** prints the board and flags problems. These include cards in building for more than 2 days, cards handed in with no proof, cards in done without a PM PASS, cards on 3+ FAILs not escalated, a card whose folder doesn't match the log, moves made by someone not allowed to make them, two open cards holding the same file, and **recently changed files that no card lists** (work done outside a card). Card T07 (passed 2026-10-07) added a `move-card` script, shows drafts, and says who each card waits on.
 * **`archive.mjs` (run after a PASS):** run with `--dry-run` first, then for real. It moves the card's "Replaces" files into `archive/` and appends a row per move to `archive/MOVES.md`. The PM then checks those rows. Nothing is deleted.
 
-Neither script runs on a schedule. Hand-offs between AIs are still manual: the owner opens the next AI when check-in shows a card waiting on it.
+Neither script runs on a schedule. Hand-offs between AIs are still manual: the owner opens the next AI when check-in shows a card waiting on it. On 2026-10-08 the owner approved a runner that starts Claude builders on ready cards on its own (T26, in review). Since then every card also has a `Needs:` line naming the cards that must be done first; nobody, and no script, takes a card before they are.
 
 ---
 
@@ -120,7 +120,7 @@ Jev went back to its first job instead: checking bot replies. Card **T23** (pass
 
 ---
 
-## 8. Where the Board Stands (2026-10-07)
+## 8. Where the Board Stands (2026-10-08)
 
 | Card | Title | Builder | Status |
 |---|---|---|---|
@@ -142,14 +142,15 @@ Jev went back to its first job instead: checking bot replies. Card **T23** (pass
 | T20 | Hosting: which host, what it costs, how the model key gets there | Claude | done, PASS on round 2 |
 | T23 | Jev reply check: a reusable part every bot build gets | Claude | done, PASS on round 4 |
 | T07 | `move-card` script; check-in shows drafts and who each card waits on | Gemini | done, PASS on round 3 |
+| T24 | Retell chat widget vs our own chat, on Retell's free credit | Gemini, then Claude (round 2 text fix) | done, PASS on round 2 |
 | T13 | Recommend the best model for each card | Claude | in review, on hold |
 | T19 | Real-business website chat demo, kept private | Claude | building (failed round 1; restarts with the Jev reply check) |
 | T22 | Simple, safe backup for the website chat | Codex | building (failed round 1) |
 | T21 | Publish the build code to the public repo | not taken yet | to do |
-| T24 | Retell chat widget vs our own chat, on Retell's free credit | not taken yet | to do |
 | T25 | Review the Katy + Jev trial: what works, what to change | Gemini | in review |
+| T26 | Board runner: starts Claude builders on ready cards on its own | Claude | in review |
 | T09 | Rules update for the reviewer role | not picked yet | draft |
-| (unnumbered) | Phone text-back idea; reviewer corrections | — | drafts (proposals) |
+| (unnumbered) | Phone text-back idea; reviewer corrections; runner steps 2 and 3 | — | drafts (proposals) |
 
 ---
 

@@ -1,5 +1,22 @@
 # Progress log
 
+## 2026-10-08: Retell chat test passed after review caught an overclaim; the board starts to run on its own
+
+### Delivered
+- **Card passed:** T24 (2026-10-08, round 2). Retell's chat widget tested against our own chat on the same 27 questions, on Retell's free credit: $0.94 of trial credit used, no card charge.
+- **Review caught an overclaim:** round 1 reported Retell as passing every question. Katy (the trial reviewer) found that the scoring script marked every Retell answer PASS without reading it, and that only 12 of 27 Retell replies were saved. She also found a dead link and claims with no source. The PM re-checked these faults and failed the card. For round 2 the owner chose 3 spot re-asks in Retell (all 3 passed) over a full re-run, and the text was corrected to report only what was seen.
+- **The honest result:** Retell passed 13 of the 14 replies we saved (one gave no email). Our chat passed 21 of 27; every miss was missing contact details. On the same 14 questions: Retell 13, ours 11.
+- **What it means:** Retell's chat agents can't use a custom model, so they can't run our Jev reply check. The demo stays on our own chat, with Retell tried alongside. The long-term host is chosen around 10-29.
+- **Owner decisions:** the board will run on its own. Claude cards will be started by a runner script (T26, now in review), with two more steps in draft. Cards get a new `Needs:` line: no one, and no script, takes a card until the cards it needs are done. The project cap for model calls goes from $2 to $10 total, as a safety net rather than a budget. Jev gets $2 a day inside it, still $0.10 per review.
+- **Spend:** about $0.96 of the $10 project cap for model calls, every paid call logged with its cost. Retell's free credit is counted separately.
+
+### Current limits
+- Neither bot is live. Nothing is hosted yet.
+- The runner (T26) is in review and not yet running cards.
+
+### Next
+- Check T26 and T25. T19 (private real-business demo) and T22 (simple backup chat) are still building; T21 waits on T22. Deadline stays 2026-10-24.
+
 ## 2026-10-07: Website bot passed; Jev reply check passed; hosting chosen; a second reviewer on trial
 
 ### Delivered
