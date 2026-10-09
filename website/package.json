@@ -1,0 +1,23 @@
+{
+  "name": "alpine-wave-website",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "next dev --hostname 127.0.0.1",
+    "build": "next build",
+    "start": "next start --hostname 127.0.0.1",
+    "verify": "node scripts/verify.mjs",
+    "prepare:chat-data": "node scripts/prepare-chat-data.mjs",
+    "predev": "npm run prepare:chat-data",
+    "prebuild": "npm run prepare:chat-data",
+    "prestart": "npm run prepare:chat-data",
+    "preverify": "npm run prepare:chat-data",
+    "test:questions": "node scripts/run-test-questions.mjs"
+  },
+  "dependencies": {
+    "next": "16.3.7",
+    "react": "19.3.0",
+    "react-dom": "19.3.0"
+  }
+}

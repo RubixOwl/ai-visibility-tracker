@@ -1,0 +1,194 @@
+{
+  "version": "1.0.0",
+  "last_updated": "2026-09-30",
+  "description": "Unified single source of truth for Alpine Wave company facts, demo shop data, and Jev guardrail rules.",
+  "company_profile": {
+    "name": "Alpine Wave",
+    "legal_name": "Alpine Wave Studio",
+    "domain": "alpinewave.ca",
+    "phone": "(236) 205-7030",
+    "telephone": "+12362057030",
+    "email": "info@alpinewave.ca",
+    "location": "Okanagan, British Columbia"
+  },
+  "company_faq": [
+    {
+      "id": "company",
+      "label": "Meet Alpine Wave",
+      "question": "What does Alpine Wave do?",
+      "answer": "Alpine Wave is developing website and telephone assistants to help businesses answer routine customer questions. Our first focus is BC ski and snowboard rental and retail businesses. You can try our company FAQ chat here; the telephone assistant is still being set up."
+    },
+    {
+      "id": "website",
+      "label": "Website chat",
+      "question": "What can a website bot help with?",
+      "answer": "The proposed service helps visitors find approved business information, such as opening hours, services and policies, and find the right next step. This company chat answers questions about Alpine Wave. Booking, payments and live inventory are not connected here."
+    },
+    {
+      "id": "fit",
+      "label": "Your business",
+      "question": "I run a ski rental shop. How could this help us?",
+      "answer": "For a ski rental shop, an assistant could explain your approved rental packages, opening hours, pickup instructions and return policies. That is the intended service; a separate winter-shop demonstration is planned. This company chat does not have a real shop’s prices or stock."
+    },
+    {
+      "id": "phone",
+      "label": "Phone assistant",
+      "question": "Can it handle phone calls?",
+      "answer": "Telephone assistants are part of Alpine Wave’s planned service. Our number is (236) 205-7030, but the assistant is still being set up and has not been verified as answering calls. The sample on this page is a scripted illustration."
+    },
+    {
+      "id": "setup",
+      "label": "Getting set up",
+      "question": "What information would you need from me?",
+      "answer": "To scope an assistant, we would start with your business website, the questions customers ask most, and approved answers about your services, opening hours and policies. We would also agree which questions need a person. Please do not put passwords, payment details or private customer information in this chat."
+    },
+    {
+      "id": "integration",
+      "label": "Existing website",
+      "question": "Could it work on my existing website?",
+      "answer": "That is the intended approach, but compatibility needs to be checked against your website platform and setup. We have not confirmed specific website, booking or POS integrations yet. I can explain what information would be useful for that discussion."
+    },
+    {
+      "id": "limits",
+      "label": "Honest answers",
+      "question": "What happens when it does not know?",
+      "answer": "No assistant can promise it will never be wrong. Alpine Wave's assistants answer only from the business's approved information. Client website chat says when it is unsure and offers to redirect the visitor to a person; client phone assistants offer to take a message for staff, with warm transfer where the setup allows. This Alpine Wave chat is not connected to a staff inbox, so it cannot pass your message on. To reach a person here, call (236) 205-7030 or email info@alpinewave.ca."
+    },
+    {
+      "id": "pricing",
+      "label": "Pricing",
+      "question": "How much does it cost?",
+      "answer": "Alpine Wave does not have confirmed pricing to share yet. A price and any setup costs would need to be agreed after the work is scoped. I cannot give a quote or promise a free trial. Call (236) 205-7030 or email info@alpinewave.ca."
+    },
+    {
+      "id": "demo",
+      "label": "Try it",
+      "question": "Can I try a demo?",
+      "answer": "Yes—this company FAQ chat is the first interactive example. Type a company question, ask a supported follow-up, or select one of the question cards. The phone sample is scripted; a separate winter-shop showcase is planned and is not available yet."
+    },
+    {
+      "id": "contact",
+      "label": "Next steps",
+      "question": "How do I get started or speak to a person?",
+      "answer": "A useful first step is to prepare your website address and three questions customers often ask. Call Alpine Wave at (236) 205-7030 or email info@alpinewave.ca; the phone assistant is being set up, and response availability is not confirmed. This chat cannot book a meeting, send a message to staff or arrange a callback."
+    }
+  ],
+  "company_extra_answers": {
+    "privacy": "This version keeps conversation history in the open browser tab. Messages and recent conversation context are sent to this website's chat endpoint, which replies using prepared answers or, when enabled, a model with Alpine Wave's approved information. The application does not store chat transcripts or connect to staff inboxes, bookings, payments or live inventory. Hosting and retention arrangements for a future live service still need to be confirmed. Closing or refreshing the page clears this chat.",
+    "hours": "I do not know Alpine Wave's opening hours or weekend staff availability. Call (236) 205-7030 or email info@alpinewave.ca.",
+    "booking": "This chat cannot make a booking, take payment or check live availability. A future assistant could direct visitors to an approved booking page once that route has been agreed and connected.",
+    "timeline": "I do not have a confirmed customer setup or delivery timeline. That would need to be agreed after reviewing the website, business information and required connections.",
+    "client_information": "Your assistant answers from your business's approved information, including prices, opening hours and policies. If a detail is missing, it says it is not sure and directs the customer to a person at your business instead of guessing.",
+    "client_stock": "Live stock checks require connection to your systems in Tier 3 (Full partner), after system checks. During the free demo and 7-day trial it cannot check live stock and directs the customer to your business.",
+    "client_general": "Your assistant answers from your business's approved information, including prices, opening hours and policies. If a detail is missing, it says it is not sure and directs the customer to a person at your business instead of guessing. Live stock checks require connection to your systems in Tier 3 (Full partner), after system checks. During the free demo and 7-day trial it cannot check live stock and directs the customer to your business. Before booking-system connection it points to your existing booking pages; in Tier 3, once connected, bookings go into your booking tool. Customers use your business's own phone, email, booking pages or staff.",
+    "company_questions": [
+      {
+        "question": "If I call on a Sunday will anyone pick up?",
+        "topic": "hours",
+        "answer": "I do not know Alpine Wave's opening hours or weekend staff availability. Call (236) 205-7030 or email info@alpinewave.ca."
+      },
+      {
+        "question": "What are your opening hours?",
+        "topic": "hours",
+        "answer": "I do not know Alpine Wave's opening hours or weekend staff availability. Call (236) 205-7030 or email info@alpinewave.ca."
+      },
+      {
+        "question": "What's your phone number?",
+        "topic": "contact",
+        "answer": "Call Alpine Wave at (236) 205-7030 or email info@alpinewave.ca."
+      },
+      {
+        "question": "How much do you charge for the phone assistant?",
+        "topic": "pricing",
+        "answer": "Alpine Wave's pricing and setup costs are unconfirmed and agreed after scoping and systems checks. Call (236) 205-7030 or email info@alpinewave.ca."
+      }
+    ]
+  },
+  "business_info": {
+    "name": "Alpine Wave Demo Shop / Everything in the Mountains",
+    "location": "Okanagan, BC",
+    "phone": "(236) 205-7030",
+    "hours": "Open 8:00 AM to 6:00 PM every day in season, stat holidays included.",
+    "workshop_service": {
+      "drop_off_cutoff": "5:00 PM",
+      "standard_ready": "8:00 AM the next morning",
+      "rush_tunes": "Approximately 2 hours"
+    },
+    "rentals": {
+      "early_pickup": "Complimentary early pickup is available between 4:00 PM and 6:30 PM the night before so guests can head straight to the lift in the morning.",
+      "day_rate_starting": "$52 per day",
+      "booking_requirement": "Reservations available online ahead of time."
+    },
+    "tours_and_weather": {
+      "cold_weather_cutoff": "-25°C. Tours run down to -25°C. Heated grips and full winter suits supplied.",
+      "trail_closure": "If weather closes the trail, reschedule for free or receive a full refund.",
+      "air_quality": "If Air Quality Health Index (AQHI) reaches 7 or higher, outdoor activities can be rescheduled or cancelled with full credit at guest discretion.",
+      "lake_cruise_attire": "Layers recommended. Breezes off the water cool quickly once the sun dips behind the ridge."
+    },
+    "policies": {
+      "waivers": "All guests under 19 in British Columbia require a parent or legal guardian signature on the online digital waiver prior to departure.",
+      "cancellations": "Cancel or change up to 48 hours prior to departure for a full refund with zero penalty fees, subject to winery or activity availability."
+    }
+  },
+  "escalation_rules": [
+    {
+      "id": "large_group_booking",
+      "trigger_keywords": [
+        "group",
+        "corporate",
+        "private trip",
+        "wedding"
+      ],
+      "rule": "Groups of 10 or more must be passed to a manager. The bot must not quote custom group rates or confirm group bookings directly.",
+      "required_action": "HAND_OFF_TO_STAFF",
+      "override_message": "Groups of 10 or more are arranged directly by our manager. What is the best phone number or email to reach you?"
+    },
+    {
+      "id": "custom_catering",
+      "trigger_keywords": [
+        "catering",
+        "custom package",
+        "private chef",
+        "corporate dinner"
+      ],
+      "rule": "Custom packages and catering requests must be escalated to human staff.",
+      "required_action": "HAND_OFF_TO_STAFF",
+      "override_message": "Custom packages and catering are handled directly by our team. I will pass your details to our manager—what's the best number to reach you?"
+    },
+    {
+      "id": "medical_or_safety_advice",
+      "trigger_keywords": [
+        "injury",
+        "concussion",
+        "medical",
+        "pregnant",
+        "heart condition",
+        "avalanche rescue"
+      ],
+      "rule": "Bot must never provide medical or personalized backcountry avalanche safety clearance.",
+      "required_action": "HAND_OFF_TO_STAFF",
+      "override_message": "For safety and medical considerations, please speak directly with our certified guides and safety coordinators."
+    }
+  ],
+  "refusal_rules": [
+    {
+      "id": "unverified_forecasts",
+      "subject": "weather_forecast",
+      "trigger_keywords": [
+        "will it snow",
+        "how much snow",
+        "powder forecast",
+        "rain tomorrow",
+        "weekend weather"
+      ],
+      "rule": "Bot must not guess meteorological forecasts not contained in approved data. It must state it does not have live forecasts.",
+      "compliant_response_pattern": "I don't have weather forecasts in our verified information, so I won't guess."
+    },
+    {
+      "id": "pricing_and_discounts",
+      "subject": "unauthorized_pricing",
+      "rule": "Bot must never invent discounts, promo codes, or unlisted rates.",
+      "compliant_response_pattern": "We don't have fixed rates for that in our verified info."
+    }
+  ]
+}
