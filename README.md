@@ -4,6 +4,19 @@ Website and telephone assistants for tourism, rental, and activity businesses th
 
 Repository name `ai-visibility-tracker` is retained from earlier project discovery.
 
+**Live pages:** https://rubixowl.github.io/ai-visibility-tracker/
+
+| Folder | What it is |
+|---|---|
+| `website/` | Alpine Wave's company site (Next.js) and its chat bot: page, chat API, answer logic and check scripts |
+| `Jev Bot/` | Jev reply-check scripts (`Alpine Wave Script/`: guardrail and test suite) and parts of a local docs-search bot |
+| `data/` | Bot data: Alpine Wave's test questions, and the made-up showcase shop's catalogue (Excel master, JSON export, generator) |
+| `shop-showcase/` | Everything in the Mountains, a made-up ski and bike shop page used as a showcase |
+| `Alpine Wave/archive.mjs` | Board script: moves the files a passed card replaced into the archive; never deletes |
+| `docs/` | The GitHub Pages previews (platform page, ski shop showcase, walkthrough video, dashboard) |
+
+A few files stay private for now because they hold local paths or names: the Alpine Wave services data file (`alpine-wave-services.json`, which the website chat reads), the board check-in script, the blank card, and the docs-search bot's builder. So the website will not run from this repo alone yet.
+
 > 📊 **Live Community Dashboard & Spend Ledger:**  
 > [**Open the Interactive Build Navigator & Spend Ledger →**](https://rubixowl.github.io/ai-visibility-tracker/dashboard.html)  
 > *(Track cards across the line, explore the system mind map, read real voice call transcripts, and audit AI token spend)*
@@ -83,7 +96,7 @@ Static, client-side demonstration previews are available via GitHub Pages:
 
 ## What Is in This Repository
 
-The `.gitignore` is an allow-list, so only the files below are public. The application code, data masters, task cards and each model's Ideas folder stay in the private working copy and a private backup repository.
+The `.gitignore` is an allow-list, so only the files below are public. Task cards, PM notes, the private real-business demo and each model's Ideas folder stay in the private working copy and a private backup repository.
 
 | Path | What it is |
 |---|---|
@@ -94,6 +107,11 @@ The `.gitignore` is an allow-list, so only the files below are public. The appli
 | `CONTRIBUTING.md` | Feedback guidance |
 | `DISCOVERY-2026-09-27.md` | Earlier niche discovery (historical) |
 | `docs/` | Static GitHub Pages previews: platform page, ski shop showcase, walkthrough video |
+| `website/` | Company site and chat bot code (Next.js) |
+| `Jev Bot/` | Jev reply-check scripts and docs-search bot parts |
+| `data/alpine-wave/`, `data/everything-in-the-mountains/` | Test questions and the made-up showcase shop's data |
+| `shop-showcase/` | The made-up showcase shop page |
+| `Alpine Wave/archive.mjs` | Board archive script |
 
 ---
 
