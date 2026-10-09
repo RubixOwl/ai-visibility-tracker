@@ -13,6 +13,65 @@
 # Before adding application folders, review their contents and extend this list.
 # Never force-add internal notes or secrets to bypass this policy.
 
+# Build code (T21, 2026-10-08). Each folder was scanned before it was added.
+# website/: the Alpine Wave Next.js site and its chat bot.
+!/website/
+/website/node_modules/
+/website/.next/
+/website/Open Alpine Wave local website.txt
+# Left out until fixed by a card: source labels name the owner.
+/website/lib/alpine-wave-services.json
+# website/scripts/: only the working check and test tools. Round-by-round card records,
+# hand-in scripts, "before" copies and result files stay private.
+/website/scripts/*
+!/website/scripts/prepare-chat-data.mjs
+!/website/scripts/verify.mjs
+!/website/scripts/verify-model-guards.mjs
+!/website/scripts/t11-round7-guards.mjs
+!/website/scripts/t22-guards.mjs
+!/website/scripts/run-test-questions.mjs
+!/website/scripts/start-chat-test-server.mjs
+!/website/scripts/trace-test-results.mjs
+!/website/scripts/check-t11-proxy.mjs
+
+# Jev Bot/: only the listed scripts and the Alpine Wave Script folder.
+!/Jev Bot/
+/Jev Bot/*
+!/Jev Bot/server.py
+!/Jev Bot/verify*.py
+!/Jev Bot/verify*.js
+!/Jev Bot/Alpine Wave Script/
+# Left out: local machine paths in these files (the top-level Jev Bot README.md,
+# build.py and template.html stay out for the same reason).
+/Jev Bot/Alpine Wave Script/HLKHI.txt
+/Jev Bot/Alpine Wave Script/README.md
+/Jev Bot/Alpine Wave Script/proxy_smoke_test.py
+
+# data/: Alpine Wave's own facts and the made-up showcase shop only.
+!/data/
+/data/*
+!/data/alpine-wave/
+!/data/everything-in-the-mountains/
+# Left out until fixed by a card: source labels name the owner.
+/data/alpine-wave/alpine-wave-services.json
+
+# shop-showcase/: the made-up showcase shop page.
+!/shop-showcase/
+# Left out: local path, private folder name and owner name.
+/shop-showcase/README.md
+
+# Alpine Wave/: the archive board script only. check-in.mjs (local path, owner name)
+# and card-template.md (owner name) are left out until fixed by a card.
+!/Alpine Wave/
+/Alpine Wave/*
+!/Alpine Wave/archive.mjs
+
+# Build output and caches, anywhere.
+node_modules/
+.next/
+__pycache__/
+*.pyc
+
 # Hard exclusions apply even when public code folders are added later.
 **/store/
 *.db
