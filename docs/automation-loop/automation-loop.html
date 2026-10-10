@@ -1,0 +1,2583 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Alpine Wave — Autonomous Card Movement & Gantry Factory</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-dark: #07090e;
+      --bg-card: rgba(15, 23, 42, 0.78);
+      --bg-card-hover: rgba(26, 38, 66, 0.95);
+      --border-subtle: rgba(56, 189, 248, 0.15);
+      --border-glow: rgba(56, 189, 248, 0.5);
+      --cyan-neon: #00f0ff;
+      --cyan-glow: rgba(0, 240, 255, 0.4);
+      --emerald-neon: #10b981;
+      --emerald-glow: rgba(16, 185, 129, 0.4);
+      --amber-neon: #f59e0b;
+      --amber-glow: rgba(245, 158, 11, 0.4);
+      --rose-neon: #f43f5e;
+      --rose-glow: rgba(244, 63, 94, 0.4);
+      --purple-neon: #a855f7;
+      --purple-glow: rgba(168, 85, 247, 0.4);
+      --text-main: #f1f5f9;
+      --text-muted: #94a3b8;
+      --text-dim: #64748b;
+      --font-ui: 'Outfit', sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      background-image: 
+        radial-gradient(circle at 50% 0%, rgba(14, 165, 233, 0.12) 0%, transparent 60%),
+        radial-gradient(circle at 100% 100%, rgba(168, 85, 247, 0.08) 0%, transparent 50%),
+        linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+      background-size: 100% 100%, 100% 100%, 36px 36px, 36px 36px;
+      color: var(--text-main);
+      font-family: var(--font-ui);
+      min-height: 100vh;
+      overflow-x: hidden;
+      display: flex;
+      flex-direction: column;
+      user-select: none;
+    }
+
+    /* TOP HEADER */
+    header {
+      padding: 14px 28px;
+      background: rgba(10, 15, 26, 0.88);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border-subtle);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 60;
+    }
+
+    .brand-section {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .brand-logo {
+      width: 40px;
+      height: 40px;
+      background: linear-gradient(135deg, #0284c7, #06b6d4);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 20px rgba(6, 182, 212, 0.4);
+    }
+
+    .brand-logo svg {
+      width: 22px;
+      height: 22px;
+      fill: none;
+      stroke: #fff;
+      stroke-width: 2;
+    }
+
+    .brand-text h1 {
+      font-size: 17px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .brand-text h1 span.accent {
+      color: var(--cyan-neon);
+      text-shadow: 0 0 12px var(--cyan-glow);
+    }
+
+    .brand-text p {
+      font-size: 11px;
+      color: var(--text-muted);
+      font-family: var(--font-mono);
+    }
+
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-family: var(--font-mono);
+      font-weight: 600;
+      background: rgba(16, 185, 129, 0.12);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      color: var(--emerald-neon);
+    }
+
+    .status-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--emerald-neon);
+      box-shadow: 0 0 8px var(--emerald-neon);
+      animation: pulse-dot 1.5s infinite alternate;
+    }
+
+    @keyframes pulse-dot {
+      0% { transform: scale(0.8); opacity: 0.6; }
+      100% { transform: scale(1.3); opacity: 1; }
+    }
+
+    /* CONTROLS */
+    .controls {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .btn {
+      padding: 7px 14px;
+      border-radius: 8px;
+      font-family: var(--font-ui);
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      border: 1px solid transparent;
+      outline: none;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #0284c7, #0369a1);
+      color: #fff;
+      box-shadow: 0 0 16px rgba(2, 132, 199, 0.3);
+    }
+
+    .btn-primary:hover {
+      background: linear-gradient(135deg, #0ea5e9, #0284c7);
+      box-shadow: 0 0 24px rgba(14, 165, 233, 0.5);
+      transform: translateY(-1px);
+    }
+
+    .btn-secondary {
+      background: rgba(30, 41, 59, 0.7);
+      color: var(--text-main);
+      border-color: var(--border-subtle);
+    }
+
+    .btn-secondary:hover {
+      background: rgba(51, 65, 85, 0.9);
+      border-color: var(--border-glow);
+    }
+
+    .speed-select {
+      background: rgba(15, 23, 42, 0.8);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-main);
+      padding: 6px 10px;
+      border-radius: 8px;
+      font-size: 11px;
+      font-family: var(--font-mono);
+      outline: none;
+      cursor: pointer;
+    }
+
+    /* PLAYBOOK / ACTION TOOLBAR */
+    .action-strip {
+      background: rgba(15, 23, 42, 0.7);
+      border-bottom: 1px solid var(--border-subtle);
+      padding: 8px 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      overflow-x: auto;
+    }
+
+    .action-group {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .action-title {
+      font-size: 11px;
+      font-family: var(--font-mono);
+      color: var(--cyan-neon);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-right: 4px;
+    }
+
+    .action-btn {
+      font-size: 11px;
+      font-family: var(--font-mono);
+      padding: 5px 11px;
+      border-radius: 6px;
+      background: rgba(30, 41, 59, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      color: var(--text-muted);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+    }
+
+    .action-btn:hover {
+      background: rgba(56, 189, 248, 0.18);
+      border-color: var(--cyan-neon);
+      color: #fff;
+      transform: translateY(-1px);
+    }
+
+    .action-btn.danger:hover {
+      background: rgba(244, 63, 94, 0.18);
+      border-color: var(--rose-neon);
+    }
+
+    .action-btn.success:hover {
+      background: rgba(16, 185, 129, 0.18);
+      border-color: var(--emerald-neon);
+    }
+
+    /* BOARD CANVAS & OVERHEAD GANTRY CRANE */
+    .factory-area {
+      flex: 1;
+      padding: 24px 28px 180px 28px;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    /* PHYSICAL OVERHEAD GANTRY SYSTEM */
+    .gantry-track {
+      position: relative;
+      height: 38px;
+      background: rgba(15, 23, 42, 0.5);
+      border: 1px solid var(--border-subtle);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      padding: 0 10px;
+      margin-bottom: 4px;
+      box-shadow: inset 0 2px 8px rgba(0,0,0,0.4);
+    }
+
+    .gantry-rail {
+      width: 100%;
+      height: 4px;
+      background: linear-gradient(90deg, #1e293b, var(--cyan-neon), #1e293b);
+      border-radius: 2px;
+      box-shadow: 0 0 10px var(--cyan-glow);
+      position: relative;
+    }
+
+    .robotic-crane {
+      position: absolute;
+      top: -14px;
+      left: 10%;
+      width: 64px;
+      height: 44px;
+      transform: translateX(-50%);
+      transition: left 1.2s cubic-bezier(0.25, 1, 0.5, 1);
+      z-index: 40;
+      pointer-events: none;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .crane-head {
+      width: 48px;
+      height: 18px;
+      background: linear-gradient(180deg, #38bdf8, #0284c7);
+      border-radius: 6px;
+      box-shadow: 0 0 15px var(--cyan-neon);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 9px;
+      font-family: var(--font-mono);
+      font-weight: 700;
+      color: #000;
+    }
+
+    .crane-cable {
+      width: 2px;
+      height: 14px;
+      background: #00f0ff;
+      box-shadow: 0 0 6px #00f0ff;
+      transition: height 0.4s ease;
+    }
+
+    .crane-claw {
+      width: 32px;
+      height: 8px;
+      border-left: 3px solid var(--cyan-neon);
+      border-right: 3px solid var(--cyan-neon);
+      border-bottom: 2px solid var(--cyan-neon);
+      box-shadow: 0 0 10px var(--cyan-glow);
+      border-radius: 0 0 4px 4px;
+    }
+
+    .crane-laser-beam {
+      position: absolute;
+      top: 36px;
+      width: 200px;
+      height: 380px;
+      background: linear-gradient(180deg, rgba(0, 240, 255, 0.25) 0%, transparent 100%);
+      clip-path: polygon(45% 0%, 55% 0%, 100% 100%, 0% 100%);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      pointer-events: none;
+    }
+
+    .robotic-crane.scanning .crane-laser-beam {
+      opacity: 1;
+      animation: laser-sweep 1s infinite alternate;
+    }
+
+    .crane-laser-beam.laser-red {
+      background: linear-gradient(180deg, rgba(244, 63, 94, 0.75) 0%, rgba(244, 63, 94, 0.25) 70%, transparent 100%) !important;
+      filter: drop-shadow(0 0 25px rgba(244, 63, 94, 0.9)) !important;
+      opacity: 1 !important;
+      animation: laser-sweep-red 0.4s infinite alternate !important;
+    }
+
+    .crane-laser-beam.laser-green {
+      background: linear-gradient(180deg, rgba(16, 185, 129, 0.75) 0%, rgba(16, 185, 129, 0.25) 70%, transparent 100%) !important;
+      filter: drop-shadow(0 0 25px rgba(16, 185, 129, 0.9)) !important;
+      opacity: 1 !important;
+      animation: laser-sweep 0.7s infinite alternate !important;
+    }
+
+    @keyframes laser-sweep-red {
+      0% { opacity: 0.6; filter: hue-rotate(-10deg); }
+      100% { opacity: 1; filter: hue-rotate(15deg); }
+    }
+
+    @keyframes laser-sweep {
+      0% { opacity: 0.3; }
+      100% { opacity: 0.8; filter: hue-rotate(40deg); }
+    }
+
+    /* KANBAN GRID */
+    .kanban-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 18px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .column {
+      background: var(--bg-card);
+      border-radius: 12px;
+      border: 1px solid var(--border-subtle);
+      padding: 16px;
+      backdrop-filter: blur(12px);
+      display: flex;
+      flex-direction: column;
+      min-height: 480px;
+      position: relative;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .column.drop-target {
+      border-color: var(--cyan-neon);
+      box-shadow: 0 0 25px rgba(0, 240, 255, 0.2);
+    }
+
+    .col-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 12px;
+      margin-bottom: 12px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .col-title {
+      font-size: 13px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .col-count {
+      background: rgba(255, 255, 255, 0.08);
+      font-size: 11px;
+      font-family: var(--font-mono);
+      padding: 2px 7px;
+      border-radius: 10px;
+      color: var(--text-muted);
+    }
+
+    .cards-container {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      flex: 1;
+      position: relative;
+    }
+
+    /* CARD STYLING */
+    .card {
+      background: rgba(26, 38, 66, 0.65);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 10px;
+      padding: 13px;
+      cursor: pointer;
+      position: relative;
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease, border-color 0.3s ease, opacity 0.3s ease;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+    }
+
+    .card:hover {
+      transform: translateY(-3px) scale(1.01);
+      border-color: var(--border-glow);
+      background: var(--bg-card-hover);
+      box-shadow: 0 10px 25px rgba(0, 240, 255, 0.2);
+    }
+
+    /* FLYING / TRANSIT CLONE ELEMENT */
+    .flying-card-proxy {
+      position: fixed;
+      width: 250px;
+      z-index: 100;
+      pointer-events: none;
+      transition: all 1.1s cubic-bezier(0.2, 0.9, 0.3, 1);
+      transform: scale(1.08) rotate(2deg);
+      box-shadow: 0 25px 50px rgba(0, 240, 255, 0.4), 0 0 20px var(--cyan-neon);
+      border: 2px solid var(--cyan-neon) !important;
+      background: rgba(13, 27, 62, 0.95) !important;
+      border-radius: 10px;
+    }
+
+    .card.picked-up-placeholder {
+      opacity: 0.15;
+      border-style: dashed;
+      transform: scale(0.96);
+    }
+
+    .card.scanned-now {
+      animation: card-scan-glow 1s infinite alternate;
+    }
+
+    @keyframes card-scan-glow {
+      0% { box-shadow: 0 0 10px var(--amber-neon); border-color: var(--amber-neon); }
+      100% { box-shadow: 0 0 25px var(--cyan-neon); border-color: var(--cyan-neon); }
+    }
+
+    /* RED FLASH & DEFECT STYLES */
+    @keyframes card-red-flash-anim {
+      0% {
+        background: rgba(244, 63, 94, 0.3);
+        border-color: #f43f5e;
+        box-shadow: 0 0 25px rgba(244, 63, 94, 0.8), inset 0 0 15px rgba(244, 63, 94, 0.4);
+        transform: scale(1.02);
+      }
+      50% {
+        background: rgba(244, 63, 94, 0.7);
+        border-color: #ffffff;
+        box-shadow: 0 0 50px rgba(244, 63, 94, 1), 0 0 25px #ffffff, inset 0 0 35px rgba(244, 63, 94, 0.9);
+        transform: scale(1.06);
+      }
+      100% {
+        background: rgba(244, 63, 94, 0.3);
+        border-color: #f43f5e;
+        box-shadow: 0 0 25px rgba(244, 63, 94, 0.8), inset 0 0 15px rgba(244, 63, 94, 0.4);
+        transform: scale(1.02);
+      }
+    }
+
+    .card.card-flash-red {
+      animation: card-red-flash-anim 0.3s ease-in-out infinite alternate !important;
+      border: 2px solid #f43f5e !important;
+      z-index: 15 !important;
+    }
+
+    .flying-card-proxy.rebound-red {
+      border: 2px solid #f43f5e !important;
+      box-shadow: 0 25px 65px rgba(244, 63, 94, 0.85), 0 0 35px #f43f5e !important;
+      background: rgba(45, 10, 24, 0.98) !important;
+      animation: card-red-flash-anim 0.35s ease-in-out infinite alternate !important;
+    }
+
+    .qc-defect-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #f43f5e;
+      color: #fff;
+      font-size: 10px;
+      font-family: var(--font-mono);
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 4px;
+      margin-bottom: 7px;
+      box-shadow: 0 0 16px rgba(244, 63, 94, 0.9);
+      animation: pulse-dot 0.5s infinite alternate;
+    }
+
+    /* VERIFIED 4-DONE VICTORY STYLES */
+    @keyframes card-green-victory {
+      0% {
+        background: rgba(16, 185, 129, 0.35);
+        border-color: #10b981;
+        box-shadow: 0 0 30px rgba(16, 185, 129, 0.85);
+        transform: scale(1.04);
+      }
+      50% {
+        background: rgba(16, 185, 129, 0.7);
+        border-color: #ffffff;
+        box-shadow: 0 0 55px rgba(16, 185, 129, 1), 0 0 30px #ffffff;
+        transform: scale(1.07);
+      }
+      100% {
+        background: rgba(16, 185, 129, 0.25);
+        border-color: #10b981;
+        box-shadow: 0 0 20px rgba(16, 185, 129, 0.5);
+        transform: scale(1);
+      }
+    }
+
+    .card.card-verified-victory {
+      animation: card-green-victory 1.4s ease-out forwards !important;
+      border: 2px solid #10b981 !important;
+    }
+
+    .flying-card-proxy.verified-green {
+      border: 2px solid #10b981 !important;
+      box-shadow: 0 25px 65px rgba(16, 185, 129, 0.85), 0 0 35px #10b981 !important;
+      background: rgba(10, 40, 28, 0.98) !important;
+    }
+
+    .card-id-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 7px;
+    }
+
+    .card-id {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--cyan-neon);
+    }
+
+    .card-model-badge {
+      font-size: 9px;
+      font-family: var(--font-mono);
+      font-weight: 600;
+      padding: 2px 6px;
+      border-radius: 4px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .model-opus-high { color: #f43f5e; border-color: rgba(244, 63, 94, 0.3); background: rgba(244, 63, 94, 0.1); }
+    .model-opus-med { color: #a855f7; border-color: rgba(168, 85, 247, 0.3); background: rgba(168, 85, 247, 0.1); }
+    .model-sonnet-low { color: #38bdf8; border-color: rgba(56, 189, 248, 0.3); background: rgba(56, 189, 248, 0.1); }
+    .model-gemini-flash { color: #10b981; border-color: rgba(16, 185, 129, 0.3); background: rgba(16, 185, 129, 0.1); }
+
+    .card-title {
+      font-size: 12px;
+      font-weight: 600;
+      color: #fff;
+      line-height: 1.35;
+      margin-bottom: 6px;
+    }
+
+    .card-objective {
+      font-size: 11px;
+      color: var(--text-muted);
+      line-height: 1.35;
+      margin-bottom: 8px;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .card-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 7px;
+      border-top: 1px solid rgba(255, 255, 255, 0.04);
+      font-size: 10px;
+      font-family: var(--font-mono);
+      color: var(--text-dim);
+    }
+
+    .card-actions-quick {
+      display: flex;
+      gap: 4px;
+      margin-top: 8px;
+      padding-top: 6px;
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .card-actions-quick button {
+      flex: 1;
+      padding: 3px 0;
+      font-size: 9px;
+      font-family: var(--font-mono);
+      font-weight: 600;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: var(--text-muted);
+      border-radius: 4px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .card-actions-quick button:hover {
+      background: rgba(56, 189, 248, 0.2);
+      border-color: var(--cyan-neon);
+      color: #fff;
+    }
+
+    /* SPECIAL ORBIT PODS */
+    .orbit-strip {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 18px;
+      z-index: 2;
+    }
+
+    .special-pod {
+      border-radius: 12px;
+      padding: 16px;
+      backdrop-filter: blur(12px);
+      position: relative;
+      border: 1px solid;
+    }
+
+    .pod-decision {
+      background: rgba(244, 63, 94, 0.05);
+      border-color: rgba(244, 63, 94, 0.25);
+    }
+
+    .pod-decision.alert-mode {
+      animation: alert-pulse 1.8s infinite alternate;
+      border-color: var(--rose-neon);
+      box-shadow: 0 0 30px var(--rose-glow);
+    }
+
+    @keyframes alert-pulse {
+      0% { background: rgba(244, 63, 94, 0.05); }
+      100% { background: rgba(244, 63, 94, 0.14); }
+    }
+
+    .pod-learning {
+      background: rgba(168, 85, 247, 0.05);
+      border-color: rgba(168, 85, 247, 0.25);
+    }
+
+    .pod-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .pod-title {
+      font-size: 13px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* TELEMETRY FEED */
+    .bottom-section {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 18px;
+    }
+
+    .terminal-box {
+      background: rgba(9, 13, 23, 0.9);
+      border: 1px solid var(--border-subtle);
+      border-radius: 10px;
+      padding: 14px;
+      height: 200px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .terminal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 6px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    .terminal-logs {
+      flex: 1;
+      overflow-y: auto;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      line-height: 1.5;
+      padding-top: 8px;
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+
+    .log-line { display: flex; gap: 8px; }
+    .log-time { color: var(--text-dim); }
+    .tag-crane { color: var(--cyan-neon); font-weight: 700; }
+    .tag-review { color: var(--amber-neon); font-weight: 700; }
+    .tag-pass { color: var(--emerald-neon); font-weight: 700; }
+    .tag-fail { color: var(--rose-neon); font-weight: 700; }
+    .tag-owner { color: #f43f5e; font-weight: 700; }
+
+    .fleet-box {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 10px;
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .fleet-title {
+      font-size: 11px;
+      font-family: var(--font-mono);
+      color: var(--text-muted);
+      text-transform: uppercase;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .model-meter {
+      height: 5px;
+      background: rgba(255, 255, 255, 0.06);
+      border-radius: 3px;
+      overflow: hidden;
+      margin-top: 3px;
+    }
+
+    .meter-fill { height: 100%; border-radius: 3px; transition: width 0.5s ease; }
+
+    /* MODAL */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.78);
+      backdrop-filter: blur(8px);
+      z-index: 120;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .modal-content {
+      background: #0d1322;
+      border: 1px solid var(--border-glow);
+      border-radius: 14px;
+      max-width: 600px;
+      width: 100%;
+      padding: 22px;
+      box-shadow: 0 0 50px rgba(0, 240, 255, 0.25);
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      position: relative;
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      font-size: 20px;
+      cursor: pointer;
+    }
+
+    .spec-block {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 8px;
+      padding: 8px 12px;
+    }
+
+    .spec-label {
+      font-size: 10px;
+      font-family: var(--font-mono);
+      color: var(--cyan-neon);
+      text-transform: uppercase;
+      font-weight: 700;
+      margin-bottom: 3px;
+    }
+
+    /* =====================================================================
+       TELEPROMPTER & SYNCHRONIZED SUBTITLES HUD
+    ===================================================================== */
+    .column.teleprompter-focus, .special-pod.teleprompter-focus {
+      border-color: var(--cyan-neon) !important;
+      box-shadow: 0 0 30px rgba(0, 240, 255, 0.45), inset 0 0 15px rgba(0, 240, 255, 0.15) !important;
+      transform: translateY(-2px);
+      transition: all 0.3s ease;
+    }
+
+    .teleprompter-dock {
+      position: fixed;
+      bottom: 18px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: min(95%, 1160px);
+      background: rgba(9, 14, 26, 0.96);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border: 1px solid var(--cyan-neon);
+      border-radius: 16px;
+      box-shadow: 0 15px 50px rgba(0, 0, 0, 0.8), 0 0 35px rgba(0, 240, 255, 0.3);
+      z-index: 110;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
+    }
+
+    .teleprompter-dock.minimized {
+      transform: translateX(-50%) translateY(calc(100% - 44px));
+      opacity: 0.92;
+    }
+
+    .teleprompter-progress-track {
+      width: 100%;
+      height: 4px;
+      background: rgba(255, 255, 255, 0.08);
+      position: relative;
+    }
+
+    .teleprompter-progress-bar {
+      height: 100%;
+      background: linear-gradient(90deg, var(--cyan-neon), var(--purple-neon));
+      width: 12.5%;
+      box-shadow: 0 0 10px var(--cyan-glow);
+      transition: width 0.4s ease;
+    }
+
+    .teleprompter-top-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 9px 20px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+      background: rgba(15, 23, 42, 0.7);
+      cursor: pointer;
+    }
+
+    .teleprompter-badge-group {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .teleprompter-tag {
+      font-size: 11px;
+      font-family: var(--font-mono);
+      font-weight: 700;
+      color: var(--cyan-neon);
+      background: rgba(0, 240, 255, 0.12);
+      border: 1px solid rgba(0, 240, 255, 0.35);
+      padding: 3px 8px;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .teleprompter-step-indicator {
+      font-size: 11px;
+      font-family: var(--font-mono);
+      color: var(--text-muted);
+    }
+
+    .teleprompter-action-cue {
+      font-size: 11px;
+      font-family: var(--font-mono);
+      color: var(--amber-neon);
+      background: rgba(245, 158, 11, 0.12);
+      border: 1px solid rgba(245, 158, 11, 0.35);
+      padding: 2px 8px;
+      border-radius: 6px;
+      max-width: 380px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .teleprompter-controls {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .t-btn {
+      background: rgba(30, 41, 59, 0.7);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: #fff;
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 11px;
+      font-family: var(--font-ui);
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      transition: all 0.2s ease;
+      outline: none;
+    }
+
+    .t-btn:hover {
+      background: rgba(56, 189, 248, 0.22);
+      border-color: var(--cyan-neon);
+      transform: translateY(-1px);
+    }
+
+    .t-btn.primary {
+      background: linear-gradient(135deg, #0284c7, #0369a1);
+      border-color: var(--cyan-neon);
+      box-shadow: 0 0 12px rgba(2, 132, 199, 0.4);
+    }
+
+    .teleprompter-body {
+      padding: 16px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .teleprompter-speech {
+      font-size: 20px;
+      line-height: 1.48;
+      font-weight: 600;
+      color: #ffffff;
+      letter-spacing: -0.015em;
+      text-shadow: 0 2px 12px rgba(0, 0, 0, 0.7);
+    }
+
+    .teleprompter-speech.large-mode {
+      font-size: 24px;
+      line-height: 1.42;
+    }
+
+    .teleprompter-speech mark {
+      background: rgba(0, 240, 255, 0.2);
+      color: var(--cyan-neon);
+      padding: 1px 4px;
+      border-radius: 4px;
+    }
+
+    .teleprompter-footer-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 8px;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .teleprompter-next-preview {
+      font-size: 12px;
+      color: var(--text-dim);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-family: var(--font-mono);
+    }
+
+    .teleprompter-key-hints {
+      font-size: 11px;
+      color: var(--text-dim);
+      font-family: var(--font-mono);
+      display: flex;
+      gap: 12px;
+    }
+
+    .teleprompter-key-hints kbd {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 4px;
+      padding: 1px 5px;
+      color: var(--text-muted);
+    }
+
+    /* =====================================================================
+       STORY CARD — the explainer card that rewrites itself at every stage
+    ===================================================================== */
+    body.story-mode .cards-container .card:not(.hero-card) {
+      opacity: 0.22;
+      filter: grayscale(0.7);
+    }
+
+    .card.hero-card {
+      border: 2px solid var(--cyan-neon);
+      background: rgba(13, 27, 62, 0.96);
+      box-shadow: 0 0 22px rgba(0, 240, 255, 0.35), 0 10px 25px rgba(0, 0, 0, 0.4);
+      z-index: 5;
+      order: -1;
+    }
+    .card.hero-card:hover { transform: none; }
+    .card.hero-card.hc-owner { border-color: #f43f5e; box-shadow: 0 0 26px rgba(244, 63, 94, 0.45); }
+    .card.hero-card.hc-done { border-color: #10b981; }
+
+    .hc-pill-row { display: flex; justify-content: space-between; align-items: center; gap: 6px; margin-bottom: 8px; }
+    .hc-pill {
+      font-family: var(--font-mono); font-size: 9px; font-weight: 700; letter-spacing: 0.5px;
+      padding: 3px 8px; border-radius: 999px; color: #000; background: var(--cyan-neon);
+    }
+    .hc-pill.amber { background: var(--amber-neon); }
+    .hc-pill.purple { background: var(--purple-neon); color: #fff; }
+    .hc-pill.red { background: var(--rose-neon); color: #fff; }
+    .hc-pill.green { background: var(--emerald-neon); color: #000; }
+    .hc-who { font-family: var(--font-mono); font-size: 9px; color: var(--text-muted); text-align: right; }
+    .hc-head { font-size: 14px; font-weight: 700; color: #fff; line-height: 1.25; margin-bottom: 8px; }
+    .hc-body { font-size: 11px; color: #cbd5e1; line-height: 1.45; display: flex; flex-direction: column; gap: 5px; }
+    .hc-body b { color: #fff; }
+    .hc-label { font-family: var(--font-mono); font-size: 9px; color: var(--cyan-neon); letter-spacing: 0.6px; text-transform: uppercase; }
+    .hc-row { display: flex; gap: 6px; align-items: flex-start; }
+    .hc-row .hc-ico { flex: 0 0 14px; text-align: center; }
+    .hc-field { border-left: 2px solid rgba(0, 240, 255, 0.35); padding-left: 7px; }
+
+    .hc-step { opacity: 0; animation: hc-in 0.35s ease forwards; }
+    @keyframes hc-in { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
+
+    .hc-model {
+      display: flex; justify-content: space-between; align-items: center;
+      font-family: var(--font-mono); font-size: 10px;
+      padding: 4px 6px; border-radius: 5px; border: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(255, 255, 255, 0.03);
+    }
+    .hc-model.picked { border-color: var(--cyan-neon); background: rgba(0, 240, 255, 0.1); box-shadow: 0 0 10px rgba(0, 240, 255, 0.25); }
+    .hc-effort { font-size: 9px; padding: 1px 5px; border-radius: 3px; background: rgba(255, 255, 255, 0.08); }
+
+    .hc-progress { height: 6px; border-radius: 3px; background: rgba(255, 255, 255, 0.08); overflow: hidden; margin-top: 4px; }
+    .hc-progress > div { height: 100%; width: 0; background: linear-gradient(90deg, var(--cyan-neon), var(--emerald-neon)); animation: hc-fill 6s linear forwards; }
+    @keyframes hc-fill { to { width: 100%; } }
+
+    .hc-score-wrap { margin-top: 2px; }
+    .hc-score-num { font-family: var(--font-mono); font-size: 26px; font-weight: 700; line-height: 1; }
+    .hc-score-bar { position: relative; height: 10px; border-radius: 5px; background: rgba(255, 255, 255, 0.08); margin-top: 6px; overflow: visible; }
+    .hc-score-bar .fill { height: 100%; border-radius: 5px; background: var(--amber-neon); transition: width 0.12s linear; }
+    .hc-score-bar .mark { position: absolute; top: -4px; bottom: -4px; width: 2px; background: #fff; box-shadow: 0 0 6px #fff; }
+    .hc-score-bar .mark span { position: absolute; top: -15px; left: -14px; font-family: var(--font-mono); font-size: 9px; color: #fff; white-space: nowrap; }
+
+    .hc-big-fail { font-size: 22px; font-weight: 800; color: #fff; letter-spacing: 1px; text-shadow: 0 0 14px #f43f5e; }
+    .hc-big-done { font-size: 20px; font-weight: 800; color: #fff; letter-spacing: 0.5px; text-shadow: 0 0 14px #10b981; }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <div class="brand-section">
+      <div class="brand-logo">
+        <svg viewBox="0 0 24 24"><path d="M4 18L10 6L14 14L16 10L20 18H4Z"/></svg>
+      </div>
+      <div class="brand-text">
+        <h1>ALPINE WAVE <span class="accent">// ROBOTIC CARD CONVEYOR</span></h1>
+        <p>Live Physical Movement Engine • Alpine Wave/line</p>
+      </div>
+      <div class="status-badge" id="circuit-status">
+        <span class="status-dot"></span>
+        <span id="circuit-status-text">AUTONOMOUS DISPATCH ACTIVE</span>
+      </div>
+    </div>
+
+    <div class="controls">
+      <button class="btn btn-primary" id="btn-teleprompter-toggle" onclick="toggleTeleprompter()" style="background: linear-gradient(135deg, #0ea5e9, #a855f7); box-shadow: 0 0 18px rgba(168, 85, 247, 0.4);">
+        <svg width="14" height="14" fill="currentColor" viewBox="0 0 16 16"><path d="M5 3a3 3 0 0 1 6 0v5a3 3 0 0 1-6 0V3z"/><path d="M3.5 6.5A.5.5 0 0 1 4 7v1a4 4 0 0 0 8 0V7a.5.5 0 0 1 1 0v1a5 5 0 0 1-4.5 4.975V15h3a.5.5 0 0 1 0 1h-7a.5.5 0 0 1 0-1h3v-2.025A5 5 0 0 1 3.5 8V7a.5.5 0 0 1 .5-.5z"/></svg>
+        <span id="teleprompter-btn-text">Readout Script & Subtitles</span>
+      </button>
+
+      <button class="btn btn-primary" id="btn-toggle-auto" onclick="toggleAutoTransit()">
+        <svg width="14" height="14" fill="currentColor" viewBox="0 0 16 16"><path d="m11.596 8.697-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393z"/></svg>
+        <span id="auto-text">Pause Conveyor</span>
+      </button>
+
+      <button class="btn btn-secondary" id="btn-sound" onclick="toggleAudio()">
+        <svg width="14" height="14" fill="currentColor" viewBox="0 0 16 16"><path d="M11.536 14.01A8.473 8.473 0 0 0 14.026 8a8.473 8.473 0 0 0-2.49-6.01l-.708.707A7.476 7.476 0 0 1 13.025 8c0 2.071-.84 3.946-2.197 5.303l.708.707z"/><path d="M10.121 12.596A6.48 6.48 0 0 0 12.025 8a6.48 6.48 0 0 0-1.904-4.596l-.707.707A5.482 5.482 0 0 1 11.025 8a5.482 5.482 0 0 1-1.61 3.89l.706.706z"/><path d="M8.707 11.182A4.486 4.486 0 0 0 10.025 8a4.486 4.486 0 0 0-1.318-3.182L8 5.525A3.489 3.489 0 0 1 9.025 8 3.49 3.49 0 0 1 8 10.475l.707.707zM6.717 3.55A.5.5 0 0 1 7 4v8a.5.5 0 0 1-.812.39L3.825 10.5H1.5A.5.5 0 0 1 1 10V6a.5.5 0 0 1 .5-.5h2.325l2.363-1.89a.5.5 0 0 1 .529-.06z"/></svg>
+        <span>Audio SFX: <b id="sound-label">OFF</b></span>
+      </button>
+
+      <select class="speed-select" id="transit-speed" onchange="changeSpeed(this.value)">
+        <option value="1">Transit Speed: 1x</option>
+        <option value="2" selected>Transit Speed: 2x (Active)</option>
+        <option value="3">Transit Speed: 3x (Fast)</option>
+      </select>
+    </div>
+  </header>
+
+  <!-- ACTION & RULE TRIGGER STRIP -->
+  <div class="action-strip">
+    <div class="action-group">
+      <span class="action-title">Manual Crane Joystick:</span>
+      <button class="action-btn" onclick="cranePickAndMove('0-draft', '1-todo')">🤖 Pick Draft → Todo</button>
+      <button class="action-btn" onclick="cranePickAndMove('1-todo', '2-building')">⚡ Builder Takes Card</button>
+      <button class="action-btn" onclick="cranePickAndMove('2-building', '3-review')">📦 Hand in to Review</button>
+      <button class="action-btn success" onclick="triggerGatekeeperPass()">✅ Gatekeeper PASS</button>
+      <button class="action-btn danger" onclick="triggerGatekeeperFail()">↺ Gatekeeper FAIL Rebound</button>
+      <button class="action-btn danger" onclick="triggerTwoFailEscalation()">🚨 2x Fail → Owner Check</button>
+      <button class="action-btn success" onclick="triggerOwnerUnblock()">🔓 Owner Unblocks</button>
+      <button class="action-btn success" style="background: rgba(16, 185, 129, 0.2); border-color: var(--emerald-neon); color: #fff;" onclick="triggerAct8FinalDelivery()">🌟 Full Delivery → 4-Done</button>
+    </div>
+  </div>
+
+  <!-- MAIN FACTORY & KANBAN -->
+  <div class="factory-area" id="factory-root">
+    
+    <!-- OVERHEAD GANTRY TRACK -->
+    <div class="gantry-track" id="gantry-track">
+      <div class="gantry-rail">
+        <div class="robotic-crane" id="crane">
+          <div class="crane-head">AGV-01</div>
+          <div class="crane-cable" id="crane-cable"></div>
+          <div class="crane-claw"></div>
+          <div class="crane-laser-beam" id="crane-beam"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 5 PRODUCTION LINE COLUMNS -->
+    <div class="kanban-grid">
+      
+      <!-- 0-DRAFT -->
+      <div class="column" id="col-0-draft" data-col="0-draft">
+        <div class="col-header">
+          <div class="col-title">
+            <span>0-DRAFT (PLAN)</span>
+          </div>
+          <span class="col-count" id="count-draft">0</span>
+        </div>
+        <div class="cards-container" id="container-0-draft"></div>
+      </div>
+
+      <!-- 1-TODO -->
+      <div class="column" id="col-1-todo" data-col="1-todo">
+        <div class="col-header">
+          <div class="col-title">
+            <span>1-TODO (PICKUP)</span>
+          </div>
+          <span class="col-count" id="count-todo">0</span>
+        </div>
+        <div class="cards-container" id="container-1-todo"></div>
+      </div>
+
+      <!-- 2-BUILDING -->
+      <div class="column" id="col-2-building" data-col="2-building">
+        <div class="col-header">
+          <div class="col-title">
+            <span>2-BUILDING (FABRICATE)</span>
+          </div>
+          <span class="col-count" id="count-building">0</span>
+        </div>
+        <div class="cards-container" id="container-2-building"></div>
+      </div>
+
+      <!-- 3-REVIEW -->
+      <div class="column" id="col-3-review" data-col="3-review">
+        <div class="col-header">
+          <div class="col-title">
+            <span>3-REVIEW (QC GATE)</span>
+          </div>
+          <span class="col-count" id="count-review">0</span>
+        </div>
+        <div class="cards-container" id="container-3-review"></div>
+      </div>
+
+      <!-- 4-DONE -->
+      <div class="column" id="col-4-done" data-col="4-done">
+        <div class="col-header">
+          <div class="col-title">
+            <span>4-DONE (VERIFIED)</span>
+          </div>
+          <span class="col-count" id="count-done">0</span>
+        </div>
+        <div class="cards-container" id="container-4-done"></div>
+      </div>
+
+    </div>
+
+    <!-- SPECIAL STATIONS -->
+    <div class="orbit-strip">
+      
+      <!-- OWNER CHECK DECISIONS -->
+      <div class="special-pod pod-decision" id="pod-owner-decisions">
+        <div class="pod-header">
+          <div class="pod-title">
+            <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+            <span>OWNER'S STATION · CHECK DECISIONS</span>
+          </div>
+          <button class="action-btn success" onclick="triggerOwnerUnblock()">🔓 Resolve & Resume</button>
+        </div>
+        <p style="font-size: 11px; color: var(--text-muted); margin-bottom: 10px;">
+          When a card fails review, the line stops and the card comes here. The owner reads why the criteria were not met and sets the new scope.
+        </p>
+        <div class="cards-container" id="container-owner-decision"></div>
+      </div>
+
+      <!-- LEARNING LOOP -->
+      <div class="special-pod pod-learning" id="pod-learning-loop">
+        <div class="pod-header">
+          <div class="pod-title">
+            <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+            <span>ADAPTIVE LEARNING LOOP (line/Learning Loop/fails.md)</span>
+          </div>
+          <span class="card-model-badge" style="color:var(--purple-neon)">Self-Streamlining</span>
+        </div>
+        <div style="font-family: var(--font-mono); font-size: 11px; display: flex; flex-direction: column; gap: 6px;" id="fails-list">
+          <div style="display:flex; justify-content:space-between; border-bottom:1px solid rgba(255,255,255,0.06); padding-bottom:4px;">
+            <span style="color:var(--text-muted)">T22 Round 1 Fail</span>
+            <span style="color:var(--rose-neon)">Missing exact source entries</span>
+          </div>
+          <div style="display:flex; justify-content:space-between; border-bottom:1px solid rgba(255,255,255,0.06); padding-bottom:4px;">
+            <span style="color:var(--text-muted)">T26 Round 1 Block</span>
+            <span style="color:var(--amber-neon)">PowerShell allow-rule format mismatch</span>
+          </div>
+          <div style="display:flex; justify-content:space-between;">
+            <span style="color:var(--text-muted)">T11 Round 1-8 Fails</span>
+            <span style="color:var(--emerald-neon)">Price hallucination blocked by facts</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- TELEMETRY & FLEET STATUS -->
+    <div class="bottom-section">
+      <div class="terminal-box">
+        <div class="terminal-header">
+          <span>// REAL-TIME CRANE & RUNNER TELEMETRY</span>
+          <span style="color:var(--cyan-neon)">Alpine Wave/line</span>
+        </div>
+        <div class="terminal-logs" id="terminal-feed"></div>
+      </div>
+
+      <div class="fleet-box">
+        <div class="fleet-title">
+          <span>AI Model Load</span>
+          <span style="color:var(--emerald-neon)">runner.mjs</span>
+        </div>
+        <div>
+          <div style="display:flex; justify-content:space-between; font-size:11px; font-family:var(--font-mono)">
+            <span style="color:#f43f5e">Claude Opus High</span><span>50%</span>
+          </div>
+          <div class="model-meter"><div class="meter-fill" style="width:50%; background:#f43f5e"></div></div>
+        </div>
+        <div>
+          <div style="display:flex; justify-content:space-between; font-size:11px; font-family:var(--font-mono)">
+            <span style="color:#a855f7">Claude Opus Med (Gatekeeper)</span><span>85%</span>
+          </div>
+          <div class="model-meter"><div class="meter-fill" style="width:85%; background:#a855f7"></div></div>
+        </div>
+        <div>
+          <div style="display:flex; justify-content:space-between; font-size:11px; font-family:var(--font-mono)">
+            <span style="color:#38bdf8">Claude Sonnet Low</span><span>25%</span>
+          </div>
+          <div class="model-meter"><div class="meter-fill" style="width:25%; background:#38bdf8"></div></div>
+        </div>
+        <div>
+          <div style="display:flex; justify-content:space-between; font-size:11px; font-family:var(--font-mono)">
+            <span style="color:#10b981">Gemini 3.8 Flash</span><span>60%</span>
+          </div>
+          <div class="model-meter"><div class="meter-fill" style="width:60%; background:#10b981"></div></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- MODAL -->
+  <div class="modal-overlay" id="card-modal" onclick="closeModal(event)">
+    <div class="modal-content" onclick="event.stopPropagation()">
+      <button class="modal-close" onclick="closeModal()">&times;</button>
+      <div style="display:flex; align-items:center; gap:8px;">
+        <span class="card-id" id="modal-card-id" style="font-size:14px;">T##</span>
+        <span class="card-model-badge" id="modal-model-badge">MODEL</span>
+        <span id="modal-stage-badge" style="font-size:10px; font-family:var(--font-mono); color:var(--cyan-neon)">STAGE</span>
+      </div>
+      <h2 id="modal-title" style="font-size:17px; font-weight:700;">Card Title</h2>
+      <div class="spec-block">
+        <div class="spec-label">1. Objective & Purpose</div>
+        <div id="modal-objective" style="font-size:12px; line-height:1.5;"></div>
+      </div>
+      <div class="spec-block">
+        <div class="spec-label">2. The "Why" & Business Value</div>
+        <div id="modal-why" style="font-size:12px; line-height:1.5;"></div>
+      </div>
+      <div class="spec-block">
+        <div class="spec-label">3. Acceptance Proof</div>
+        <div id="modal-achievement" style="font-size:12px; line-height:1.5;"></div>
+      </div>
+      <div class="spec-block">
+        <div class="spec-label">4. Quality Control</div>
+        <div id="modal-review-notes" style="font-size:12px; line-height:1.5;"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SYNCHRONIZED TELEPROMPTER & SUBTITLES DOCK -->
+  <div class="teleprompter-dock" id="teleprompter-dock">
+    <div class="teleprompter-progress-track">
+      <div class="teleprompter-progress-bar" id="teleprompter-progress"></div>
+    </div>
+    <div class="teleprompter-top-row" onclick="toggleTeleprompterMin()">
+      <div class="teleprompter-badge-group">
+        <span class="teleprompter-tag">
+          <svg width="12" height="12" fill="currentColor" viewBox="0 0 16 16"><path d="M5 3a3 3 0 0 1 6 0v5a3 3 0 0 1-6 0V3z"/><path d="M3.5 6.5A.5.5 0 0 1 4 7v1a4 4 0 0 0 8 0V7a.5.5 0 0 1 1 0v1a5 5 0 0 1-4.5 4.975V15h3a.5.5 0 0 1 0 1h-7a.5.5 0 0 1 0-1h3v-2.025A5 5 0 0 1 3.5 8V7a.5.5 0 0 1 .5-.5z"/></svg>
+          LIVE NARRATION
+        </span>
+        <span class="teleprompter-step-indicator" id="teleprompter-step-indicator">STEP 1 OF 10 · DRAFT · OWNER SETS THE CRITERIA</span>
+        <span class="teleprompter-action-cue" id="teleprompter-cue">Cue: Robotic Gantry AGV sweeps the line</span>
+      </div>
+      <div class="teleprompter-controls" onclick="event.stopPropagation()">
+        <button class="t-btn" id="t-btn-prev" onclick="teleprompterPrev()" title="Previous line (Left Arrow)">◀ Prev</button>
+        <button class="t-btn primary" id="t-btn-play" onclick="toggleTeleprompterPlay()" title="Play / Pause Auto-Advance (Space)">⏸ Auto-Sync</button>
+        <button class="t-btn" id="t-btn-next" onclick="teleprompterNext()" title="Next line (Right Arrow)">Next ▶</button>
+        <button class="t-btn" id="t-btn-size" onclick="toggleTeleprompterFontSize()" title="Toggle larger text size">Aa</button>
+        <button class="t-btn" onclick="toggleTeleprompterMin()" title="Minimize / Expand">_</button>
+        <button class="t-btn" onclick="toggleTeleprompter()" title="Close subtitles">✕</button>
+      </div>
+    </div>
+    <div class="teleprompter-body" id="teleprompter-body">
+      <div class="teleprompter-speech" id="teleprompter-speech-text">
+        Welcome to the Alpine Wave Autonomous Production Line. What you're seeing here is our robotic card gantry, AGV-01, physically driving real work across our multi-agent AI development circuit in real time.
+      </div>
+      <div class="teleprompter-footer-row">
+        <div class="teleprompter-next-preview" id="teleprompter-next-preview">
+          <span>Up Next:</span> <span>Stage 0 to 1: From Drafting to Builder Pickup...</span>
+        </div>
+        <div class="teleprompter-key-hints">
+          <span><kbd>Space</kbd> Play/Pause</span>
+          <span><kbd>→</kbd> Next Line</span>
+          <span><kbd>←</kbd> Prev Line</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    /* =====================================================================
+       REAL CARDS FROM Alpine Wave/line
+    ===================================================================== */
+    let isAutoTransit = true;
+    let transitSpeedMultiplier = 2;
+    let audioEnabled = false;
+    let audioCtx = null;
+    let isCraneBusy = false;
+
+    // Real card inventory directly from the project line
+    let cards = [
+      {
+        id: "D-auto-second-check",
+        title: "Runner step 3: second check, escalations & learning loop",
+        col: "0-draft",
+        model: "Claude Opus 5.5 · High",
+        modelClass: "model-opus-high",
+        builder: "Claude",
+        objective: "Runner starts a second check on cards that passed review. It passes them to 4-done or returns them to build.",
+        why: "Owner's plan from Time to automate 1.md steps 7, 9, 10, 11.",
+        achievement: "Second check confirms the Gatekeeper + Jev verdicts and guarantees builders never self-approve.",
+        failCount: 0,
+        reviewNotes: "Outline in 0-draft. Awaiting release to 1-todo."
+      },
+      {
+        id: "T09",
+        title: "Rules update for John & advisory reviewers",
+        col: "0-draft",
+        model: "Codex · GPT-6.1 · Med",
+        modelClass: "model-opus-med",
+        builder: "Codex",
+        objective: "Update AGENTS.md and team briefs with John's advisory unpausing rules.",
+        why: "Provides second advisory reviewer option alongside the Gatekeeper.",
+        achievement: "Clean rule diff verified without breaking current PM gates.",
+        failCount: 0,
+        reviewNotes: "In draft."
+      },
+      {
+        id: "T28",
+        title: "Make T21's left-out files safe to publish, then publish them",
+        col: "1-todo",
+        model: "Any · Sonnet 5.5 · Low",
+        modelClass: "model-sonnet-low",
+        builder: "open",
+        objective: "Swap local paths for placeholders (__PROJECT_DIR__) and owner name for 'the owner'.",
+        why: "Ensures the challenge judges can run the public repo without missing file errors.",
+        achievement: "Privacy scan returns 0 matches, all files clean on public template gate.",
+        failCount: 0,
+        reviewNotes: "Waiting for builder pickup from 1-todo."
+      },
+      {
+        id: "T19",
+        title: "Real-business website chat demo (T11 bot on real facts)",
+        col: "2-building",
+        model: "Claude Opus 5.5 · High",
+        modelClass: "model-opus-high",
+        builder: "Claude",
+        objective: "Connect Jev Bot reply-check to private website demo using real business facts.",
+        why: "7-day shadow trial must start by 10-17; demo must be ready by 10-14.",
+        achievement: "Passes 0.67 guardrail threshold on all 5 adversarial test batches.",
+        failCount: 0,
+        reviewNotes: "Active build in progress. Re-tuned on batches 1-5."
+      },
+      {
+        id: "T25",
+        title: "Gatekeeper + Jev trial review: what's working, what to change",
+        col: "3-review",
+        model: "Gemini 3.8 Flash · Med",
+        modelClass: "model-gemini-flash",
+        builder: "Gemini",
+        objective: "Evaluate all 8 Gatekeeper review rounds against the final card decisions.",
+        why: "Ensures the Gatekeeper and Jev QC gates deliver 100% defect catching without budget waste.",
+        achievement: "Research report delivered covering all 6 card questions; recommendation: KEEP TRIAL.",
+        failCount: 0,
+        reviewNotes: "Built and handed in by Gemini. Ready for review."
+      },
+      {
+        id: "T29",
+        title: "Auto Gatekeeper review & automatic fail rebound",
+        col: "4-done",
+        model: "Claude Opus 5.5 · Med",
+        modelClass: "model-opus-med",
+        builder: "Claude",
+        objective: "Runner starts the Gatekeeper headless; first fail rebounds to builder; two fails escalate to the owner.",
+        why: "Fully automates the review-and-rework loop.",
+        achievement: "PASSED 10-09. Live runner verified.",
+        failCount: 0,
+        reviewNotes: "Passed and stamped."
+      },
+      {
+        id: "T24",
+        title: "Retell chat widget vs our own chat compare",
+        col: "4-done",
+        model: "Gemini 3.8 Flash · Med",
+        modelClass: "model-gemini-flash",
+        builder: "Gemini",
+        objective: "Compare Retell browser voice and web chat widget against our custom Vercel chat.",
+        why: "Guides voice and web chat architecture for Stage 3.",
+        achievement: "PASSED 10-08 (Round 2).",
+        failCount: 0,
+        reviewNotes: "Verified with live test logs."
+      },
+      {
+        id: "T22",
+        title: "Simple chat backup with model path guards",
+        col: "4-done",
+        model: "Codex · GPT-6.1 · Med",
+        modelClass: "model-opus-med",
+        builder: "Codex",
+        objective: "Provide reliable fallback chat component with hardened model path guards.",
+        why: "Ensures UI resilience during LLM provider rate limits.",
+        achievement: "PASSED 10-09.",
+        failCount: 1,
+        reviewNotes: "Round 1 failed review; fixed in Round 2 and passed."
+      },
+      {
+        // THE STORY CARD — walks the line and rewrites itself to explain each stage
+        id: "STORY",
+        hero: true,
+        stage: "draft",
+        jevShown: 0,
+        title: "Ski shop website chat bot",
+        col: "0-draft",
+        model: "Claude Opus 5.5 · High",
+        modelClass: "model-opus-high",
+        builder: "Claude",
+        objective: "Website chat bot that answers a ski rental shop's visitors from the shop's real facts.",
+        why: "Questions that go unanswered after hours are rentals the shop never sees.",
+        achievement: "A bot the shop can trust with real customers — every answer backed by its own facts.",
+        failCount: 0,
+        reviewNotes: "This card explains the factory line. Watch it change as it moves."
+      }
+    ];
+
+    function boardCards() { return cards.filter(c => !c.hero); }
+    const storyCard = () => cards.find(c => c.hero);
+    let storyMode = true;
+
+    /* What the story card says at each stage of the line */
+    const STORY_CRITERIA = [
+      "Answers only from the shop's real facts",
+      "No made-up prices or opening hours",
+      "Jev score of 0.67 or higher"
+    ];
+
+    function storyScoreBlock(card, passMark) {
+      const v = card.jevShown || 0;
+      const colour = v >= passMark ? 'var(--emerald-neon)' : (v > 0.55 ? 'var(--amber-neon)' : 'var(--rose-neon)');
+      return `
+        <div class="hc-score-wrap">
+          <div class="hc-label">Jev score</div>
+          <div class="hc-score-num" id="hc-score-num" style="color:${colour}">${v.toFixed(2)}</div>
+          <div class="hc-score-bar">
+            <div class="fill" id="hc-score-fill" style="width:${v * 100}%; background:${colour}"></div>
+            <div class="mark" style="left:${passMark * 100}%"><span>pass ${passMark}</span></div>
+          </div>
+        </div>`;
+    }
+
+    function storyCardHTML(card) {
+      const step = (html, i) => `<div class="hc-step" style="animation-delay:${0.15 + i * 0.35}s">${html}</div>`;
+      const crit = (ico, i, extra = '') => STORY_CRITERIA.map((c, n) =>
+        step(`<div class="hc-row"><span class="hc-ico">${typeof ico === 'function' ? ico(n) : ico}</span><span>${c}${extra}</span></div>`, i + n)).join('');
+
+      switch (card.stage) {
+        case 'draft': return `
+          <div class="hc-pill-row"><span class="hc-pill">0 · DRAFT</span><span class="hc-who">OWNER · PM</span></div>
+          <div class="hc-head">The owner sets the criteria</div>
+          <div class="hc-body">
+            ${step('<div class="hc-label">What we want to achieve</div>', 0)}
+            ${crit('◻', 1)}
+          </div>`;
+
+        case 'todo': return `
+          <div class="hc-pill-row"><span class="hc-pill">1 · TODO</span><span class="hc-who">READY TO BUILD</span></div>
+          <div class="hc-head">${card.title}</div>
+          <div class="hc-body">
+            ${step('<div class="hc-field"><div class="hc-label">Objective</div>Build a website chat bot for a ski rental shop.</div>', 0)}
+            ${step('<div class="hc-field"><div class="hc-label">Purpose</div>Answer visitors 24/7 from the shop\'s own facts.</div>', 1)}
+            ${step('<div class="hc-field"><div class="hc-label">Why</div>Unanswered questions after hours are lost rentals.</div>', 2)}
+            ${step('<div class="hc-field"><div class="hc-label">What it will achieve</div>A bot the shop can trust with real customers.</div>', 3)}
+          </div>`;
+
+        case 'build-models': {
+          const models = [
+            ['Claude Opus 5.5', 'High', '#f43f5e', true],
+            ['Codex GPT-6.1', 'Med', '#a855f7', false],
+            ['Gemini 3.8 Flash', 'Med', '#10b981', false],
+            ['Claude Sonnet 5.5', 'Low', '#38bdf8', false]
+          ];
+          return `
+          <div class="hc-pill-row"><span class="hc-pill purple">2 · BUILDING</span><span class="hc-who">BUILDER PICKS UP</span></div>
+          <div class="hc-head">Pick the model &amp; effort</div>
+          <div class="hc-body">
+            ${models.map(([m, e, col, picked], i) => step(
+              `<div class="hc-model${picked ? ' picked' : ''}"><span style="color:${col}">${picked ? '✓ ' : ''}${m}</span><span class="hc-effort">${e} effort</span></div>`, i)).join('')}
+            ${step('<div style="font-size:10px;color:var(--text-muted)">Hard job → strongest model, high effort. Small job → light model, low effort.</div>', 4)}
+          </div>`;
+        }
+
+        case 'build-exec': return `
+          <div class="hc-pill-row"><span class="hc-pill purple">2 · BUILDING</span><span class="hc-who">CLAUDE OPUS · HIGH</span></div>
+          <div class="hc-head">Executing the task criteria</div>
+          <div class="hc-body">
+            ${crit(n => n < 2 ? '<span style="color:var(--emerald-neon)">✓</span>' : '⚙', 0)}
+            ${step('<div class="hc-progress"><div></div></div>', 3)}
+            ${step('<div style="font-size:10px;color:var(--text-muted)">Builder works to the criteria, then hands it in. It can never pass its own work.</div>', 4)}
+          </div>`;
+
+        case 'review-check': return `
+          <div class="hc-pill-row"><span class="hc-pill amber">3 · REVIEW</span><span class="hc-who">REVIEW GATEKEEPER</span></div>
+          <div class="hc-head">Gatekeeper checks the card's criteria</div>
+          <div class="hc-body">
+            ${step('<div class="hc-label">Checking each line</div>', 0)}
+            ${crit('🔍', 1, ' …')}
+            ${step('<div style="font-size:10px;color:var(--text-muted)">Fresh evidence, not the builder\'s word.</div>', 4)}
+          </div>`;
+
+        case 'review-jev': return `
+          <div class="hc-pill-row"><span class="hc-pill amber">3 · REVIEW</span><span class="hc-who">GATEKEEPER → JEV</span></div>
+          <div class="hc-head">Gatekeeper calls Jev to score the card</div>
+          <div class="hc-body">
+            ${storyScoreBlock(card, 0.67)}
+            ${step('<div style="font-size:10px;color:var(--text-muted)">Jev tests the bot\'s replies against the shop\'s facts.</div>', 1)}
+          </div>`;
+
+        case 'fail': return `
+          <div class="hc-pill-row"><span class="hc-pill red">✕ FAIL</span><span class="hc-who">REVIEW GATEKEEPER</span></div>
+          <div class="hc-big-fail">FAIL</div>
+          <div class="hc-head" style="margin-top:4px">Did not meet criteria</div>
+          <div class="hc-body">
+            <div class="hc-row"><span class="hc-ico">✕</span><span>Jev score <b>0.48</b> — pass mark is 0.67</span></div>
+          </div>`;
+
+        case 'owner': return `
+          <div class="hc-pill-row"><span class="hc-pill red">OWNER'S STATION</span><span class="hc-who">LINE STOPPED</span></div>
+          <div class="hc-head">Criteria not met</div>
+          <div class="hc-body">
+            ${step('<div class="hc-field" style="border-color:#f43f5e"><div class="hc-label" style="color:#f43f5e">Because</div>Jev scored <b>0.48</b>, so criteria not met.</div>', 0)}
+            ${step('<div class="hc-field"><div class="hc-label">The owner sets the new scope</div>Prices only from the shop\'s price list. If the bot isn\'t sure, it hands the visitor to staff.</div>', 1)}
+          </div>`;
+
+        case 'review-rescope': return `
+          <div class="hc-pill-row"><span class="hc-pill amber">3 · REVIEW · ROUND 2</span><span class="hc-who">GATEKEEPER</span></div>
+          <div class="hc-head">Card reads the new scope</div>
+          <div class="hc-body">
+            ${step('<div class="hc-field"><div class="hc-label">New scope of plan</div>Prices only from the shop\'s price list. Unsure → hand to staff.</div>', 0)}
+            ${crit('✓', 1)}
+            ${storyScoreBlock(card, 0.67)}
+          </div>`;
+
+        case 'done': return `
+          <div class="hc-pill-row"><span class="hc-pill green">4 · DONE</span><span class="hc-who">VERIFIED</span></div>
+          <div class="hc-big-done">COMPLETE</div>
+          <div class="hc-head" style="margin-top:4px">Criteria met</div>
+          <div class="hc-body">
+            ${crit('<span style="color:var(--emerald-neon)">✓</span>', 0)}
+            ${step('<div class="hc-row"><span class="hc-ico" style="color:var(--emerald-neon)">✓</span><span>Jev score <b>0.84</b> (pass 0.67)</span></div>', 3)}
+          </div>`;
+      }
+      return '';
+    }
+
+    function storyCardClass(stage) {
+      if (stage === 'fail') return ' card-flash-red';
+      if (stage === 'owner') return ' hc-owner';
+      if (stage === 'done') return ' hc-done card-verified-victory';
+      return '';
+    }
+
+    /* Counts Jev's score up on the story card */
+    let scoreTimer = null;
+    function animateJevScore(target, passMark = 0.67) {
+      clearInterval(scoreTimer);
+      const card = storyCard();
+      card.jevShown = 0;
+      scoreTimer = setInterval(() => {
+        card.jevShown = Math.min(target, +(card.jevShown + 0.02).toFixed(2));
+        const v = card.jevShown;
+        const colour = v >= passMark ? 'var(--emerald-neon)' : (v > 0.55 ? 'var(--amber-neon)' : 'var(--rose-neon)');
+        const num = document.getElementById('hc-score-num');
+        const fill = document.getElementById('hc-score-fill');
+        if (num) { num.innerText = v.toFixed(2); num.style.color = colour; }
+        if (fill) { fill.style.width = `${v * 100}%`; fill.style.background = colour; }
+        if (v >= target) clearInterval(scoreTimer);
+      }, 60);
+    }
+
+    /* =====================================================================
+       AUDIO SYNTHESIS
+    ===================================================================== */
+    function initAudio() {
+      if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      if (audioCtx.state === 'suspended') audioCtx.resume();
+    }
+
+    function playTone(freq, type, duration, vol = 0.08) {
+      if (!audioEnabled || !audioCtx) return;
+      try {
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = type;
+        osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+        gain.gain.setValueAtTime(vol, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + duration);
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start();
+        osc.stop(audioCtx.currentTime + duration);
+      } catch (e) {}
+    }
+
+    function sfxWhirr() {
+      if (!audioEnabled || !audioCtx) return;
+      playTone(180, 'triangle', 0.4, 0.04);
+      setTimeout(() => playTone(240, 'triangle', 0.4, 0.04), 100);
+    }
+    function sfxClaw() { playTone(480, 'sine', 0.12, 0.08); }
+    function sfxLaser() { playTone(880, 'sawtooth', 0.25, 0.05); }
+    function sfxPass() {
+      playTone(523, 'triangle', 0.15, 0.07);
+      setTimeout(() => playTone(659, 'triangle', 0.2, 0.07), 80);
+      setTimeout(() => playTone(783, 'sine', 0.35, 0.09), 160);
+    }
+    function sfxFail() {
+      playTone(280, 'sawtooth', 0.2, 0.08);
+      setTimeout(() => playTone(200, 'sawtooth', 0.3, 0.08), 100);
+    }
+    function sfxAlarm() {
+      playTone(600, 'square', 0.15, 0.1);
+      setTimeout(() => playTone(900, 'square', 0.15, 0.1), 120);
+    }
+
+    function toggleAudio() {
+      initAudio();
+      audioEnabled = !audioEnabled;
+      document.getElementById('sound-label').innerText = audioEnabled ? 'ON' : 'OFF';
+      document.getElementById('sound-label').style.color = audioEnabled ? 'var(--cyan-neon)' : 'inherit';
+      if (audioEnabled) sfxPass();
+    }
+
+    /* =====================================================================
+       PHYSICAL GANTRY & CARD MOVEMENT ANIMATION ENGINE
+    ===================================================================== */
+    const colPercentages = {
+      '0-draft': 10,
+      '1-todo': 30,
+      '2-building': 50,
+      '3-review': 70,
+      '4-done': 90,
+      'owner-decision': 30
+    };
+
+    // Bumped whenever a move is cancelled, so stale timers from an old move do nothing
+    let transitGen = 0;
+
+    function cancelTransit() {
+      transitGen++;
+      isCraneBusy = false;
+      clearInterval(scoreTimer);
+      document.querySelectorAll('.flying-card-proxy').forEach(el => el.remove());
+      const crane = document.getElementById('crane');
+      crane.classList.remove('scanning');
+      document.getElementById('crane-beam').classList.remove('laser-red', 'laser-green');
+      document.getElementById('crane-cable').style.height = '14px';
+    }
+
+    function moveCraneTo(columnKey, onArrival) {
+      const crane = document.getElementById('crane');
+      const targetPercent = colPercentages[columnKey] || 50;
+      crane.style.left = `${targetPercent}%`;
+      sfxWhirr();
+
+      const gen = transitGen;
+      const travelTime = 1200 / transitSpeedMultiplier;
+      setTimeout(() => {
+        if (gen !== transitGen) return;
+        if (onArrival) onArrival();
+      }, travelTime);
+    }
+
+    function animateCardTransit(cardId, fromColKey, toColKey, callback, options = {}) {
+      if (isCraneBusy) return;
+      isCraneBusy = true;
+      const gen = transitGen;
+
+      const card = cards.find(c => c.id === cardId);
+      if (!card) { isCraneBusy = false; return; }
+
+      const sourceCardEl = document.getElementById(`card-dom-${card.id}`);
+      if (!sourceCardEl) {
+        card.col = toColKey;
+        renderBoard();
+        isCraneBusy = false;
+        if (callback) callback();
+        return;
+      }
+
+      // Step 1: Move crane above source column
+      logEvent('CRANE', 'tag-crane', `Gantry AGV moving to pick up [${card.id}] from ${fromColKey}`);
+      moveCraneTo(fromColKey, () => {
+        // Step 2: Lower crane cable and clamp
+        const cable = document.getElementById('crane-cable');
+        cable.style.height = "28px";
+        sfxClaw();
+
+        setTimeout(() => {
+          if (gen !== transitGen) return;
+          // Create flying clone overlay
+          const rect = sourceCardEl.getBoundingClientRect();
+          const clone = sourceCardEl.cloneNode(true);
+          clone.className = 'card flying-card-proxy' + (card.hero ? ' hero-card' : '') + (options.isRebound ? ' rebound-red' : '') + (options.isVerified ? ' verified-green' : '');
+          clone.style.top = `${rect.top}px`;
+          clone.style.left = `${rect.left}px`;
+          clone.style.width = `${rect.width}px`;
+          document.body.appendChild(clone);
+
+          sourceCardEl.classList.add('picked-up-placeholder');
+          cable.style.height = "12px"; // lift card up
+
+          // Step 3: Transit crane and card to target column
+          setTimeout(() => {
+            if (gen !== transitGen) return;
+            logEvent('TRANSIT', 'tag-crane', `Autonomous transit of [${card.id}] → ${toColKey}`);
+            moveCraneTo(toColKey, () => {
+              // Calculate target column position
+              const targetColEl = document.getElementById(`col-${toColKey}`) || document.getElementById('pod-owner-decisions');
+              const targetRect = targetColEl.getBoundingClientRect();
+
+              clone.style.top = `${targetRect.top + 70}px`;
+              clone.style.left = `${targetRect.left + 20}px`;
+
+              cable.style.height = "28px"; // lower card into target
+              sfxClaw();
+
+              // Drop card into target column
+              setTimeout(() => {
+                if (gen !== transitGen) return;
+                cable.style.height = "14px";
+                if (clone.parentNode) clone.parentNode.removeChild(clone);
+
+                if (options.onDock) options.onDock();
+                card.col = toColKey;
+                renderBoard();
+
+                if (options.isVerified) {
+                  const finalEl = document.getElementById(`card-dom-${card.id}`);
+                  if (finalEl) finalEl.classList.add('card-verified-victory');
+                }
+
+                isCraneBusy = false;
+                logEvent('DOCKED', 'tag-pass', `[${card.id}] securely docked into ${toColKey}`);
+
+                if (callback) callback();
+              }, 400 / transitSpeedMultiplier);
+
+            });
+
+            // Follow crane position with flying clone
+            const targetColEl = document.getElementById(`col-${toColKey}`) || document.getElementById('pod-owner-decisions');
+            const targetRect = targetColEl.getBoundingClientRect();
+            clone.style.left = `${targetRect.left + 15}px`;
+            clone.style.top = `${rect.top - 40}px`;
+
+          }, 300 / transitSpeedMultiplier);
+
+        }, 300 / transitSpeedMultiplier);
+      });
+    }
+
+    /* =====================================================================
+       AUTOMATION WORKFLOW DISPATCHERS (11 Rules)
+    ===================================================================== */
+    function cranePickAndMove(fromCol, toCol) {
+      if (isCraneBusy) return;
+      const candidate = boardCards().find(c => c.col === fromCol);
+      if (!candidate) {
+        logEvent('SYSTEM', 'tag-crane', `No cards waiting in ${fromCol}`);
+        return;
+      }
+      animateCardTransit(candidate.id, fromCol, toCol);
+    }
+
+    function triggerGatekeeperPass() {
+      if (isCraneBusy) return;
+      let reviewCard = boardCards().find(c => c.col === '3-review');
+      if (!reviewCard) {
+        const candidate = boardCards().find(c => c.col === '2-building') || boardCards().find(c => c.col === '1-todo');
+        if (candidate) {
+          candidate.col = '3-review';
+          renderBoard();
+          reviewCard = candidate;
+        }
+      }
+      if (!reviewCard) {
+        logEvent('SYSTEM', 'tag-review', 'No card in 3-review to scan');
+        return;
+      }
+
+      // Position crane over review and turn on green laser scan
+      moveCraneTo('3-review', () => {
+        const crane = document.getElementById('crane');
+        const craneBeam = document.getElementById('crane-beam');
+        crane.classList.add('scanning');
+        craneBeam.classList.add('laser-green');
+        sfxLaser();
+        logEvent('QC_SCAN', 'tag-review', `Gatekeeper & Jev auditing [${reviewCard.id}]...`);
+
+        setTimeout(() => {
+          crane.classList.remove('scanning');
+          craneBeam.classList.remove('laser-green');
+          sfxPass();
+          logEvent('QC_PASS', 'tag-pass', `[${reviewCard.id}] PASSED Gatekeeper & Jev! Stamped for 4-done.`);
+          
+          animateCardTransit(reviewCard.id, '3-review', '4-done', null, { isVerified: true });
+        }, 1200 / transitSpeedMultiplier);
+      });
+    }
+
+    function triggerGatekeeperFail(callback) {
+      isCraneBusy = false;
+      let reviewCard = boardCards().find(c => c.col === '3-review');
+      if (!reviewCard) {
+        const candidate = boardCards().find(c => c.col === '2-building') || boardCards().find(c => c.col === '1-todo') || boardCards()[0];
+        if (candidate) {
+          candidate.col = '3-review';
+          renderBoard();
+          reviewCard = candidate;
+        }
+      }
+      if (!reviewCard) return;
+
+      highlightColumn('3-review');
+      moveCraneTo('3-review', () => {
+        const crane = document.getElementById('crane');
+        const craneBeam = document.getElementById('crane-beam');
+        crane.classList.add('scanning');
+        craneBeam.classList.remove('laser-red', 'laser-green');
+        sfxLaser();
+        logEvent('QC_SCAN', 'tag-review', `Gatekeeper scanning [${reviewCard.id}] against Done Standards...`);
+
+        setTimeout(() => {
+          // FLASH RED ON BEAM AND CARD
+          craneBeam.classList.add('laser-red');
+          sfxFail();
+          reviewCard.failCount++;
+          logEvent('QC_FAIL', 'tag-fail', `DEFECT FLAGGED on [${reviewCard.id}]! Rebounding backwards to builder.`);
+          addFailRecord(reviewCard.id, `Round ${reviewCard.failCount} Gatekeeper QC gap`);
+
+          const sourceCardEl = document.getElementById(`card-dom-${reviewCard.id}`);
+          if (sourceCardEl) {
+            sourceCardEl.classList.add('card-flash-red');
+            const existingBadge = sourceCardEl.querySelector('.qc-defect-badge');
+            if (!existingBadge) {
+              const badge = document.createElement('div');
+              badge.className = 'qc-defect-badge';
+              badge.innerHTML = `⚠️ DEFECT FLAGGED · REBOUNDING`;
+              sourceCardEl.prepend(badge);
+            }
+          }
+
+          // Pulse red for 1s so the red flash is clearly witnessed
+          setTimeout(() => {
+            crane.classList.remove('scanning');
+            craneBeam.classList.remove('laser-red');
+
+            highlightColumn('2-building');
+            // Crane lifts card and flies it backwards to 2-building
+            animateCardTransit(reviewCard.id, '3-review', '2-building', () => {
+              logEvent('REBOUND', 'tag-fail', `[${reviewCard.id}] safely rebounded to 2-BUILDING for fix.`);
+              if (callback) callback();
+            }, { isRebound: true });
+
+          }, 1000 / transitSpeedMultiplier);
+
+        }, 800 / transitSpeedMultiplier);
+      });
+    }
+
+    function triggerTwoFailEscalation() {
+      isCraneBusy = false;
+      const cardToFail = boardCards().find(c => c.col === '3-review') || boardCards().find(c => c.col === '2-building') || boardCards()[0];
+      if (!cardToFail) return;
+
+      cardToFail.failCount = 2;
+      sfxAlarm();
+      logEvent('ALARM', 'tag-owner', `[${cardToFail.id}] failed review TWICE! Routing to the owner's station.`);
+      
+      animateCardTransit(cardToFail.id, cardToFail.col, 'owner-decision', () => {
+        document.getElementById('pod-owner-decisions').classList.add('alert-mode');
+      });
+    }
+
+    function triggerOwnerUnblock() {
+      isCraneBusy = false;
+      const blocked = boardCards().find(c => c.col === 'owner-decision');
+      if (!blocked) {
+        logEvent('SYSTEM', 'tag-owner', 'No cards currently waiting in Owner Check Decisions');
+        return;
+      }
+
+      sfxPass();
+      blocked.failCount = 0;
+      document.getElementById('pod-owner-decisions').classList.remove('alert-mode');
+      logEvent('OWNER_DECISION', 'tag-pass', `The owner reviewed [${blocked.id}], provided architectural fix. Conveyor resumed!`);
+
+      animateCardTransit(blocked.id, 'owner-decision', '2-building');
+    }
+
+    /* FULL VERIFIED DELIVERY INTO 4-DONE FOR ACT 8 */
+    function triggerAct8FinalDelivery(callback) {
+      isCraneBusy = false;
+
+      // Find the card from Owner Check Decisions, or anywhere on the board
+      let targetCard = boardCards().find(c => c.col === 'owner-decision');
+      let startCol = 'owner-decision';
+
+      if (!targetCard) {
+        targetCard = boardCards().find(c => c.col === '2-building') || boardCards().find(c => c.col === '3-review') || boardCards().find(c => c.col === '1-todo') || boardCards()[0];
+        startCol = targetCard.col;
+      }
+
+      // 1. Owner unblocks
+      targetCard.failCount = 0;
+      document.getElementById('pod-owner-decisions').classList.remove('alert-mode');
+      sfxPass();
+      logEvent('OWNER_DECISION', 'tag-pass', `The owner approved architectural steering for [${targetCard.id}]. Resuming conveyor!`);
+
+      // 2. Crane sweeps to pick up card
+      logEvent('CRANE', 'tag-crane', `Gantry AGV lifting [${targetCard.id}] from ${startCol} for final verification...`);
+      moveCraneTo(startCol, () => {
+        const cable = document.getElementById('crane-cable');
+        cable.style.height = "28px";
+        sfxClaw();
+
+        setTimeout(() => {
+          const sourceCardEl = document.getElementById(`card-dom-${targetCard.id}`);
+          let clone = null;
+          if (sourceCardEl) {
+            const rect = sourceCardEl.getBoundingClientRect();
+            clone = sourceCardEl.cloneNode(true);
+            clone.className = 'card flying-card-proxy';
+            clone.style.top = `${rect.top}px`;
+            clone.style.left = `${rect.left}px`;
+            clone.style.width = `${rect.width}px`;
+            document.body.appendChild(clone);
+            sourceCardEl.classList.add('picked-up-placeholder');
+          }
+          cable.style.height = "12px";
+
+          // 3. Move to 3-review for final QC gate
+          highlightColumn('3-review');
+          moveCraneTo('3-review', () => {
+            targetCard.col = '3-review';
+            renderBoard();
+            if (clone && clone.parentNode) clone.parentNode.removeChild(clone);
+            cable.style.height = "14px";
+
+            // Turn on laser scanner with radiant green beam
+            const crane = document.getElementById('crane');
+            const craneBeam = document.getElementById('crane-beam');
+            crane.classList.add('scanning');
+            craneBeam.classList.add('laser-green');
+            sfxLaser();
+            logEvent('QC_SCAN', 'tag-review', `Gatekeeper & Jev running final Done-Standard verification on [${targetCard.id}]...`);
+
+            setTimeout(() => {
+              sfxPass();
+              crane.classList.remove('scanning');
+              craneBeam.classList.remove('laser-green');
+              logEvent('QC_PASS', 'tag-pass', `[${targetCard.id}] 100% VERIFIED! Stamped for 4-DONE.`);
+
+              // 4. Crane clamps card and delivers directly into 4-DONE!
+              highlightColumn('4-done');
+              animateCardTransit(targetCard.id, '3-review', '4-done', () => {
+                logEvent('VERIFIED', 'tag-pass', `🎉 [${targetCard.id}] OFFICIALLY DOCKED IN 4-DONE (VERIFIED)!`);
+                const finalEl = document.getElementById(`card-dom-${targetCard.id}`);
+                if (finalEl) {
+                  finalEl.classList.add('card-verified-victory');
+                }
+                if (callback) callback();
+              }, { isVerified: true });
+
+            }, 1200 / transitSpeedMultiplier);
+
+          });
+
+        }, 300 / transitSpeedMultiplier);
+      });
+    }
+
+    function addFailRecord(cardId, reason) {
+      const list = document.getElementById('fails-list');
+      const row = document.createElement('div');
+      row.style.cssText = 'display:flex; justify-content:space-between; border-bottom:1px solid rgba(255,255,255,0.06); padding-bottom:4px;';
+      row.innerHTML = `<span style="color:var(--text-muted)">${cardId}</span><span style="color:var(--rose-neon)">${reason}</span>`;
+      list.prepend(row);
+    }
+
+    /* =====================================================================
+       AUTOMATIC IDLE DISPATCHER
+    ===================================================================== */
+    let autoStep = 0;
+    function runAutoStep() {
+      if (!isAutoTransit || isCraneBusy) return;
+
+      autoStep = (autoStep + 1) % 5;
+
+      if (autoStep === 0) {
+        cranePickAndMove('0-draft', '1-todo');
+      } else if (autoStep === 1) {
+        cranePickAndMove('1-todo', '2-building');
+      } else if (autoStep === 2) {
+        cranePickAndMove('2-building', '3-review');
+      } else if (autoStep === 3) {
+        // 70% chance pass, 30% chance fail
+        if (Math.random() > 0.3) {
+          triggerGatekeeperPass();
+        } else {
+          triggerGatekeeperFail();
+        }
+      } else if (autoStep === 4) {
+        const blocked = boardCards().find(c => c.col === 'owner-decision');
+        if (blocked) {
+          triggerOwnerUnblock();
+        } else {
+          // cycle a done card back to draft to keep factory looping indefinitely
+          const done = boardCards().find(c => c.col === '4-done');
+          if (done) {
+            done.col = '0-draft';
+            renderBoard();
+            logEvent('CYCLE', 'tag-crane', `Recycled [${done.id}] into 0-draft for continuous proof of work`);
+          }
+        }
+      }
+    }
+
+    function toggleAutoTransit() {
+      isAutoTransit = !isAutoTransit;
+      document.getElementById('auto-text').innerText = isAutoTransit ? 'Pause Conveyor' : 'Resume Conveyor';
+      document.getElementById('circuit-status-text').innerText = isAutoTransit ? 'AUTONOMOUS DISPATCH ACTIVE' : 'DISPATCH PAUSED';
+      document.getElementById('circuit-status').style.borderColor = isAutoTransit ? 'rgba(16, 185, 129, 0.3)' : 'rgba(245, 158, 11, 0.3)';
+    }
+
+    function changeSpeed(val) {
+      transitSpeedMultiplier = parseFloat(val);
+      logEvent('SYSTEM', 'tag-crane', `Gantry speed calibrated to ${val}x`);
+    }
+
+    /* =====================================================================
+       RENDER CARDS ONTO BOARD
+    ===================================================================== */
+    function renderBoard() {
+      const containers = {
+        '0-draft': document.getElementById('container-0-draft'),
+        '1-todo': document.getElementById('container-1-todo'),
+        '2-building': document.getElementById('container-2-building'),
+        '3-review': document.getElementById('container-3-review'),
+        '4-done': document.getElementById('container-4-done'),
+        'owner-decision': document.getElementById('container-owner-decision')
+      };
+
+      Object.values(containers).forEach(c => c.innerHTML = '');
+      const counts = { '0-draft': 0, '1-todo': 0, '2-building': 0, '3-review': 0, '4-done': 0, 'owner-decision': 0 };
+
+      cards.forEach(card => {
+        const target = containers[card.col];
+        if (!target) return;
+        if (card.hero && !storyMode) return;
+
+        counts[card.col]++;
+
+        const cardEl = document.createElement('div');
+        cardEl.className = 'card';
+        cardEl.id = `card-dom-${card.id}`;
+        cardEl.onclick = () => openModal(card.id);
+
+        if (card.hero) {
+          cardEl.className = 'card hero-card' + storyCardClass(card.stage);
+          cardEl.innerHTML = storyCardHTML(card);
+          target.prepend(cardEl);
+          return;
+        }
+
+        cardEl.innerHTML = `
+          <div class="card-id-row">
+            <span class="card-id">${card.id}</span>
+            <span class="card-model-badge ${card.modelClass}">${card.model}</span>
+          </div>
+          <div class="card-title">${card.title}</div>
+          <div class="card-objective">${card.objective}</div>
+          <div class="card-footer">
+            <span>Builder: <b>${card.builder}</b></span>
+            <span>${card.failCount > 0 ? `<b style="color:var(--rose-neon)">Fails: ${card.failCount}</b>` : `Status: Active`}</span>
+          </div>
+          <div class="card-actions-quick" onclick="event.stopPropagation()">
+            <button onclick="advanceCard('${card.id}')">🚀 Advance</button>
+            <button onclick="failCard('${card.id}')">↺ Rebound</button>
+            <button onclick="escalateCard('${card.id}')">🚨 Escalate</button>
+          </div>
+        `;
+
+        target.appendChild(cardEl);
+      });
+
+      document.getElementById('count-draft').innerText = counts['0-draft'];
+      document.getElementById('count-todo').innerText = counts['1-todo'];
+      document.getElementById('count-building').innerText = counts['2-building'];
+      document.getElementById('count-review').innerText = counts['3-review'];
+      document.getElementById('count-done').innerText = counts['4-done'];
+    }
+
+    function advanceCard(cardId) {
+      const card = cards.find(c => c.id === cardId);
+      if (!card) return;
+      const order = ['0-draft', '1-todo', '2-building', '3-review', '4-done'];
+      const curIdx = order.indexOf(card.col);
+      if (curIdx >= 0 && curIdx < order.length - 1) {
+        animateCardTransit(card.id, card.col, order[curIdx + 1]);
+      } else if (card.col === 'owner-decision') {
+        triggerOwnerUnblock();
+      }
+    }
+
+    function failCard(cardId) {
+      const card = cards.find(c => c.id === cardId);
+      if (!card) return;
+      card.failCount++;
+      addFailRecord(card.id, `Manual trigger fail`);
+      animateCardTransit(card.id, card.col, '2-building');
+    }
+
+    function escalateCard(cardId) {
+      const card = cards.find(c => c.id === cardId);
+      if (!card) return;
+      card.failCount = 2;
+      animateCardTransit(card.id, card.col, 'owner-decision');
+    }
+
+    /* =====================================================================
+       LOGGING & MODAL
+    ===================================================================== */
+    function logEvent(tag, tagClass, msg) {
+      const feed = document.getElementById('terminal-feed');
+      const now = new Date();
+      const timeStr = now.toTimeString().split(' ')[0];
+      const line = document.createElement('div');
+      line.className = 'log-line';
+      line.innerHTML = `<span class="log-time">[${timeStr}]</span><span class="${tagClass}">[${tag}]</span><span>${msg}</span>`;
+      feed.appendChild(line);
+      feed.scrollTop = feed.scrollHeight;
+    }
+
+    function openModal(cardId) {
+      const card = cards.find(c => c.id === cardId);
+      if (!card) return;
+
+      document.getElementById('modal-card-id').innerText = card.id;
+      document.getElementById('modal-model-badge').innerText = card.model;
+      document.getElementById('modal-model-badge').className = `card-model-badge ${card.modelClass}`;
+      document.getElementById('modal-stage-badge').innerText = `COLUMN: ${card.col.toUpperCase()}`;
+      document.getElementById('modal-title').innerText = card.title;
+      document.getElementById('modal-objective').innerText = card.objective;
+      document.getElementById('modal-why').innerText = card.why;
+      document.getElementById('modal-achievement').innerText = card.achievement;
+      document.getElementById('modal-review-notes').innerText = card.reviewNotes;
+
+      document.getElementById('card-modal').style.display = 'flex';
+      sfxClaw();
+    }
+
+    function closeModal(e) {
+      if (!e || e.target.classList.contains('modal-overlay') || e.target.classList.contains('modal-close')) {
+        document.getElementById('card-modal').style.display = 'none';
+      }
+    }
+
+    /* =====================================================================
+       SYNCHRONIZED TELEPROMPTER & PRESENTATION SCRIPT ENGINE
+    ===================================================================== */
+    function highlightColumn(colKey) {
+      document.querySelectorAll('.column, .special-pod').forEach(el => {
+        el.classList.remove('teleprompter-focus');
+      });
+      if (colKey) {
+        const el = document.getElementById(`col-${colKey}`) || document.getElementById('pod-owner-decisions') || document.getElementById('pod-learning-loop');
+        if (el) {
+          el.classList.add('teleprompter-focus');
+          if (colKey === 'owner-decision') {
+            document.getElementById('pod-owner-decisions').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+          }
+        }
+      }
+    }
+
+    function pauseAutoConveyor() {
+      if (isAutoTransit) {
+        toggleAutoTransit();
+      }
+    }
+
+    /* =====================================================================
+       THE STORY — one card walks the line; its wording changes with each subtitle
+       col = where the card sits, stage = what the card says
+    ===================================================================== */
+    const presentationScript = [
+      {
+        title: "Draft · The owner sets the criteria",
+        cue: "Card appears in 0-Draft showing the owner's criteria",
+        col: '0-draft', stage: 'draft', noMove: true,
+        speech: "This is Alpine Wave's factory line, and this card will walk you through it. Every job starts in <mark>Draft</mark>. The owner, as PM, sets the criteria: exactly what we want to achieve, and how we'll know it's done.",
+        after: () => logEvent('STORY', 'tag-crane', 'Draft: The owner sets the criteria.')
+      },
+      {
+        title: "To-do · Objective, purpose, why",
+        cue: "Gantry carries the card into 1-Todo; the card now shows objective, purpose, why and outcome",
+        col: '1-todo', stage: 'todo',
+        speech: "Once the criteria are set, the card is released to <mark>To-do</mark>. Now it carries everything a builder needs: the objective, the purpose, why it matters, and what it will achieve.",
+        after: () => logEvent('STORY', 'tag-crane', 'To-do: objective, purpose, why and outcome written on the card.')
+      },
+      {
+        title: "Building · Pick the model & effort",
+        cue: "Card moves into 2-Building and lists the models and effort levels",
+        col: '2-building', stage: 'build-models',
+        speech: "A builder takes the card into <mark>Building</mark>. We run several AI models, Claude, Codex and Gemini, and pick the model and effort level to fit the job. A hard job gets the strongest model on high effort.",
+        after: () => logEvent('STORY', 'tag-crane', 'Building: Claude Opus 5.5 picked at high effort.')
+      },
+      {
+        title: "Building · Executing the criteria",
+        cue: "Card ticks off the criteria as the build runs",
+        col: '2-building', stage: 'build-exec',
+        speech: "Now the builder <mark>executes the task</mark> against the criteria, line by line. When it's finished, it hands the card in. A builder can never pass its own work.",
+        after: () => logEvent('STORY', 'tag-crane', 'Building: executing the task criteria.')
+      },
+      {
+        title: "Review · Gatekeeper checks the criteria",
+        cue: "Card docks in 3-Review; gantry scanner switches on",
+        col: '3-review', stage: 'review-check',
+        speech: "The card arrives at <mark>Review</mark>. The Review Gatekeeper takes the card's criteria and checks each one against fresh evidence, not the builder's word.",
+        after: () => {
+          document.getElementById('crane').classList.add('scanning');
+          sfxLaser();
+          logEvent('QC_SCAN', 'tag-review', 'Review Gatekeeper checking the card criteria...');
+        }
+      },
+      {
+        title: "Review · Jev scores the card",
+        cue: "Gatekeeper calls Jev; the score counts up on the card",
+        col: '3-review', stage: 'review-jev',
+        speech: "The Gatekeeper then calls <mark>Jev</mark>, our scoring check. Jev tests the bot's answers against the shop's real facts and scores the card. The pass mark is 0.67.",
+        after: () => {
+          document.getElementById('crane').classList.add('scanning');
+          animateJevScore(0.48);
+          logEvent('QC_SCAN', 'tag-review', 'Gatekeeper called Jev to score the card...');
+        }
+      },
+      {
+        title: "Fail · Did not meet criteria",
+        cue: "Card flashes red; scanner turns red",
+        col: '3-review', stage: 'fail',
+        speech: "Jev scores it 0.48. That's below the pass mark, so the card <mark>fails</mark>. It flashes red: it did not meet the criteria. Nothing slips through.",
+        after: () => {
+          document.getElementById('crane').classList.add('scanning');
+          document.getElementById('crane-beam').classList.add('laser-red');
+          sfxFail();
+          addFailRecord('STORY', 'Jev 0.48 < 0.67 · criteria not met');
+          logEvent('QC_FAIL', 'tag-fail', 'FAIL: Jev scored 0.48. Criteria not met.');
+        }
+      },
+      {
+        title: "Owner's station · Why it failed",
+        cue: "Gantry carries the red card down to the owner's station",
+        col: 'owner-decision', stage: 'owner', moveOpts: { isRebound: true },
+        speech: "The line stops and the card comes to <mark>the owner's station</mark>. It says exactly why: Jev scored 0.48, so the criteria were not met. The owner sets a new scope: prices only from the shop's price list, and if the bot isn't sure, it hands over to staff.",
+        after: () => {
+          sfxAlarm();
+          logEvent('OWNER', 'tag-owner', "Card at the owner's station: Jev scored 0.48, so criteria not met. New scope set.");
+        }
+      },
+      {
+        title: "Review · Reads the new scope",
+        cue: "Card returns to 3-Review showing the new scope; Jev re-scores",
+        col: '3-review', stage: 'review-rescope',
+        speech: "The card goes back to <mark>Review</mark>, carrying the new scope of the plan. The Gatekeeper checks the criteria again and calls Jev to re-score it. This time: 0.84.",
+        after: () => {
+          document.getElementById('crane').classList.add('scanning');
+          document.getElementById('crane-beam').classList.add('laser-green');
+          sfxLaser();
+          animateJevScore(0.84);
+          logEvent('QC_SCAN', 'tag-review', 'Round 2: Gatekeeper checks the new scope; Jev re-scores 0.84.');
+        }
+      },
+      {
+        title: "Done · Criteria met",
+        cue: "Card docks in 4-Done and glows green",
+        col: '4-done', stage: 'done', moveOpts: { isVerified: true },
+        speech: "Only now does the card reach <mark>Done</mark>. Complete: every criterion met, with Jev's score as proof. That's our factory line: clear criteria, independent checks, and a human in the loop when it matters.",
+        after: () => {
+          sfxPass();
+          logEvent('VERIFIED', 'tag-pass', 'Done: complete, criteria met.');
+        }
+      }
+    ];
+
+    function runStoryStep(step, animate) {
+      cancelTransit();
+      const card = storyCard();
+      card.jevShown = 0;
+      document.getElementById('pod-owner-decisions').classList.toggle('alert-mode', step.stage === 'owner');
+      highlightColumn(step.col);
+      scrollToStage(step.col);
+
+      if (animate && !step.noMove && card.col !== step.col) {
+        // The card leaves showing its old stage and docks showing the new one
+        animateCardTransit(card.id, card.col, step.col, () => {
+          highlightColumn(step.col);
+          if (step.after) step.after();
+        }, Object.assign({}, step.moveOpts, { onDock: () => { card.stage = step.stage; } }));
+      } else {
+        card.col = step.col;
+        card.stage = step.stage;
+        renderBoard();
+        moveCraneTo(step.col, step.after);
+      }
+    }
+
+    // Keep the stage the card is heading to in view, above the subtitle bar
+    function scrollToStage(col) {
+      if (col !== 'owner-decision') {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        return;
+      }
+      const dockH = isTeleprompterOpen ? document.getElementById('teleprompter-dock').offsetHeight : 0;
+      const podTop = window.pageYOffset + document.getElementById('pod-owner-decisions').getBoundingClientRect().top;
+      // room for the pod plus the story card that docks inside it
+      window.scrollTo({ top: Math.max(0, podTop + 330 - (window.innerHeight - dockH - 16)), behavior: 'smooth' });
+    }
+
+    function stepDuration(step) {
+      const words = step.speech.replace(/<[^>]+>/g, '').split(/\s+/).length;
+      return Math.max(8000, words * 360);
+    }
+
+    let currentStepIdx = 0;
+    let isTeleprompterOpen = true;
+    let isTeleprompterPlaying = true;
+    let teleprompterTimer = null;
+
+    function renderTeleprompterStep(index, triggerAction = true, animate = false) {
+      if (index < 0) index = 0;
+      if (index >= presentationScript.length) index = 0;
+      currentStepIdx = index;
+
+      const step = presentationScript[currentStepIdx];
+      const total = presentationScript.length;
+      const next = presentationScript[(currentStepIdx + 1) % total];
+
+      // Update progress bar
+      const progressPercent = ((currentStepIdx + 1) / total) * 100;
+      document.getElementById('teleprompter-progress').style.width = `${progressPercent}%`;
+
+      // Update labels
+      document.getElementById('teleprompter-step-indicator').innerText = `STEP ${currentStepIdx + 1} OF ${total} · ${step.title.toUpperCase()}`;
+      document.getElementById('teleprompter-cue').innerText = `Cue: ${step.cue}`;
+      document.getElementById('teleprompter-speech-text').innerHTML = step.speech;
+      document.getElementById('teleprompter-next-preview').innerHTML = currentStepIdx === total - 1
+        ? `<span>Up Next:</span> <span>Back to the start: a new card in Draft</span>`
+        : `<span>Up Next:</span> <span>${next.title}</span>`;
+
+      // Move and rewrite the story card in step with the subtitle
+      if (triggerAction) {
+        pauseAutoConveyor();
+        runStoryStep(step, animate);
+      }
+
+      // Reset auto-sync timer if playing
+      if (isTeleprompterPlaying) {
+        scheduleNextStepTimer();
+      }
+    }
+
+    function scheduleNextStepTimer() {
+      clearTimeout(teleprompterTimer);
+      teleprompterTimer = setTimeout(() => {
+        if (isTeleprompterPlaying && isTeleprompterOpen) {
+          teleprompterNext();
+        }
+      }, stepDuration(presentationScript[currentStepIdx]));
+    }
+
+    function teleprompterNext() {
+      const nextIdx = (currentStepIdx + 1) % presentationScript.length;
+      renderTeleprompterStep(nextIdx, true, true);
+    }
+
+    function teleprompterPrev() {
+      const prevIdx = (currentStepIdx - 1 + presentationScript.length) % presentationScript.length;
+      renderTeleprompterStep(prevIdx, true);
+    }
+
+    function toggleTeleprompterPlay() {
+      isTeleprompterPlaying = !isTeleprompterPlaying;
+      const playBtn = document.getElementById('t-btn-play');
+      if (isTeleprompterPlaying) {
+        playBtn.innerText = '⏸ Auto-Sync';
+        playBtn.classList.add('primary');
+        scheduleNextStepTimer();
+      } else {
+        playBtn.innerText = '▶ Auto-Sync';
+        playBtn.classList.remove('primary');
+        clearTimeout(teleprompterTimer);
+      }
+    }
+
+    function toggleTeleprompter() {
+      isTeleprompterOpen = !isTeleprompterOpen;
+      const dock = document.getElementById('teleprompter-dock');
+      const btnText = document.getElementById('teleprompter-btn-text');
+      if (isTeleprompterOpen) {
+        dock.style.display = 'flex';
+        btnText.innerText = 'Hide Subtitles';
+        storyMode = true;
+        document.body.classList.add('story-mode');
+        pauseAutoConveyor();
+        renderTeleprompterStep(currentStepIdx, true);
+      } else {
+        dock.style.display = 'none';
+        btnText.innerText = 'Readout Script & Subtitles';
+        clearTimeout(teleprompterTimer);
+        cancelTransit();
+        storyMode = false;
+        document.body.classList.remove('story-mode');
+        document.getElementById('pod-owner-decisions').classList.remove('alert-mode');
+        renderBoard();
+        highlightColumn(null);
+      }
+    }
+
+    function toggleTeleprompterMin() {
+      const dock = document.getElementById('teleprompter-dock');
+      dock.classList.toggle('minimized');
+    }
+
+    function toggleTeleprompterFontSize() {
+      const speech = document.getElementById('teleprompter-speech-text');
+      speech.classList.toggle('large-mode');
+    }
+
+    /* =====================================================================
+       INIT
+    ===================================================================== */
+    window.addEventListener('DOMContentLoaded', () => {
+      renderBoard();
+      logEvent('SYSTEM', 'tag-crane', 'Alpine Wave Robotic Card Gantry initialized.');
+      logEvent('CARDS', 'tag-crane', 'Mounted real card inventory from Alpine Wave/line.');
+
+      // Keyboard hotkeys for effortless teleprompter control
+      window.addEventListener('keydown', (e) => {
+        if (e.target.tagName === 'INPUT' || e.target.tagName === 'SELECT' || e.target.tagName === 'TEXTAREA') return;
+        if (e.code === 'Space') {
+          e.preventDefault();
+          toggleTeleprompterPlay();
+        } else if (e.code === 'ArrowRight') {
+          e.preventDefault();
+          teleprompterNext();
+        } else if (e.code === 'ArrowLeft') {
+          e.preventDefault();
+          teleprompterPrev();
+        } else if (e.code === 'Escape') {
+          toggleTeleprompter();
+        }
+      });
+
+      // Start the story with the card in Draft
+      document.body.classList.add('story-mode');
+      renderTeleprompterStep(0, true);
+
+      setInterval(() => {
+        if (!isTeleprompterOpen) {
+          runAutoStep();
+        }
+      }, 4000);
+    });
+  </script>
+</body>
+</html>
+
