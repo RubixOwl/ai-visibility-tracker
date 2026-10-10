@@ -200,21 +200,34 @@
     }
     .hero .container {
       width: 100%;
-      max-width: 1380px;
+      max-width: 100%;
+      margin: 0;
+      padding: 0;
     }
     .hero-split-grid {
       width: 100%;
       position: relative;
       z-index: 2;
       display: grid;
-      grid-template-columns: 1fr auto;
-      gap: 56px;
-      align-items: flex-start;
-      justify-content: space-between;
+      grid-template-columns: 1fr minmax(auto, 760px) 1fr;
+      align-items: center;
+    }
+    .hero-split-grid::before {
+      content: "";
+      display: block;
+      grid-column: 1;
     }
     .hero-content {
+      grid-column: 2;
       color: #FFFFFF;
-      max-width: 650px;
+      max-width: 760px;
+      width: 100%;
+      margin: 0 auto;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 0 16px;
     }
     .hero-tagline {
       display: inline-flex;
@@ -229,7 +242,7 @@
       font-weight: 700;
       letter-spacing: 0.5px;
       text-transform: uppercase;
-      margin-bottom: 20px;
+      margin: 0 auto 20px auto;
     }
     .hero h2 {
       font-family: var(--font-display);
@@ -239,13 +252,16 @@
       letter-spacing: -1px;
       margin-bottom: 18px;
       text-shadow: 0 2px 10px rgba(0, 0, 0, 0.35);
+      text-align: center;
+      max-width: 760px;
     }
     .hero p.lead {
       font-size: clamp(1rem, 1.8vw, 1.2rem);
       line-height: 1.6;
       color: #F1F5F9;
-      margin-bottom: 28px;
-      max-width: 580px;
+      margin: 0 auto 28px auto;
+      max-width: 620px;
+      text-align: center;
     }
 
     /* Hero Booking Bar */
@@ -258,6 +274,10 @@
       grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)) 150px;
       gap: 14px;
       align-items: center;
+      width: 100%;
+      max-width: 780px;
+      margin: 0 auto;
+      text-align: left;
     }
     .field-box {
       border-right: 1px solid var(--line-subtle);
@@ -308,8 +328,9 @@
 
     /* Compact Frosted Alpine Snow Conditions HUD (Blends with mountain hero) */
     .snow-tracker-card {
+      grid-column: 3;
       width: 100%;
-      max-width: 290px;
+      max-width: 280px;
       background: rgba(255, 255, 255, 0.88);
       backdrop-filter: blur(16px);
       -webkit-backdrop-filter: blur(16px);
@@ -320,9 +341,9 @@
       position: relative;
       overflow: hidden;
       color: var(--ink-primary);
-      justify-self: end;
-      align-self: flex-start;
-      margin-top: 4px;
+      justify-self: center;
+      align-self: center;
+      margin: 0 auto;
     }
     .snow-tracker-card::before {
       content: "";
@@ -1147,9 +1168,27 @@
     }
 
     /* Responsive */
+    @media (max-width: 1180px) {
+      .hero-split-grid {
+        grid-template-columns: 1fr;
+        gap: 32px;
+        padding: 0 24px;
+      }
+      .hero-split-grid::before {
+        display: none;
+      }
+      .hero-content {
+        grid-column: 1;
+        max-width: 760px;
+      }
+      .snow-tracker-card {
+        grid-column: 1;
+        max-width: 360px;
+        margin: 0 auto;
+        justify-self: center;
+      }
+    }
     @media (max-width: 960px) {
-      .hero-split-grid { grid-template-columns: 1fr; }
-      .snow-tracker-card { max-width: 100%; margin-top: 24px; justify-self: stretch; }
       .story-grid, .workshop-grid, .fleet-banner-card, .hotline-card { grid-template-columns: 1fr; }
       .footer-grid { grid-template-columns: 1fr 1fr; }
       .nav-menu { display: none; }
@@ -1291,7 +1330,7 @@
           </div>
 
           <!-- Real-time Rental Calculator Feedback Badge -->
-          <div id="bookingEstimateBadge" style="margin-top: 14px; font-size: 13.5px; font-weight: 600; color: var(--mountain-red); background: rgba(255, 255, 255, 0.94); backdrop-filter: blur(10px); padding: 8px 18px; border-radius: 9999px; display: inline-flex; align-items: center; gap: 8px; border: 1px solid rgba(217, 56, 30, 0.22); box-shadow: var(--shadow-subtle);">
+          <div id="bookingEstimateBadge" style="margin: 14px auto 0 auto; font-size: 13.5px; font-weight: 600; color: var(--mountain-red); background: rgba(255, 255, 255, 0.94); backdrop-filter: blur(10px); padding: 8px 18px; border-radius: 9999px; display: inline-flex; align-items: center; justify-content: center; gap: 8px; border: 1px solid rgba(217, 56, 30, 0.22); box-shadow: var(--shadow-subtle);">
             <span>⚡ Rate Calculation:</span>
             <span id="bookingEstimateText">3 Days @ $63.75/day = $191.25 CAD (15% Multi-Day Discount Applied)</span>
           </div>
