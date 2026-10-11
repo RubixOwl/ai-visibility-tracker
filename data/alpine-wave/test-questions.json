@@ -286,8 +286,8 @@
     "applies_to": "both",
     "must_say": [
       { "fact": "Your staff still answer first; the assistant picks up if nobody does, day or night", "source": "offer_tiers[1].lede" },
-      { "fact": "Calls and chats are recorded, callers hear a short recording notice, staff have a one-tap stop for private moments", "source": ["offer_tiers[1].lede", "offer_tiers[1].bullet_points[1]", "offer_tiers[1].bullet_points[3]"] },
-      { "fact": "A day-7 report shows what came in, what was missed and what it would have caught", "source": "offer_tiers[1].bullet_points[4]" }
+      { "fact": "Calls the assistant answers and website chats are recorded, and callers hear a short recording notice", "source": ["offer_tiers[1].lede", "offer_tiers[1].bullet_points[2]"] },
+      { "fact": "A day-7 report shows what came in, what was missed and what it would have caught", "source": "offer_tiers[1].bullet_points[3]" }
     ],
     "missing": ["trial price"],
     "must_not_say": ["The trial is free", "The assistant replaces your staff during the trial"],

@@ -1146,11 +1146,10 @@ export default function Home() {
             <article className="tier-card">
               <div className="tier-head"><span className="tier-badge">Tier 2 · Prove it</span><span className="tier-time">7-day trial</span></div>
               <h3>7-day shadow trial &amp; report</h3>
-              <p><strong>Your staff still answer first.</strong> If nobody picks up, day or night, the assistant does. Every call and chat is recorded so the report shows the full picture.</p>
+              <p><strong>Your staff still answer first.</strong> If nobody picks up, day or night, the assistant does. Every call it answers and every website chat is recorded, so the report shows what you're missing.</p>
               <ul>
                 <li>Missed and after-hours calls answered by the assistant</li>
-                <li>Staff calls recorded too, with a one-tap stop for private moments</li>
-                <li>Website chats and visitor clicks logged</li>
+                <li>Website chats logged, including which suggestions visitors tap</li>
                 <li>Callers hear a short recording notice</li>
                 <li>Day-7 report: what came in, what was missed, what it would have caught</li>
               </ul>
