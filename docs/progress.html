@@ -1,0 +1,440 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Alpine Wave progress</title>
+<style>
+:root{--bg:#FBF8F4;--white:#FFFFFF;--sand:#F4EDE5;--peach:#FFEBE1;--coral:#FD632F;--coral-deep:#E14E1C;--coral-soft:#FFB597;--ink:#0B2545;--muted:#5B6474;--line:#EADFD3;--online:#2E8B70}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 16px/1.5 "Hanken Grotesk","Segoe UI",system-ui,-apple-system,sans-serif}
+.wrap{max-width:920px;margin:0 auto;padding:32px 16px 48px}
+.top{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.logo{display:flex;align-items:center;gap:10px;font:800 21px/1 "Nunito","Segoe UI",system-ui,sans-serif;color:var(--ink)}
+.logo svg{width:36px;height:24px}
+.badge{display:inline-flex;align-items:center;gap:8px;background:var(--white);border-radius:999px;padding:7px 14px;box-shadow:inset 0 0 0 1.5px var(--line);font:500 12px/1 "JetBrains Mono",Consolas,monospace;letter-spacing:.1em;text-transform:uppercase;color:var(--coral-deep)}
+.badge::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--coral)}
+h1{font:800 clamp(34px,6vw,56px)/1.05 "Bricolage Grotesque","Segoe UI",system-ui,sans-serif;letter-spacing:-.02em;margin:28px 0 10px}
+h1 em{font-style:normal;color:var(--coral)}
+.lede{color:var(--muted);margin:0 0 24px;max-width:60ch}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px;margin:0 0 18px}
+.stat{background:var(--white);border-radius:24px;padding:20px 22px;box-shadow:inset 0 0 0 1.5px var(--line),0 8px 24px -16px rgba(11,37,69,.25)}
+.stat .n{font:800 44px/1 "Bricolage Grotesque","Segoe UI",system-ui,sans-serif;letter-spacing:-.02em}
+.stat .l{font:500 12px/1.3 "JetBrains Mono",Consolas,monospace;letter-spacing:.1em;text-transform:uppercase;color:var(--coral-deep);margin-top:8px}
+.stat.hot{background:var(--peach);box-shadow:inset 0 0 0 1.5px var(--coral-soft)}
+.totals{list-style:none;display:flex;flex-wrap:wrap;gap:8px;padding:0;margin:0 0 28px}
+.pill{border-radius:999px;padding:8px 14px;background:var(--white);box-shadow:inset 0 0 0 1.5px var(--line);font-weight:600;font-size:15px}
+.pill b{color:var(--coral-deep);margin-right:2px}
+h2{font:700 24px/1.1 "Bricolage Grotesque","Segoe UI",system-ui,sans-serif;letter-spacing:-.01em;margin:0 0 12px}
+.moves{list-style:none;padding:0;margin:0;background:var(--white);border-radius:24px;box-shadow:inset 0 0 0 1.5px var(--line);overflow:hidden}
+.move{display:grid;grid-template-columns:110px 64px 1fr auto;grid-template-areas:"time card title who" "time card step who";column-gap:14px;row-gap:6px;align-items:center;padding:14px 20px;border-top:1.5px solid var(--line)}
+.move:first-child{border-top:0}
+.move time{grid-area:time;font:500 13px/1.2 "JetBrains Mono",Consolas,monospace;color:var(--muted)}
+.card{grid-area:card;font:800 15px/1 "Nunito","Segoe UI",system-ui,sans-serif;background:var(--peach);color:var(--ink);border-radius:999px;padding:6px 0;text-align:center}
+.title{grid-area:title;font-weight:600}
+.step{grid-area:step;display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.who{grid-area:who;color:var(--muted);font-size:14px;text-align:right}
+.tag{border-radius:999px;padding:3px 10px;font:500 11.5px/1.4 "JetBrains Mono",Consolas,monospace;letter-spacing:.06em;text-transform:uppercase;background:var(--sand);color:var(--ink)}
+.arrow{color:var(--coral);font-weight:700}
+.tag.stage-4-done{background:var(--coral);color:var(--white)}
+.tag.stage-3-review{background:var(--peach);color:var(--coral-deep)}
+.pill.stage-4-done{background:var(--coral);color:var(--white);box-shadow:none}
+.pill.stage-4-done b{color:var(--white)}
+.empty{padding:22px 20px;color:var(--muted)}
+.foot{margin-top:24px;color:var(--muted);font-size:14px}
+.foot p{margin:4px 0}
+@media (max-width:620px){
+  .wrap{padding-top:20px}
+  .move{grid-template-columns:auto 1fr;grid-template-areas:"card time" "title title" "step step" "who who";padding:14px 16px}
+  .card{padding:6px 12px}
+  .move time{text-align:right}
+  .who{text-align:left}
+}
+</style>
+</head>
+<body>
+<main class="wrap">
+  <div class="top">
+    <div class="logo"><svg viewBox="0 0 36 24" aria-hidden="true"><path d="M1 20 L12 5 L18 13 L22 8 L35 20" fill="none" stroke="#0B2545" stroke-width="2.6" stroke-linejoin="round" stroke-linecap="round"/><path d="M1 20 q4.25 -4 8.5 0 t8.5 0 t8.5 0 t8.5 0" fill="none" stroke="#FD632F" stroke-width="2.6" stroke-linecap="round"/></svg>Alpine Wave</div>
+    <span class="badge">Updated 2026-10-11 09:13</span>
+  </div>
+  <h1>Work moved in the last <em>24 hours</em></h1>
+  <p class="lede">Every task is a card on a board: Proposed, Ready, Building, In review, Done. Only the project manager moves a card to Done, after checking the work. This page lists each card move from the board's log.</p>
+  <div class="stats">
+    <div class="stat hot"><div class="n">51</div><div class="l">Card moves, last 24 h</div></div>
+    <div class="stat"><div class="n">8</div><div class="l">Cards to Done, last 24 h</div></div>
+    <div class="stat"><div class="n">36</div><div class="l">Cards in Done, all time</div></div>
+  </div>
+  <ul class="totals" aria-label="Moves by stage">
+        <li class="pill stage-4-done"><b>8</b> to Done</li>
+        <li class="pill stage-3-review"><b>15</b> to In review</li>
+        <li class="pill stage-2-building"><b>16</b> to Building</li>
+        <li class="pill stage-1-todo"><b>12</b> to Ready</li>
+  </ul>
+  <h2>Moves, newest first</h2>
+  <ol class="moves">
+        <li class="move">
+          <time>10/11 09:12</time>
+          <span class="card">T45</span>
+          <span class="title">Proof-of-work tracker: one safe HTML page of card moves in the last 24 hours</span>
+          <span class="step"><span class="tag stage-3-review">In review</span><span class="arrow" aria-label="to">→</span><span class="tag stage-4-done">Done</span></span>
+          <span class="who">PM</span>
+        </li>
+        <li class="move">
+          <time>10/11 09:11</time>
+          <span class="card">T45</span>
+          <span class="title">Proof-of-work tracker: one safe HTML page of card moves in the last 24 hours</span>
+          <span class="step"><span class="tag stage-2-building">Building</span><span class="arrow" aria-label="to">→</span><span class="tag stage-3-review">In review</span></span>
+          <span class="who">Claude</span>
+        </li>
+        <li class="move">
+          <time>10/11 09:10</time>
+          <span class="card">T45</span>
+          <span class="title">Proof-of-work tracker: one safe HTML page of card moves in the last 24 hours</span>
+          <span class="step"><span class="tag stage-new">New</span><span class="arrow" aria-label="to">→</span><span class="tag stage-1-todo">Ready</span></span>
+          <span class="who">PM</span>
+        </li>
+        <li class="move">
+          <time>10/11 09:08</time>
+          <span class="card">T45</span>
+          <span class="title">Proof-of-work tracker: one safe HTML page of card moves in the last 24 hours</span>
+          <span class="step"><span class="tag stage-1-todo">Ready</span><span class="arrow" aria-label="to">→</span><span class="tag stage-2-building">Building</span></span>
+          <span class="who">Claude</span>
+        </li>
+        <li class="move">
+          <time>10/11 08:57</time>
+          <span class="card">T44</span>
+          <span class="title">Public navigator: built from an allow-list, one command to refresh</span>
+          <span class="step"><span class="tag stage-3-review">In review</span><span class="arrow" aria-label="to">→</span><span class="tag stage-2-building">Building</span></span>
+          <span class="who">PM</span>
+        </li>
+        <li class="move">
+          <time>10/11 08:41</time>
+          <span class="card">T44</span>
+          <span class="title">Public navigator: built from an allow-list, one command to refresh</span>
+          <span class="step"><span class="tag stage-2-building">Building</span><span class="arrow" aria-label="to">→</span><span class="tag stage-3-review">In review</span></span>
+          <span class="who">Gemini</span>
+        </li>
+        <li class="move">
+          <time>10/11 08:28</time>
+          <span class="card">T44</span>
+          <span class="title">Public navigator: built from an allow-list, one command to refresh</span>
+          <span class="step"><span class="tag stage-3-review">In review</span><span class="arrow" aria-label="to">→</span><span class="tag stage-2-building">Building</span></span>
+          <span class="who">PM</span>
+        </li>
+        <li class="move">
+          <time>10/11 08:22</time>
+          <span class="card">T44</span>
+          <span class="title">Public navigator: built from an allow-list, one command to refresh</span>
+          <span class="step"><span class="tag stage-2-building">Building</span><span class="arrow" aria-label="to">→</span><span class="tag stage-3-review">In review</span></span>
+          <span class="who">Gemini</span>
+        </li>
+        <li class="move">
+          <time>10/11 08:01</time>
+          <span class="card">T39</span>
+          <span class="title">Trial prep</span>
+          <span class="step"><span class="tag stage-3-review">In review</span><span class="arrow" aria-label="to">→</span><span class="tag stage-4-done">Done</span></span>
+          <span class="who">PM</span>
+        </li>
+        <li class="move">
+          <time>10/11 07:54</time>
+          <span class="card">T44</span>
+          <span class="title">Public navigator: built from an allow-list, one command to refresh</span>
+          <span class="step"><span class="tag stage-1-todo">Ready</span><span class="arrow" aria-label="to">→</span><span class="tag stage-2-building">Building</span></span>
+          <span class="who">Gemini</span>
+        </li>
+        <li class="move">
+          <time>10/11 07:45</time>
+          <span class="card">T44</span>
+          <span class="title">Public navigator: built from an allow-list, one command to refresh</span>
+          <span class="step"><span class="tag stage-new">New</span><span class="arrow" aria-label="to">→</span><span class="tag stage-1-todo">Ready</span></span>
+          <span class="who">PM</span>
+        </li>
+        <li class="move">
+          <time>10/11 07:20</time>
+          <span class="card">T43</span>
+          <span class="title">Trial prep</span>
+          <span class="step"><span class="tag stage-new">New</span><span class="arrow" aria-label="to">→</span><span class="tag stage-1-todo">Ready</span></span>
+          <span class="who">PM</span>
+        </li>
+        <li class="move">
+          <time>10/11 06:45</time>
+          <span class="card">T36</span>
+          <span class="title">Website chat: stop promising staff-call recording</span>
+          <span class="step"><span class="tag stage-3-review">In review</span><span class="arrow" aria-label="to">→</span><span class="tag stage-4-done">Done</span></span>
+          <span class="who">PM</span>
+        </li>
+        <li class="move">
+          <time>10/11 06:42</time>
+          <span class="card">T39</span>
+          <span class="title">Trial prep</span>
+          <span class="step"><span class="tag stage-2-building">Building</span><span class="arrow" aria-label="to">→</span><span class="tag stage-3-review">In review</span></span>
+          <span class="who">Claude</span>
+        </li>
+        <li class="move">
+          <time>10/11 06:36</time>
+          <span class="card">T36</span>
+          <span class="title">Website chat: stop promising staff-call recording</span>
+          <span class="step"><span class="tag stage-2-building">Building</span><span class="arrow" aria-label="to">→</span><span class="tag stage-3-review">In review</span></span>
+          <span class="who">Claude</span>
+        </li>
+        <li class="move">
+          <time>10/11 06:34</time>
+          <span class="card">T36</span>
+          <span class="title">Website chat: stop promising staff-call recording</span>
+          <span class="step"><span class="tag stage-3-review">In review</span><span class="arrow" aria-label="to">→</span><span class="tag stage-2-building">Building</span></span>
+          <span class="who">PM</span>
+        </li>
+        <li class="move">
+          <time>10/11 06:33</time>
+          <span class="card">T39</span>
+          <span class="title">Trial prep</span>
+          <span class="step"><span class="tag stage-1-todo">Ready</span><span class="arrow" aria-label="to">→</span><span class="tag stage-2-building">Building</span></span>
+          <span class="who">Claude</span>
+        </li>
+        <li class="move">
+          <time>10/11 06:28</time>
+          <span class="card">T38</span>
+          <span class="title">Trial prep</span>
+          <span class="step"><span class="tag stage-3-review">In review</span><span class="arrow" aria-label="to">→</span><span class="tag stage-4-done">Done</span></span>
+          <span class="who">PM</span>
+        </li>
+        <li class="move">
+          <time>10/11 06:23</time>
+          <span class="card">T33</span>
+          <span class="title">Trial prep</span>
+          <span class="step"><span class="tag stage-3-review">In review</span><span class="arrow" aria-label="to">→</span><span class="tag stage-4-done">Done</span></span>
+          <span class="who">PM</span>
+        </li>
+        <li class="move">
+          <time>10/11 06:17</time>
+          <span class="card">T33</span>
+          <span class="title">Trial prep</span>
+          <span class="step"><span class="tag stage-2-building">Building</span><span class="arrow" aria-label="to">→</span><span class="tag stage-3-review">In review</span></span>
+          <span class="who">Claude</span>
+        </li>
+        <li class="move">
+          <time>10/11 06:13</time>
+          <span class="card">T33</span>
+          <span class="title">Trial prep</span>
+          <span class="step"><span class="tag stage-3-review">In review</span><span class="arrow" aria-label="to">→</span><span class="tag stage-2-building">Building</span></span>
+          <span class="who">PM</span>
+        </li>
+        <li class="move">
+          <time>10/11 06:11</time>
+          <span class="card">T33</span>
+          <span class="title">Trial prep</span>
+          <span class="step"><span class="tag stage-2-building">Building</span><span class="arrow" aria-label="to">→</span><span class="tag stage-3-review">In review</span></span>
+          <span class="who">Claude</span>
+        </li>
+        <li class="move">
+          <time>10/11 06:06</time>
+          <span class="card">T33</span>
+          <span class="title">Trial prep</span>
+          <span class="step"><span class="tag stage-3-review">In review</span><span class="arrow" aria-label="to">→</span><span class="tag stage-2-building">Building</span></span>
+          <span class="who">PM</span>
+        </li>
+        <li class="move">
+          <time>10/11 05:28</time>
+          <span class="card">T33</span>
+          <span class="title">Trial prep</span>
+          <span class="step"><span class="tag stage-2-building">Building</span><span class="arrow" aria-label="to">→</span><span class="tag stage-3-review">In review</span></span>
+          <span class="who">Claude</span>
+        </li>
+        <li class="move">
+          <time>10/11 01:08</time>
+          <span class="card">T41</span>
+          <span class="title">Trial prep</span>
+          <span class="step"><span class="tag stage-new">New</span><span class="arrow" aria-label="to">→</span><span class="tag stage-1-todo">Ready</span></span>
+          <span class="who">PM</span>
+        </li>
+        <li class="move">
+          <time>10/11 01:08</time>
+          <span class="card">T42</span>
+          <span class="title">Trial prep</span>
+          <span class="step"><span class="tag stage-new">New</span><span class="arrow" aria-label="to">→</span><span class="tag stage-1-todo">Ready</span></span>
+          <span class="who">PM</span>
+        </li>
+        <li class="move">
+          <time>10/11 00:48</time>
+          <span class="card">T38</span>
+          <span class="title">Trial prep</span>
+          <span class="step"><span class="tag stage-2-building">Building</span><span class="arrow" aria-label="to">→</span><span class="tag stage-3-review">In review</span></span>
+          <span class="who">Claude</span>
+        </li>
+        <li class="move">
+          <time>10/11 00:34</time>
+          <span class="card">T37</span>
+          <span class="title">Trial prep</span>
+          <span class="step"><span class="tag stage-3-review">In review</span><span class="arrow" aria-label="to">→</span><span class="tag stage-4-done">Done</span></span>
+          <span class="who">PM</span>
+        </li>
+        <li class="move">
+          <time>10/11 00:02</time>
+          <span class="card">T37</span>
+          <span class="title">Trial prep</span>
+          <span class="step"><span class="tag stage-2-building">Building</span><span class="arrow" aria-label="to">→</span><span class="tag stage-3-review">In review</span></span>
+          <span class="who">Claude</span>
+        </li>
+        <li class="move">
+          <time>10/10 22:20</time>
+          <span class="card">T38</span>
+          <span class="title">Trial prep</span>
+          <span class="step"><span class="tag stage-3-review">In review</span><span class="arrow" aria-label="to">→</span><span class="tag stage-2-building">Building</span></span>
+          <span class="who">Gate Keeper</span>
+        </li>
+        <li class="move">
+          <time>10/10 22:05</time>
+          <span class="card">T37</span>
+          <span class="title">Trial prep</span>
+          <span class="step"><span class="tag stage-3-review">In review</span><span class="arrow" aria-label="to">→</span><span class="tag stage-2-building">Building</span></span>
+          <span class="who">Gate Keeper</span>
+        </li>
+        <li class="move">
+          <time>10/10 21:31</time>
+          <span class="card">T38</span>
+          <span class="title">Trial prep</span>
+          <span class="step"><span class="tag stage-2-building">Building</span><span class="arrow" aria-label="to">→</span><span class="tag stage-3-review">In review</span></span>
+          <span class="who">Claude</span>
+        </li>
+        <li class="move">
+          <time>10/10 21:29</time>
+          <span class="card">T37</span>
+          <span class="title">Trial prep</span>
+          <span class="step"><span class="tag stage-2-building">Building</span><span class="arrow" aria-label="to">→</span><span class="tag stage-3-review">In review</span></span>
+          <span class="who">Claude</span>
+        </li>
+        <li class="move">
+          <time>10/10 21:27</time>
+          <span class="card">T39</span>
+          <span class="title">Trial prep</span>
+          <span class="step"><span class="tag stage-new">New</span><span class="arrow" aria-label="to">→</span><span class="tag stage-1-todo">Ready</span></span>
+          <span class="who">PM</span>
+        </li>
+        <li class="move">
+          <time>10/10 21:27</time>
+          <span class="card">T40</span>
+          <span class="title">Trial prep</span>
+          <span class="step"><span class="tag stage-new">New</span><span class="arrow" aria-label="to">→</span><span class="tag stage-1-todo">Ready</span></span>
+          <span class="who">PM</span>
+        </li>
+        <li class="move">
+          <time>10/10 21:23</time>
+          <span class="card">T37</span>
+          <span class="title">Trial prep</span>
+          <span class="step"><span class="tag stage-1-todo">Ready</span><span class="arrow" aria-label="to">→</span><span class="tag stage-2-building">Building</span></span>
+          <span class="who">Claude</span>
+        </li>
+        <li class="move">
+          <time>10/10 21:23</time>
+          <span class="card">T38</span>
+          <span class="title">Trial prep</span>
+          <span class="step"><span class="tag stage-1-todo">Ready</span><span class="arrow" aria-label="to">→</span><span class="tag stage-2-building">Building</span></span>
+          <span class="who">Claude</span>
+        </li>
+        <li class="move">
+          <time>10/10 21:23</time>
+          <span class="card">T25</span>
+          <span class="title">Gate Keeper + Jev trial: what&#39;s working, what to change</span>
+          <span class="step"><span class="tag stage-3-review">In review</span><span class="arrow" aria-label="to">→</span><span class="tag stage-2-building">Building</span></span>
+          <span class="who">PM</span>
+        </li>
+        <li class="move">
+          <time>10/10 21:17</time>
+          <span class="card">T36</span>
+          <span class="title">Website chat: stop promising staff-call recording</span>
+          <span class="step"><span class="tag stage-2-building">Building</span><span class="arrow" aria-label="to">→</span><span class="tag stage-3-review">In review</span></span>
+          <span class="who">Claude</span>
+        </li>
+        <li class="move">
+          <time>10/10 21:16</time>
+          <span class="card">T36</span>
+          <span class="title">Website chat: stop promising staff-call recording</span>
+          <span class="step"><span class="tag stage-1-todo">Ready</span><span class="arrow" aria-label="to">→</span><span class="tag stage-2-building">Building</span></span>
+          <span class="who">Claude</span>
+        </li>
+        <li class="move">
+          <time>10/10 21:16</time>
+          <span class="card">T37</span>
+          <span class="title">Trial prep</span>
+          <span class="step"><span class="tag stage-new">New</span><span class="arrow" aria-label="to">→</span><span class="tag stage-1-todo">Ready</span></span>
+          <span class="who">PM</span>
+        </li>
+        <li class="move">
+          <time>10/10 21:16</time>
+          <span class="card">T38</span>
+          <span class="title">Trial prep</span>
+          <span class="step"><span class="tag stage-new">New</span><span class="arrow" aria-label="to">→</span><span class="tag stage-1-todo">Ready</span></span>
+          <span class="who">PM</span>
+        </li>
+        <li class="move">
+          <time>10/10 21:08</time>
+          <span class="card">T36</span>
+          <span class="title">Website chat: stop promising staff-call recording</span>
+          <span class="step"><span class="tag stage-new">New</span><span class="arrow" aria-label="to">→</span><span class="tag stage-1-todo">Ready</span></span>
+          <span class="who">PM</span>
+        </li>
+        <li class="move">
+          <time>10/10 21:07</time>
+          <span class="card">T35</span>
+          <span class="title">Tier 2 wording: stop promising staff-call recording</span>
+          <span class="step"><span class="tag stage-3-review">In review</span><span class="arrow" aria-label="to">→</span><span class="tag stage-4-done">Done</span></span>
+          <span class="who">PM</span>
+        </li>
+        <li class="move">
+          <time>10/10 13:32</time>
+          <span class="card">T35</span>
+          <span class="title">Tier 2 wording: stop promising staff-call recording</span>
+          <span class="step"><span class="tag stage-2-building">Building</span><span class="arrow" aria-label="to">→</span><span class="tag stage-3-review">In review</span></span>
+          <span class="who">Claude</span>
+        </li>
+        <li class="move">
+          <time>10/10 13:31</time>
+          <span class="card">T35</span>
+          <span class="title">Tier 2 wording: stop promising staff-call recording</span>
+          <span class="step"><span class="tag stage-1-todo">Ready</span><span class="arrow" aria-label="to">→</span><span class="tag stage-2-building">Building</span></span>
+          <span class="who">Claude</span>
+        </li>
+        <li class="move">
+          <time>10/10 13:26</time>
+          <span class="card">T35</span>
+          <span class="title">Tier 2 wording: stop promising staff-call recording</span>
+          <span class="step"><span class="tag stage-new">New</span><span class="arrow" aria-label="to">→</span><span class="tag stage-1-todo">Ready</span></span>
+          <span class="who">PM</span>
+        </li>
+        <li class="move">
+          <time>10/10 12:02</time>
+          <span class="card">T34</span>
+          <span class="title">7-day trial: what has to be built, as a plan of cards</span>
+          <span class="step"><span class="tag stage-3-review">In review</span><span class="arrow" aria-label="to">→</span><span class="tag stage-4-done">Done</span></span>
+          <span class="who">PM</span>
+        </li>
+        <li class="move">
+          <time>10/10 10:01</time>
+          <span class="card">T34</span>
+          <span class="title">7-day trial: what has to be built, as a plan of cards</span>
+          <span class="step"><span class="tag stage-2-building">Building</span><span class="arrow" aria-label="to">→</span><span class="tag stage-3-review">In review</span></span>
+          <span class="who">Claude</span>
+        </li>
+        <li class="move">
+          <time>10/10 10:00</time>
+          <span class="card">T34</span>
+          <span class="title">7-day trial: what has to be built, as a plan of cards</span>
+          <span class="step"><span class="tag stage-new">New</span><span class="arrow" aria-label="to">→</span><span class="tag stage-1-todo">Ready</span></span>
+          <span class="who">PM</span>
+        </li>
+        <li class="move">
+          <time>10/10 09:59</time>
+          <span class="card">T34</span>
+          <span class="title">7-day trial: what has to be built, as a plan of cards</span>
+          <span class="step"><span class="tag stage-1-todo">Ready</span><span class="arrow" aria-label="to">→</span><span class="tag stage-2-building">Building</span></span>
+          <span class="who">Claude</span>
+        </li>
+  </ol>
+  <div class="foot">
+    <p>Updated 2026-10-11 09:13 (Pacific time). Window: 2026-10-10 09:13 to 2026-10-11 09:13.</p>
+    <p>"Trial prep" marks cards about a client trial; their titles stay private.</p>
+  </div>
+</main>
+</body>
+</html>
