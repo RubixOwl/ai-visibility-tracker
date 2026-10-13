@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; connect-src 'self'; img-src 'none'; base-uri 'none'; form-action 'self'">
+<title>Jev Docs — local source search</title>
+<style>
+:root{color-scheme:dark;font:17px/1.55 system-ui;background:#111922;color:#e6edf4}body{max-width:1060px;margin:auto;padding:32px 22px}h1{font-size:38px;letter-spacing:-1px;margin-bottom:0}h2{font-size:21px}p{color:#bdcbd8}.badge{color:#84e3ba;font-size:14px}form{display:flex;gap:10px;margin:28px 0 12px}input{flex:1;min-width:0;padding:16px;background:#1e2b38;color:white;border:1px solid #61778b;border-radius:9px;font:inherit}button{padding:10px 16px;border:1px solid #607588;border-radius:8px;background:#223445;color:#e6edf4;cursor:pointer;font:inherit}button:hover,button:focus{background:#35536b}.primary{background:#287259}.topics{display:flex;gap:8px;flex-wrap:wrap}.topics button{font-size:14px}article{background:#1a2632;border:1px solid #344658;padding:22px;border-radius:12px;margin:18px 0}.source{color:#91c9ee;font-size:14px;overflow-wrap:anywhere}pre{white-space:pre-wrap;overflow-wrap:anywhere;font:15px/1.6 ui-monospace,Consolas,monospace}#reader{border-top:2px solid #84e3ba;margin-top:35px}summary{cursor:pointer}small{color:#a8b9c9}select{max-width:100%;padding:10px;background:#1a2632;color:white;font:inherit}footer{margin-top:40px;border-top:1px solid #344658;padding-top:18px;font-size:13px}a{color:#91c9ee}@media(max-width:600px){form{flex-direction:column}h1{font-size:30px}}
+</style>
+<div class="badge">LOCAL DOCS · OPTIONAL LOCAL AI · NO API CHARGES</div>
+<h1>Ask your Jev docs</h1>
+<p>Ask about Jev. A local AI model can explain the matching documentation in a few sentences, with source quotes you can check. Exact passages remain below.</p>
+<form id="search"><input id="question" aria-label="Question or keywords" placeholder="Try: What is the difference between Choice and Noul?" maxlength="500"><button id="find" type="button">Find passages</button></form>
+<button id="explain" class="primary">Explain with local AI</button><small id="ai-availability">Checking local AI…</small>
+<section id="answer" aria-live="polite"></section>
+<div class="topics" id="topics"></div>
+<p id="status" role="status"></p><main id="results"></main>
+<details><summary>Browse all documents</summary><p><label for="documents">Open a document: </label><select id="documents"></select></p></details>
+<section id="reader" hidden></section>
+<footer id="footer"></footer>
+<script type="application/json" id="data">__DOCUMENT_DATA__</script>
+<script>
+'use strict';
+const data=JSON.parse(document.getElementById('data').textContent);
+const $=id=>document.getElementById(id);
+const stop=new Set('a an the is are was were be been being what how why when where which who do does did can could should would will i me my we you your it its this that these those of to in on for from with and or as at by about please explain tell show give between difference use using jev typesafe'.split(' '));
+function stem(t){if(t.length>5&&t.endsWith('ies'))return t.slice(0,-3)+'y';if(t.length>5&&t.endsWith('ed'))return t.slice(0,-2);if(t.length>3&&t.endsWith('s')&&!t.endsWith('ss'))return t.slice(0,-1);return t}
+function tokens(s){return (s.toLowerCase().match(/[a-z0-9_]+/g)||[]).filter(t=>!stop.has(t)&&t.length>1).map(stem)}
+const index=data.chunks.map(c=>{const d=data.docs[c.doc];const ts=tokens(c.text+' '+c.section+' '+d.title);const tf=new Map;for(const t of ts)tf.set(t,(tf.get(t)||0)+1);return {tf,n:ts.length,head:new Set(tokens(c.section+' '+d.title))}});
+const df=new Map;for(const c of index)for(const t of c.tf.keys())df.set(t,(df.get(t)||0)+1);
+const avg=index.reduce((n,c)=>n+c.n,0)/index.length;
+function find(query,limit=5){
+ let ts=[...new Set(tokens(query))];
+ if(!ts.length && /\b(jev|typesafe)\b/i.test(query))return data.chunks.map((c,i)=>({i,s:c.doc===data.docs.findIndex(d=>d.path==='introduction.md')?1:0})).filter(x=>x.s).slice(0,3);
+ if(!ts.length)return [];
+ // Require most meaningful terms. This is lexical matching, not a confidence score.
+ const need=Math.max(1,Math.ceil(ts.length*.65));
+ const ranked=index.map((c,i)=>{let s=0,hits=0;for(const t of ts){const f=c.tf.get(t)||0;if(f){hits++;const idf=Math.log(1+(index.length-(df.get(t)||0)+.5)/((df.get(t)||0)+.5));s+=idf*f*2.2/(f+1.2*(.25+.75*c.n/avg));if(c.head.has(t))s+=idf*2;}}return {i,s:hits>=need?s:0}}).filter(x=>x.s>0).sort((a,b)=>b.s-a.s);
+ const counts=new Map,out=[];for(const hit of ranked){const d=data.chunks[hit.i].doc;if((counts.get(d)||0)>=2)continue;out.push(hit);counts.set(d,(counts.get(d)||0)+1);if(out.length>=limit)break}return out;
+}
+function el(tag,text,cls){const e=document.createElement(tag);if(text!==undefined)e.textContent=text;if(cls)e.className=cls;return e}
+function openDoc(di,line=1){const d=data.docs[di],r=$('reader');r.replaceChildren(el('h2',d.title),el('p',d.path,'source'));const pre=el('pre');d.lines.forEach((s,i)=>{const row=el('span',String(i+1).padStart(4)+'  '+s+'\n');row.id='line-'+(i+1);pre.append(row)});r.append(pre);r.hidden=false;$('documents').value=di;document.getElementById('line-'+line)?.scrollIntoView({block:'center',behavior:'smooth'})}
+function search(q){$('question').value=q;$('results').replaceChildren();$('reader').hidden=true;$('answer').replaceChildren();const found=find(q);$('status').textContent=found.length?'Matching passages — check whether they answer your question.':'No sufficiently close passage found. Try fewer keywords or browse the documents. This does not prove the answer is absent.';for(const {i} of found){const c=data.chunks[i],d=data.docs[c.doc],a=el('article');a.append(el('h2',c.section),el('div',d.path+' · lines '+c.start+'–'+c.end,'source'),el('pre',c.text));const b=el('button','Read surrounding document');b.onclick=()=>openDoc(c.doc,c.start);a.append(b);$('results').append(a)}}
+async function explain(){const q=$('question').value.trim();if(!q){$('answer').textContent='Type a question first.';return}search(q);const matches=find(q,6);if(!matches.length){$('answer').textContent='I could not find a close passage. Try a more specific question.';return}const b=$('explain');b.disabled=true;$('answer').textContent='Local AI is reading the matching passages…';try{const r=await fetch('/api/answer',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({question:q,passages:matches.map(x=>x.i)})});const x=await r.json();if(!r.ok)throw new Error(x.error||'AI request failed');const box=$('answer');box.replaceChildren(el('h2','Short answer'));if(!x.claims.length){box.append(el('p','The retrieved passages did not support a clear answer. Try different words or check the full documents.'));return}if(x.partial)box.append(el('p','Some AI points lacked valid source lines and were omitted.'));for(const claim of x.claims){const a=el('article');a.append(el('p',claim.text));const cite=el('button',claim.path+' · line '+claim.start,'source');cite.onclick=()=>openDoc(claim.doc,claim.start);a.append(cite,el('p','Evidence: “'+claim.quote+'”'));box.append(a)}box.append(el('small','AI explanation. Quoted lines and source locations are checked against the local docs; the meaning of the explanation still deserves your review.'))}catch(err){$('answer').textContent='Local AI unavailable: '+err.message+' The exact passages below still work.'}finally{b.disabled=false}}
+$('search').onsubmit=e=>{e.preventDefault();explain()};$('find').onclick=()=>search($('question').value);$('explain').onclick=explain;
+fetch('/api/health').then(r=>r.json()).then(x=>{$('ai-availability').textContent=x.ready?' Ready: '+x.model+' on this computer.':' Local AI unavailable; exact passage search still works.'}).catch(()=>{$('ai-availability').textContent=' Open this page through Start Jev Docs AI.cmd to enable explanations.'});
+for(const [label,q] of [['Start here','quick start'],['Choice','choice'],['Score','score'],['Noul','noul'],['Confidence','confidence'],['Python','python'],['Examples','cookbook']]){const b=el('button',label);b.onclick=()=>search(q);$('topics').append(b)}
+const blank=el('option','Choose a document');blank.value='';$('documents').append(blank);data.docs.forEach((d,i)=>{const o=el('option',d.path);o.value=i;$('documents').append(o)});$('documents').onchange=e=>{if(e.target.value!=='')openDoc(Number(e.target.value))};
+$('status').textContent=data.docs.length+' documents ready. Ask a question or select a topic.';
+$('footer').textContent='Source: __DOCS_DIR__ · Built '+data.built+'. Static snapshot; rebuild after updating your docs. Local AI sends the question and selected passages only to Ollama on this computer. No conversation memory. Source text is displayed verbatim.';
+</script></html>
