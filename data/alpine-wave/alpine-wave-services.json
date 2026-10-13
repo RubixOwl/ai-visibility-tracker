@@ -1,0 +1,255 @@
+{
+  "$schema_description": "Master services and company knowledge file for Alpine Wave. Source of truth for Alpine Wave facts, services, offer tiers, status, limits, handoffs, assistant behaviour when unsure, and client assistant behaviour.",
+  "last_updated": "2026-10-05",
+  "company": {
+    "name": "Alpine Wave",
+    "legal_name": "Alpine Wave Studio",
+    "domain": "alpinewave.ca",
+    "phone": "(236) 205-7030",
+    "telephone": "+12362057030",
+    "email": "info@alpinewave.ca",
+    "location": "Okanagan, British Columbia",
+    "copyright": "© 2026 Alpine Wave Studio · Okanagan, British Columbia",
+    "source": "website/lib/rules_and_knowledge.json lines 5-13 (company_profile); website/components/Home.jsx lines 526, 1176, 1200, 1222, 1226"
+  },
+  "audience": {
+    "target": "Tourism businesses that run all year (ski/bike shops, winter and summer tours) and seasonal businesses in British Columbia.",
+    "focus_segments": [
+      {
+        "segment": "All-year tourism and seasonal businesses",
+        "details": "Peak season businesses needing routine customer enquiries answered 24/7 so staff can focus on in-person guests.",
+        "source": "Alpine Wave/DECISIONS.md \"What we're building\" (2026-10-01); website/components/Home.jsx lines 6-11, 473, 492-498"
+      },
+      {
+        "segment": "Ski & board shops",
+        "details": "Ski and snowboard rental and retail businesses handling pickup times, turnaround times, rental packages, and weekend phone rushes.",
+        "source": "Alpine Wave/DECISIONS.md \"What we're building\" (2026-10-01); website/lib/rules_and_knowledge.json line 19; website/components/Home.jsx lines 12-16, 482"
+      }
+    ],
+    "source": "Alpine Wave/DECISIONS.md \"What we're building\" (2026-10-01); website/components/Home.jsx lines 6-17"
+  },
+  "services": [
+    {
+      "id": "website_chat_bot",
+      "name": "Website chat assistant",
+      "summary": "Website chat bot that plugs into the client's existing website and workflow to answer routine questions from approved business information and route visitors to booking.",
+      "features": [
+        "Plugs into client's existing website",
+        "Answers routine visitor questions from approved business information",
+        "Directs visitors to existing booking pages",
+        "Captures enquiries and callback requests",
+        "Passes questions it cannot answer or sensitive enquiries to staff"
+      ],
+      "source": "Alpine Wave/DECISIONS.md \"What we're building\" (2026-10-01); website/components/Home.jsx lines 714-736, 1081-1090"
+    },
+    {
+      "id": "phone_bot",
+      "name": "Telephone / phone assistant",
+      "summary": "24/7 telephone assistant that answers phone calls, handles high call volumes during morning rushes, answers routine questions, takes after-hours enquiries, and provides warm transfers.",
+      "features": [
+        "Answers calls 24/7 including morning rushes and holidays",
+        "Parallel call handling so callers do not get busy signals or voicemail",
+        "Natural phone conversations without press-1 menus",
+        "After-hours enquiry capture with details waiting for staff in morning",
+        "Staff alerts by text and email with call summaries and transcripts",
+        "Warm call transfer to counter phone with quick briefing first (where phone setup allows)",
+        "Local BC area code numbers (236, 250, 604) or call forwarding from existing line"
+      ],
+      "source": "Alpine Wave/DECISIONS.md \"What we're building\" (2026-10-01); website/components/Home.jsx lines 690-713, 739-760, 1058-1062, 1081-1113"
+    },
+    {
+      "id": "full_website_build",
+      "name": "Full website build",
+      "summary": "Full website build offered as an upsell.",
+      "features": [
+        "Offered as an upsell"
+      ],
+      "source": "Alpine Wave/DECISIONS.md \"What we're building\" (2026-10-01)"
+    }
+  ],
+  "offer_tiers": [
+    {
+      "tier": "Tier 1",
+      "name": "The way in",
+      "badge": "Tier 1 · The way in",
+      "timeframe": "Free demo",
+      "headline": "A demo built from your own website",
+      "lede": "Nothing to set up. We read your public website and build a demo assistant from what you've already published. You get a private link to try it.",
+      "bullet_points": [
+        "Answers questions using your own published info",
+        "No passwords, logins or system access",
+        "Try it yourself and show your staff",
+        "Nothing goes on your site unless you say so"
+      ],
+      "cta": "Ask for a demo",
+      "starting_rule": "Every business starts at Tier 1. We never ask for passwords or system access up front. First you see a demo built from your own website.",
+      "source": "website/components/Home.jsx lines 1128, 1133-1144, 1175"
+    },
+    {
+      "tier": "Tier 2",
+      "name": "Prove it",
+      "badge": "Tier 2 · Prove it",
+      "timeframe": "7-day trial",
+      "headline": "7-day shadow trial & report",
+      "lede": "Your staff still answer first. If nobody picks up, day or night, the assistant does. Every call it answers and every website chat is recorded, so the report shows what you're missing.",
+      "bullet_points": [
+        "Missed and after-hours calls answered by the assistant",
+        "Website chats logged, including which suggestions visitors tap",
+        "Callers hear a short recording notice",
+        "Day-7 report: what came in, what was missed, what it would have caught"
+      ],
+      "cta": "Ask about the trial",
+      "notes": "Shows you exactly what you're missing. You decide from there.",
+      "source": "website/components/Home.jsx lines 1128, 1146-1158"
+    },
+    {
+      "tier": "Tier 3",
+      "name": "Full partner",
+      "badge": "Tier 3 · Full partner",
+      "timeframe": "When you're ready",
+      "headline": "Connected to how you work",
+      "lede": "Once you trust it. We connect the assistant to your stock, bookings and email so it can do more than answer questions.",
+      "bullet_points": [
+        "Live stock and availability checks",
+        "Bookings straight into your calendar or booking tool",
+        "Email enquiries answered or sorted for your team",
+        "Full-time cover, with warm transfers to your front desk"
+      ],
+      "cta": "Ask about going further",
+      "prerequisites": "Tier 3 connections are checked against your systems before we quote. Call transfer and system connections depend on your phone and booking setup.",
+      "source": "website/components/Home.jsx lines 1112, 1160-1175"
+    }
+  ],
+  "status": {
+    "website_chat": {
+      "state": "Answers from Alpine Wave's approved information",
+      "description": "The website chat answers using Alpine Wave's approved information, through either prepared answers or a model-enabled path. Context stays in open browser memory (latest 16 messages); refreshing clears chat. It does not store transcripts or connect to staff inboxes, bookings, payments, or live inventory.",
+      "source": "website/scripts/t11-verification.md; Alpine Wave/line/2-building/T11-alpine-wave-website-bot.md"
+    },
+    "phone_assistant": {
+      "state": "Being set up, not yet answering calls",
+      "description": "Telephone assistant is part of Alpine Wave's planned service. Phone number (236) 205-7030 is established, but the assistant is still being set up and has not been verified as answering calls. The interactive speech sample on the website is a scripted illustration.",
+      "limits": "Alpine Wave's own phone assistant on (236) 205-7030 cannot book, take payments, arrange callbacks, or transfer calls, nor commit to free trials. It must not claim a call was transferred, a callback arranged, or details passed on. (Client phone assistants can offer warm transfers where the phone setup allows; see services[1].)",
+      "limits_source": "Alpine Wave/DECISIONS.md 2026-10-02 01:20 (owner)",
+      "source": "website/lib/rules_and_knowledge.json lines 19, 37, 73; website/README.md line 31; website/components/Home.jsx lines 380-418"
+    },
+    "showcase_shop": {
+      "state": "In development, not yet live",
+      "description": "A separate winter/all-season shop showcase (Everything in the Mountains) is planned with synthetic data to demonstrate what the assistants look like for a client business. Sample cards and dialogues on the Alpine Wave website are illustrations using made-up business information.",
+      "source": "website/lib/rules_and_knowledge.json lines 31, 67; website/components/Home.jsx lines 844, 926, 971, 1228; Alpine Wave/DECISIONS.md \"What we're building\" (2026-10-01)"
+    },
+    "website_build": {
+      "state": "Offered as an upsell, not shown on website yet",
+      "description": "Full website build is offered as an upsell according to owner decisions. It is not currently featured or shown on the website.",
+      "source": "Alpine Wave/DECISIONS.md \"What we're building\" (2026-10-01)"
+    },
+    "pricing_and_commercials": {
+      "state": "Not confirmed",
+      "description": "Alpine Wave does not have confirmed pricing to share yet. Prices and setup costs are agreed after the work is scoped. No quotes or free-trial commitments are made in chat.",
+      "source": "website/lib/rules_and_knowledge.json line 61; website/README.md line 31"
+    }
+  },
+  "not_offered": [
+    {
+      "item": "Confirmed pricing or automated quotes",
+      "detail": "No fixed price list or quotes given in chat; costs depend on scope and systems check.",
+      "source": "website/lib/rules_and_knowledge.json line 61 (company_faq.pricing)"
+    },
+    {
+      "item": "Free-trial promises in chat",
+      "detail": "Chat cannot commit to or schedule free trials.",
+      "source": "website/lib/rules_and_knowledge.json line 61 (company_faq.pricing)"
+    },
+    {
+      "item": "Bookings, payments, or live stock in current chat",
+      "detail": "Current company chat cannot process bookings, take payments, or query live inventory.",
+      "source": "website/lib/rules_and_knowledge.json lines 25, 79 (company_faq.website, company_extra_answers.booking)"
+    },
+    {
+      "item": "Direct staff messaging, meetings, or automated callbacks from chat",
+      "detail": "No staff inbox is connected to the current website chat; it cannot book meetings or arrange callbacks directly.",
+      "source": "website/lib/rules_and_knowledge.json lines 55, 73 (company_faq.limits, company_faq.contact)"
+    },
+    {
+      "item": "Up-front passwords, logins, or internal system access",
+      "detail": "Alpine Wave never asks for passwords, logins, payment details, or private customer data up front.",
+      "source": "website/components/Home.jsx lines 1128, 1139; website/lib/rules_and_knowledge.json line 43 (company_faq.setup)"
+    },
+    {
+      "item": "Guessed answers or unverified forecasts",
+      "detail": "If an answer is missing or unverified, the assistant says it does not know and will not guess (e.g. weather forecasts, unauthorized rates).",
+      "source": "website/lib/rules_and_knowledge.json lines 55, 133-144; website/components/Home.jsx lines 27, 254-256, 1025-1037"
+    },
+    {
+      "item": "Unapproved live website changes",
+      "detail": "Nothing goes on a client's website unless explicitly approved by the client.",
+      "source": "website/components/Home.jsx line 1141"
+    },
+    {
+      "item": "Free-trial promises on Alpine Wave's phone line",
+      "detail": "Alpine Wave's own phone assistant on (236) 205-7030 cannot commit to or schedule free trials over the phone.",
+      "source": "Alpine Wave/DECISIONS.md 2026-10-02 01:20 (owner)"
+    },
+    {
+      "item": "Bookings, payments, or live stock on Alpine Wave's phone line",
+      "detail": "Alpine Wave's own phone assistant on (236) 205-7030 cannot process bookings, take payments, or query live inventory.",
+      "source": "Alpine Wave/DECISIONS.md 2026-10-02 01:20 (owner)"
+    },
+    {
+      "item": "Direct staff messaging, meetings, or arranged callbacks on Alpine Wave's phone line",
+      "detail": "Alpine Wave's own phone assistant on (236) 205-7030 cannot book meetings or arrange callbacks directly; it must not claim a callback was arranged or that details were passed on.",
+      "source": "Alpine Wave/DECISIONS.md 2026-10-02 01:20 (owner)"
+    },
+    {
+      "item": "Call transfers on Alpine Wave's own phone line",
+      "detail": "Alpine Wave's own phone assistant on (236) 205-7030 cannot transfer calls to staff; it must not claim a call was transferred. (Client phone assistants can offer warm transfers where the phone setup allows; see services[1].)",
+      "source": "Alpine Wave/DECISIONS.md 2026-10-02 01:20 (owner)"
+    }
+  ],
+  "handoff_topics": [
+    {
+      "topic": "Pricing and quotes",
+      "reason": "Pricing is not confirmed and must be scoped based on website, channels, and connections.",
+      "route": "Speak with Alpine Wave team / phone / email inquiry.",
+      "source": "website/lib/rules_and_knowledge.json line 61 (company_faq.pricing)"
+    },
+    {
+      "topic": "Setup timeline and delivery schedules",
+      "reason": "Setup timelines depend on business requirements, site platform, and required connections.",
+      "route": "Agreed after reviewing website and business information.",
+      "source": "website/lib/rules_and_knowledge.json line 80 (company_extra_answers.timeline)"
+    },
+    {
+      "topic": "Platform compatibility and integrations",
+      "reason": "Specific website, booking tool, and POS integrations must be verified against client setup before quoting.",
+      "route": "Technical compatibility discussion with team.",
+      "source": "website/lib/rules_and_knowledge.json line 49 (company_faq.integration); website/components/Home.jsx lines 1112, 1175"
+    },
+    {
+      "topic": "Large group bookings and custom packages (Client workflows)",
+      "reason": "Groups of 10 or more, corporate packages, and custom catering require management review and cannot be quoted automatically.",
+      "route": "Escalated to business manager.",
+      "source": "website/lib/rules_and_knowledge.json lines 110-122 (escalation_rules); website/components/Home.jsx lines 25, 60, 770-778"
+    },
+    {
+      "topic": "Medical or safety advice (Client workflows)",
+      "reason": "Assistant must never provide medical or personalized safety clearances.",
+      "route": "Referred directly to certified guides and safety coordinators.",
+      "source": "website/lib/rules_and_knowledge.json lines 124-129 (escalation_rules); website/components/Home.jsx line 1044"
+    }
+  ],
+  "when_unsure": {
+    "guarantee": "No assistant can promise it will never be wrong. Alpine Wave's assistants answer only from the business's approved information. When an assistant is not certain, it says so and hands the question to a person instead of guessing.",
+    "website_chat": "Says it is not sure and offers to redirect the visitor to a person. For Alpine Wave's current website chat, which is not connected to staff inboxes, that means giving the visitor Alpine Wave's phone number or email address.",
+    "phone_assistant": "For client phone assistants, says it is not sure and offers to take a message for staff; a warm transfer is offered where the phone setup allows. This does not describe Alpine Wave's own phone assistant.",
+    "source": "Alpine Wave/DECISIONS.md 2026-10-04 15:49 (owner)"
+  },
+  "client_assistant": {
+    "business_information": "The client's assistant answers questions about that business's own prices, opening hours and policies from its approved information. If a detail is missing, it says it is not sure and hands the question to a person as described in when_unsure. It never invents a price or opening hours.",
+    "live_stock": "Live stock and availability can be checked only once the assistant is connected to the business's systems in Tier 3 (Full partner), subject to the system checks in offer_tiers[2]. During the free demo and 7-day trial, it cannot check live stock; it says so and directs the customer to the business itself.",
+    "bookings": "Before connection, the assistant directs customers to the business's existing booking pages. Once connected to the business's calendar or booking tool in Tier 3, bookings go straight into that system. Connections depend on the business's setup and are checked before quoting.",
+    "customer_contacts": "The client's customers are directed to that business's own phone, email, booking pages or staff, never to Alpine Wave. Alpine Wave's phone and email are only for people asking about Alpine Wave.",
+    "scope": "This block describes assistants supplied to client businesses. The current-channel limits in not_offered[*] and status.* describe Alpine Wave's own website chat and phone, not the capabilities a client buys. General rules there about approved information, no guessing, no up-front system access and client approval still apply to client assistants.",
+    "source": "Alpine Wave/DECISIONS.md 2026-10-05 08:55; services[0], services[1], offer_tiers[0], offer_tiers[1], offer_tiers[2], when_unsure"
+  }
+}
