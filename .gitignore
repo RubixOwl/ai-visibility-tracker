@@ -19,8 +19,8 @@
 /website/node_modules/
 /website/.next/
 /website/Open Alpine Wave local website.txt
-# Left out until fixed by a card: source labels name the owner.
-/website/lib/alpine-wave-services.json
+# Alpine Wave services copy for the website chat.
+!/website/lib/alpine-wave-services.json
 # website/scripts/: only the working check and test tools. Round-by-round card records,
 # hand-in scripts, "before" copies and result files stay private.
 /website/scripts/*
@@ -41,8 +41,10 @@
 !/Jev Bot/verify*.py
 !/Jev Bot/verify*.js
 !/Jev Bot/Alpine Wave Script/
-# Left out: local machine paths in these files (the top-level Jev Bot README.md,
-# build.py and template.html stay out for the same reason).
+!/Jev Bot/README.md
+!/Jev Bot/build.py
+!/Jev Bot/template.html
+# Left out: not needed publicly.
 /Jev Bot/Alpine Wave Script/HLKHI.txt
 /Jev Bot/Alpine Wave Script/README.md
 /Jev Bot/Alpine Wave Script/proxy_smoke_test.py
@@ -52,19 +54,17 @@
 /data/*
 !/data/alpine-wave/
 !/data/everything-in-the-mountains/
-# Left out until fixed by a card: source labels name the owner.
-/data/alpine-wave/alpine-wave-services.json
+!/data/alpine-wave/alpine-wave-services.json
 
 # shop-showcase/: the made-up showcase shop page.
 !/shop-showcase/
-# Left out: local path, private folder name and owner name.
-/shop-showcase/README.md
+!/shop-showcase/README.md
 
-# Alpine Wave/: the archive board script only. check-in.mjs (local path, owner name)
-# and card-template.md (owner name) are left out until fixed by a card.
+# Alpine Wave/: board scripts (archive.mjs and check-in.mjs). card-template.md stays private.
 !/Alpine Wave/
 /Alpine Wave/*
 !/Alpine Wave/archive.mjs
+!/Alpine Wave/check-in.mjs
 
 # Build output and caches, anywhere.
 node_modules/
