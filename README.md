@@ -15,7 +15,7 @@ Repository name `ai-visibility-tracker` is retained from earlier project discove
 | `Alpine Wave/archive.mjs` | Board script: moves the files a passed card replaced into the archive; never deletes |
 | `docs/` | The GitHub Pages previews (platform page, ski shop showcase, walkthrough video, dashboard) |
 
-A few files stay private for now because they hold local paths or names: the Alpine Wave services data file (`alpine-wave-services.json`, which the website chat reads), the board check-in script, the blank card, and the docs-search bot's builder. So the website will not run from this repo alone yet.
+Internal factory paperwork (such as the blank card template) stays private; all published build code, website chat data, and board tools are runnable.
 
 > 📊 **Live Community Dashboard & Spend Ledger:**  
 > [**Open the Interactive Build Navigator & Spend Ledger →**](https://rubixowl.github.io/ai-visibility-tracker/dashboard.html)  
