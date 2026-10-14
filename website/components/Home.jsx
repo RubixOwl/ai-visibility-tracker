@@ -187,7 +187,9 @@ export default function Home() {
       shim.style.animationDelay = `${-i * 0.4}s`;
 
       rayGRef.current.appendChild(base);
-      rayGRef.current.appendChild(shim);
+      if (typeof window !== 'undefined' && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        rayGRef.current.appendChild(shim);
+      }
       spiderPathsRef.current.push(base);
     });
   }, []);
@@ -204,17 +206,19 @@ export default function Home() {
     return new Promise(resolve => {
       const len = pathEl.getTotalLength();
       const dot = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-      dot.setAttribute('r', '4');
-      dot.setAttribute('class', 'packet');
+      dot.setAttribute('r', '6');
+      dot.setAttribute('class', 'packet pulse');
+      dot.setAttribute('filter', 'url(#glow)');
       rayGRef.current?.appendChild(dot);
       const start = performance.now();
-      const dur = 420;
+      const dur = 650;
       function step(now) {
-        const t = Math.min(1, (now - start) / dur);
-        const pt = pathEl.getPointAtLength(t * len);
+        const k = Math.min(1, (now - start) / dur);
+        const e = k < 0.5 ? 2 * k * k : 1 - Math.pow(-2 * k + 2, 2) / 2;
+        const pt = pathEl.getPointAtLength(e * len);
         dot.setAttribute('cx', pt.x);
         dot.setAttribute('cy', pt.y);
-        if (t < 1) {
+        if (k < 1) {
           requestAnimationFrame(step);
         } else {
           dot.remove();
@@ -230,6 +234,7 @@ export default function Home() {
     spiderBusyRef.current = true;
     setActiveSpiderIndex(idx);
 
+    const isReduced = typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const isCustom = idx < 0;
     const node = !isCustom ? spiderNodes[idx] : null;
     const intentId = node ? node.intent : (() => {
@@ -255,21 +260,45 @@ export default function Home() {
       a: "I don't have that in our information, so I won't guess. Want me to pass your question to the team?"
     };
 
-    setSpiderMessages(prev => [
-      ...prev.slice(-6),
-      { role: 'u', text: questionText },
-      { role: 'a', hand: reply.hand, tag: reply.tag, text: reply.a, src: reply.src }
-    ]);
-
-    setTimeout(() => {
+    if (isReduced) {
+      setSpiderMessages(prev => [
+        ...prev.slice(-6),
+        { role: 'u', text: questionText },
+        { role: 'a', hand: reply.hand, tag: reply.tag, text: reply.a, src: reply.src }
+      ]);
       spiderBusyRef.current = false;
-    }, 850);
+    } else {
+      setSpiderMessages(prev => [
+        ...prev.slice(-5),
+        { role: 'u', text: questionText },
+        { role: 'typing' }
+      ]);
+
+      setTimeout(() => {
+        setSpiderMessages(prev => [
+          ...prev.filter(m => m.role !== 'typing').slice(-5),
+          { role: 'a', hand: reply.hand, tag: reply.tag, text: reply.a, src: reply.src }
+        ]);
+        setTimeout(() => {
+          spiderBusyRef.current = false;
+        }, 850);
+      }, 650);
+    }
   }, [travelSpider]);
 
   useEffect(() => {
     const isReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     drawSpiderRays();
     window.addEventListener('resize', drawSpiderRays);
+
+    document.fonts?.ready?.then(() => drawSpiderRays());
+    const loadTimer = setTimeout(drawSpiderRays, 150);
+
+    let ro;
+    if (typeof ResizeObserver !== 'undefined' && sunRef.current) {
+      ro = new ResizeObserver(() => drawSpiderRays());
+      ro.observe(sunRef.current);
+    }
 
     if (!isReduced) {
       const seq = [0, 5, 2, 6, 3, 4, 1, 7];
@@ -285,6 +314,8 @@ export default function Home() {
 
     return () => {
       window.removeEventListener('resize', drawSpiderRays);
+      clearTimeout(loadTimer);
+      if (ro) ro.disconnect();
       if (spiderAutoRef.current) clearInterval(spiderAutoRef.current);
     };
   }, [drawSpiderRays, fireSpider]);
@@ -483,11 +514,6 @@ export default function Home() {
             </button>
           </div>
 
-          <div className="eyebrow-pill">
-            <span className="sparkle">✦</span>
-            <span id="hero-tagline">{currentCopy.tagline}</span>
-          </div>
-
           <h1 className="hero-h1">
             Your phone &amp; website answer every customer, <br />
             <span className="accent-word">instantly.</span>
@@ -541,10 +567,6 @@ export default function Home() {
       <section className="spider-section" id="how-it-works">
         <div className="container">
           <div className="spider-header">
-            <div className="eyebrow-pill">
-              <span className="sparkle">✦</span>
-              <span>How it works</span>
-            </div>
             <h2 className="section-h2">Every question gets the right next step.</h2>
             <p className="section-lede">
               Your website chat and phone line share one brain, built from the information you approve. It answers what it knows, sends people to your booking page, takes callback details, and passes anything unusual to your staff. If it doesn't know, it says so.
@@ -606,16 +628,24 @@ export default function Home() {
                   <span className="sample-tag" style={{ marginLeft: 'auto', padding: '2px 7px', fontSize: '9px' }}>Sample</span>
                 </div>
                 <div className="msgs" id="pmsgs" aria-live="polite">
-                  {spiderMessages.map((msg, i) => (
-                    <div
-                      key={i}
-                      className={`b ${msg.role === 'u' ? 'u' : 'a'}${msg.hand ? ' hand' : ''}`}
-                    >
-                      {msg.tag && <><span className="tag">{msg.tag}</span><br /></>}
-                      {msg.text}
-                      {msg.src && <span className="src">{msg.src}</span>}
-                    </div>
-                  ))}
+                  {spiderMessages.map((msg, i) =>
+                    msg.role === 'typing' ? (
+                      <div key={i} className="b a">
+                        <span className="typing">
+                          <i></i><i></i><i></i>
+                        </span>
+                      </div>
+                    ) : (
+                      <div
+                        key={i}
+                        className={`b ${msg.role === 'u' ? 'u' : 'a'}${msg.hand ? ' hand' : ''}`}
+                      >
+                        {msg.tag && <><span className="tag">{msg.tag}</span><br /></>}
+                        {msg.text}
+                        {msg.src && <span className="src">{msg.src}</span>}
+                      </div>
+                    )
+                  )}
                 </div>
                 <div className="bar" onClick={openChat} role="button" tabIndex={0}>
                   <span>Message the business…</span>
@@ -676,10 +706,6 @@ export default function Home() {
       <section className="cards-showcase-section" id="channels">
         <div className="container">
           <div className="cards-header text-center">
-            <div className="eyebrow-pill">
-              <span className="sparkle">✦</span>
-              <span>What you get</span>
-            </div>
             <h2 className="section-h2">A 24/7 front desk for seasonal businesses.</h2>
             <p className="cards-lede">
               Built for the four headaches of peak season: the morning phone rush, enquiries that arrive after you close, the same questions all day, and staff getting pulled off the floor.
@@ -811,10 +837,6 @@ export default function Home() {
       <section className="video-showcase-section" id="video">
         <div className="container">
           <div className="video-header-area">
-            <div className="eyebrow-pill">
-              <span className="sparkle">✦</span>
-              <span>Walkthrough · under 30 seconds</span>
-            </div>
             <h2 className="section-h2">See Alpine Wave handle a peak-day rush.</h2>
             <p className="section-lede">
               A short walkthrough of the assistant answering questions and handing off to staff when it should.
@@ -900,8 +922,6 @@ export default function Home() {
         <div className="container">
           <div className="chapter-grid">
             <div>
-              <span className="chapter-num">01.</span>
-              <span className="chapter-tag">Chapter 01 / One brain</span>
               <h2 className="section-h2">Two channels. One set of answers.</h2>
               <p className="chapter-copy">
                 Whether a guest calls from the car on Highway 97 or chats from their condo at 11 pm, they get the same answer, built only from the facts, rates and policies you've approved.
@@ -962,8 +982,6 @@ export default function Home() {
       <section className="chapter-sand" id="questions">
         <div className="container">
           <div style={{ maxWidth: '800px' }}>
-            <span className="chapter-num">02.</span>
-            <span className="chapter-label">Chapter 02 / The questions you hear all day</span>
             <h2 className="section-h2">Handles the questions your staff answer a hundred times a day.</h2>
             <p className="section-lede">
               Most peak-season calls ask the same things: pickup times, what's included, waivers, weather. Alpine Wave answers them from your information, so your crew can look after the guests in front of them. Good questions. Verified answers.
@@ -1020,8 +1038,6 @@ export default function Home() {
       <section className="chapter-midnight" id="safeguards">
         <div className="container">
           <div style={{ maxWidth: '820px' }}>
-            <span className="chapter-num">03.</span>
-            <span className="chapter-label">Chapter 03 / Peace of mind</span>
             <h2 className="section-h2">Answers from your facts. Doesn't guess.</h2>
             <p className="section-lede" style={{ color: 'rgba(255, 255, 255, 0.78)' }}>
               You can't have a bot making up prices, getting availability wrong or guessing at safety rules. Alpine Wave answers only from the business information you've approved.
@@ -1070,7 +1086,6 @@ export default function Home() {
       <section className="features-deep-section" id="features">
         <div className="container">
           <div style={{ maxWidth: '820px', marginBottom: '48px' }}>
-            <div className="eyebrow-pill"><span className="sparkle">✦</span><span>What's under the hood</span></div>
             <h2 className="section-h2">Built for how local businesses actually run.</h2>
             <p className="section-lede">
               It isn't a generic chatbot or an answering machine. It's set up around your information, your booking page and your staff.
@@ -1119,7 +1134,6 @@ export default function Home() {
       <section className="tier-progression-section" id="tier1" style={{ padding: '100px 0 40px' }}>
         <div className="container">
           <div style={{ maxWidth: '860px', marginBottom: '40px' }}>
-            <div className="eyebrow-pill"><span className="sparkle">✦</span><span>Start small · go deeper when you're ready</span></div>
             <h2 className="section-h2" style={{ fontSize: 'clamp(2.2rem, 5vw, 3.8rem)' }}>
               See it first. <br />
               <span className="accent-word">Trust it before you go further.</span>
@@ -1183,7 +1197,6 @@ export default function Home() {
       <section className="ready-band">
         <div className="container">
           <div className="ready-box">
-            <span className="eyebrow-pill"><span className="sparkle">✦</span><span>Next step</span></span>
             <h2 style={{ fontSize: 'clamp(2.4rem, 5vw, 4.2rem)', margin: '18px 0', lineHeight: 1 }}>
               Ready to stop missing calls <br />
               <span className="accent-word">this season?</span>
@@ -1218,12 +1231,12 @@ export default function Home() {
               <a href="#how-it-works" style={{ color: 'rgba(255,255,255,0.8)', textDecoration: 'none' }}>How it works</a>
               <a href="#tier1" style={{ color: 'rgba(255,255,255,0.8)', textDecoration: 'none' }}>Plans</a>
               <a href="#safeguards" style={{ color: 'rgba(255,255,255,0.8)', textDecoration: 'none' }}>Safeguards</a>
-              <a href="mailto:info@alpinewave.ca" style={{ color: 'var(--vibrant-poppy)', textDecoration: 'none', fontWeight: 700 }}>info@alpinewave.ca</a>
+              <a href="mailto:hello@alpinewave.ca" style={{ color: 'var(--vibrant-poppy)', textDecoration: 'none', fontWeight: 700 }}>hello@alpinewave.ca</a>
             </div>
           </div>
           <div className="footer-bottom">
             <div>© 2026 Alpine Wave Studio · Okanagan, British Columbia</div>
-            <div style={{ fontFamily: 'var(--mono)', fontSize: '12px', color: 'rgba(255,255,255,0.65)' }}>
+            <div style={{ fontFamily: 'var(--body)', fontSize: '12px', color: 'rgba(255,255,255,0.65)' }}>
               Sample conversations on this page use made-up business information.
             </div>
           </div>

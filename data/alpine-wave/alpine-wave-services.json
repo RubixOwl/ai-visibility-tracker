@@ -1,13 +1,13 @@
 {
   "$schema_description": "Master services and company knowledge file for Alpine Wave. Source of truth for Alpine Wave facts, services, offer tiers, status, limits, handoffs, assistant behaviour when unsure, and client assistant behaviour.",
-  "last_updated": "2026-10-05",
+  "last_updated": "2026-10-14",
   "company": {
     "name": "Alpine Wave",
     "legal_name": "Alpine Wave Studio",
     "domain": "alpinewave.ca",
     "phone": "(236) 205-7030",
     "telephone": "+12362057030",
-    "email": "info@alpinewave.ca",
+    "email": "hello@alpinewave.ca",
     "location": "Okanagan, British Columbia",
     "copyright": "© 2026 Alpine Wave Studio · Okanagan, British Columbia",
     "source": "website/lib/rules_and_knowledge.json lines 5-13 (company_profile); website/components/Home.jsx lines 526, 1176, 1200, 1222, 1226"

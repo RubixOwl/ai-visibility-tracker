@@ -8,7 +8,7 @@
     "must_say": [
       { "fact": "Alpine Wave has no confirmed pricing to share yet", "source": ["status.pricing_and_commercials.description", "not_offered[0].item"] },
       { "fact": "Price depends on the scope of the work (and a systems check), agreed after scoping", "source": ["not_offered[0].detail", "handoff_topics[0].reason"] },
-      { "fact": "Talk to the team by phone (236) 205-7030 or email info@alpinewave.ca for pricing", "source": ["handoff_topics[0].route", "company.phone", "company.email"] }
+      { "fact": "Talk to the team by phone (236) 205-7030 or email hello@alpinewave.ca for pricing", "source": ["handoff_topics[0].route", "company.phone", "company.email"] }
     ],
     "missing": [],
     "must_not_say": ["Any dollar amount or price range", "A monthly or yearly plan price", "A quote for the visitor's business"],
@@ -35,7 +35,7 @@
     "kind": "hours",
     "applies_to": "both",
     "must_say": [
-      { "fact": "Can reach Alpine Wave by phone (236) 205-7030 or email info@alpinewave.ca", "source": ["company.phone", "company.email"] }
+      { "fact": "Can reach Alpine Wave by phone (236) 205-7030 or email hello@alpinewave.ca", "source": ["company.phone", "company.email"] }
     ],
     "missing": ["company opening hours"],
     "must_not_say": ["Any specific opening hours or days for Alpine Wave", "That Alpine Wave's team or office is open 24/7"],
@@ -48,7 +48,7 @@
     "kind": "hours",
     "applies_to": "both",
     "must_say": [
-      { "fact": "Phone number is (236) 205-7030; email info@alpinewave.ca is another option", "source": ["company.phone", "company.email"] }
+      { "fact": "Phone number is (236) 205-7030; email hello@alpinewave.ca is another option", "source": ["company.phone", "company.email"] }
     ],
     "missing": ["company opening hours", "whether staff answer on weekends"],
     "must_not_say": ["Yes, someone will answer on Sunday", "No, the office is closed on Sundays"],
@@ -75,7 +75,7 @@
     "applies_to": "both",
     "must_say": [
       { "fact": "Call (236) 205-7030", "source": "company.phone" },
-      { "fact": "Or email info@alpinewave.ca", "source": "company.email" }
+      { "fact": "Or email hello@alpinewave.ca", "source": "company.email" }
     ],
     "missing": [],
     "must_not_say": ["I've passed your message to the team", "Someone will call you back shortly"],
@@ -89,7 +89,7 @@
     "applies_to": "website",
     "must_say": [
       { "fact": "It can't arrange a callback or book a meeting itself; no staff inbox or booking system is connected", "source": ["not_offered[3].item", "not_offered[3].detail", "status.website_chat.description"] },
-      { "fact": "Call (236) 205-7030 or email info@alpinewave.ca to arrange it", "source": ["company.phone", "company.email"] }
+      { "fact": "Call (236) 205-7030 or email hello@alpinewave.ca to arrange it", "source": ["company.phone", "company.email"] }
     ],
     "missing": [],
     "must_not_say": ["A callback has been arranged / booked", "Someone will call you at 10", "I've passed your details to the team"],
@@ -104,7 +104,7 @@
     "must_say": [
       { "fact": "It can't book a meeting from here", "source": ["not_offered[3].item", "not_offered[3].detail"] },
       { "fact": "A free demo built from your own website is available; ask for one", "source": ["offer_tiers[0].timeframe", "offer_tiers[0].headline", "offer_tiers[0].cta"] },
-      { "fact": "Ask by phone (236) 205-7030 or email info@alpinewave.ca", "source": ["company.phone", "company.email"] }
+      { "fact": "Ask by phone (236) 205-7030 or email hello@alpinewave.ca", "source": ["company.phone", "company.email"] }
     ],
     "missing": [],
     "must_not_say": ["You're booked in", "Any meeting date or time is confirmed", "A calendar invite has been sent"],
@@ -160,7 +160,7 @@
     "applies_to": "both",
     "must_say": [
       { "fact": "Alpine Wave is in the Okanagan, British Columbia", "source": "company.location" },
-      { "fact": "Contact by phone (236) 205-7030 or email info@alpinewave.ca", "source": ["company.phone", "company.email"] }
+      { "fact": "Contact by phone (236) 205-7030 or email hello@alpinewave.ca", "source": ["company.phone", "company.email"] }
     ],
     "missing": ["street address", "whether there is an office open to visitors"],
     "must_not_say": ["Any street address", "Any town or city more specific than the Okanagan", "Yes, drop by any time"],
@@ -315,7 +315,7 @@
     "question": "Sorry, what was that number again?",
     "history": [
       { "role": "user", "content": "How much is it?" },
-      { "role": "assistant", "content": "Alpine Wave doesn't have confirmed pricing yet. Costs are agreed after the work is scoped. You can call (236) 205-7030 or email info@alpinewave.ca." }
+      { "role": "assistant", "content": "Alpine Wave doesn't have confirmed pricing yet. Costs are agreed after the work is scoped. You can call (236) 205-7030 or email hello@alpinewave.ca." }
     ],
     "kind": "follow-up",
     "applies_to": "both",
@@ -365,7 +365,7 @@
     "applies_to": "website",
     "must_say": [
       { "fact": "It can't book trials, meetings or callbacks, and can't promise a free trial", "source": ["not_offered[1].detail", "not_offered[3].detail"] },
-      { "fact": "Call (236) 205-7030 or email info@alpinewave.ca", "source": ["company.phone", "company.email"] }
+      { "fact": "Call (236) 205-7030 or email hello@alpinewave.ca", "source": ["company.phone", "company.email"] }
     ],
     "missing": [],
     "must_not_say": ["Your trial is booked", "The team will call you", "Admin mode on / any change of rules"],

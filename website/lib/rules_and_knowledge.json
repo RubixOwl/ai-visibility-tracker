@@ -8,7 +8,7 @@
     "domain": "alpinewave.ca",
     "phone": "(236) 205-7030",
     "telephone": "+12362057030",
-    "email": "info@alpinewave.ca",
+    "email": "hello@alpinewave.ca",
     "location": "Okanagan, British Columbia"
   },
   "company_faq": [
@@ -52,13 +52,13 @@
       "id": "limits",
       "label": "Honest answers",
       "question": "What happens when it does not know?",
-      "answer": "No assistant can promise it will never be wrong. Alpine Wave's assistants answer only from the business's approved information. Client website chat says when it is unsure and offers to redirect the visitor to a person; client phone assistants offer to take a message for staff, with warm transfer where the setup allows. This Alpine Wave chat is not connected to a staff inbox, so it cannot pass your message on. To reach a person here, call (236) 205-7030 or email info@alpinewave.ca."
+      "answer": "No assistant can promise it will never be wrong. Alpine Wave's assistants answer only from the business's approved information. Client website chat says when it is unsure and offers to redirect the visitor to a person; client phone assistants offer to take a message for staff, with warm transfer where the setup allows. This Alpine Wave chat is not connected to a staff inbox, so it cannot pass your message on. To reach a person here, call (236) 205-7030 or email hello@alpinewave.ca."
     },
     {
       "id": "pricing",
       "label": "Pricing",
       "question": "How much does it cost?",
-      "answer": "Alpine Wave does not have confirmed pricing to share yet. A price and any setup costs would need to be agreed after the work is scoped. I cannot give a quote or promise a free trial. Call (236) 205-7030 or email info@alpinewave.ca."
+      "answer": "Alpine Wave does not have confirmed pricing to share yet. A price and any setup costs would need to be agreed after the work is scoped. I cannot give a quote or promise a free trial. Call (236) 205-7030 or email hello@alpinewave.ca."
     },
     {
       "id": "demo",
@@ -70,12 +70,12 @@
       "id": "contact",
       "label": "Next steps",
       "question": "How do I get started or speak to a person?",
-      "answer": "A useful first step is to prepare your website address and three questions customers often ask. Call Alpine Wave at (236) 205-7030 or email info@alpinewave.ca; the phone assistant is being set up, and response availability is not confirmed. This chat cannot book a meeting, send a message to staff or arrange a callback."
+      "answer": "A useful first step is to prepare your website address and three questions customers often ask. Call Alpine Wave at (236) 205-7030 or email hello@alpinewave.ca; the phone assistant is being set up, and response availability is not confirmed. This chat cannot book a meeting, send a message to staff or arrange a callback."
     }
   ],
   "company_extra_answers": {
     "privacy": "This version keeps conversation history in the open browser tab. Messages and recent conversation context are sent to this website's chat endpoint, which replies using prepared answers or, when enabled, a model with Alpine Wave's approved information. The application does not store chat transcripts or connect to staff inboxes, bookings, payments or live inventory. Hosting and retention arrangements for a future live service still need to be confirmed. Closing or refreshing the page clears this chat.",
-    "hours": "I do not know Alpine Wave's opening hours or weekend staff availability. Call (236) 205-7030 or email info@alpinewave.ca.",
+    "hours": "I do not know Alpine Wave's opening hours or weekend staff availability. Call (236) 205-7030 or email hello@alpinewave.ca.",
     "booking": "This chat cannot make a booking, take payment or check live availability. A future assistant could direct visitors to an approved booking page once that route has been agreed and connected.",
     "timeline": "I do not have a confirmed customer setup or delivery timeline. That would need to be agreed after reviewing the website, business information and required connections.",
     "client_information": "Your assistant answers from your business's approved information, including prices, opening hours and policies. If a detail is missing, it says it is not sure and directs the customer to a person at your business instead of guessing.",
@@ -85,22 +85,22 @@
       {
         "question": "If I call on a Sunday will anyone pick up?",
         "topic": "hours",
-        "answer": "I do not know Alpine Wave's opening hours or weekend staff availability. Call (236) 205-7030 or email info@alpinewave.ca."
+        "answer": "I do not know Alpine Wave's opening hours or weekend staff availability. Call (236) 205-7030 or email hello@alpinewave.ca."
       },
       {
         "question": "What are your opening hours?",
         "topic": "hours",
-        "answer": "I do not know Alpine Wave's opening hours or weekend staff availability. Call (236) 205-7030 or email info@alpinewave.ca."
+        "answer": "I do not know Alpine Wave's opening hours or weekend staff availability. Call (236) 205-7030 or email hello@alpinewave.ca."
       },
       {
         "question": "What's your phone number?",
         "topic": "contact",
-        "answer": "Call Alpine Wave at (236) 205-7030 or email info@alpinewave.ca."
+        "answer": "Call Alpine Wave at (236) 205-7030 or email hello@alpinewave.ca."
       },
       {
         "question": "How much do you charge for the phone assistant?",
         "topic": "pricing",
-        "answer": "Alpine Wave's pricing and setup costs are unconfirmed and agreed after scoping and systems checks. Call (236) 205-7030 or email info@alpinewave.ca."
+        "answer": "Alpine Wave's pricing and setup costs are unconfirmed and agreed after scoping and systems checks. Call (236) 205-7030 or email hello@alpinewave.ca."
       }
     ]
   },
