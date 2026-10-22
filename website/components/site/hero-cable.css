@@ -1,0 +1,46 @@
+/* ======================================================== */
+/* Cable phones on page 1 (T123, HeroCable.jsx). Copied from */
+/* Model Ideas/Claude Ideas/EA Side Project/hero-cable.css.  */
+/* Everything is built in the still's own pixels (1376x768)  */
+/* and scaled to "cover".                                    */
+/* ======================================================== */
+.aw-site .cable-stage {
+  position: absolute; inset: 0; z-index: 0; overflow: hidden; pointer-events: none;
+  opacity: 0; transition: opacity .6s ease;
+}
+.aw-site .cable-stage.cable-on { opacity: 1; }
+.aw-site .cable-inner { position: absolute; left: 0; top: 0; width: 1376px; height: 768px; transform-origin: 0 0; }
+.aw-site .clean-plate { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.aw-site .cable-line { position: absolute; left: 0; top: 0; width: 1376px; height: 768px; overflow: visible; }
+/* a rider's (0,0) is its grip point on the cable. Its layers are cut from the still (make-sprites.mjs). */
+.aw-site .rider, .aw-site .rider-glow { position: absolute; left: 0; top: 0; width: 0; height: 0; transform-origin: 0 0; }
+.aw-site .rider-glow { mix-blend-mode: plus-lighter; }   /* added light: brightens the snow the way the still's glow does */
+.aw-site .rider img, .aw-site .rider-glow img { position: absolute; display: block; max-width: none; }
+.aw-site .rider-text {
+  position: absolute; margin: 0; overflow: hidden;
+  font-family: -apple-system, "SF Pro Display", "Segoe UI", system-ui, sans-serif;
+  font-weight: 400; line-height: 1.3; letter-spacing: -.005em; color: #f3f1ef;
+}
+/* the photo's own waveform stays in the phone; this copy adds light on top of it and pulses */
+.aw-site .rider-wave { transform-origin: 50% 50%; mix-blend-mode: plus-lighter; animation: aw-wave 1.8s ease-in-out infinite alternate; }
+@keyframes aw-wave { from { opacity: .05; transform: scaleY(.96); } to { opacity: .75; transform: scaleY(1.05); } }
+
+/* the cloud the phones come out of, over the far end of the cable (z 10: above the farthest riders) */
+.aw-site .spawn-cloud { position: absolute; width: 0; height: 0; z-index: 10; }
+.aw-site .spawn-cloud i {
+  position: absolute; border-radius: 50%;
+  background: radial-gradient(closest-side, rgba(228, 232, 238, 1), rgba(220, 225, 232, .88) 50%, rgba(214, 220, 228, 0));
+  animation: aw-drift 14s ease-in-out infinite alternate;
+}
+.aw-site .spawn-cloud i:nth-child(1) { left: -84px; top: -46px; width: 156px; height: 84px; }
+.aw-site .spawn-cloud i:nth-child(2) { left: -34px; top: -66px; width: 146px; height: 86px; animation-delay: -4s; }
+.aw-site .spawn-cloud i:nth-child(3) { left: -126px; top: -10px; width: 210px; height: 74px; animation-delay: -8s; }
+.aw-site .spawn-cloud i:nth-child(4) { left: 8px; top: -34px; width: 176px; height: 84px; animation-delay: -2s; }
+.aw-site .spawn-cloud i:nth-child(5) { left: -64px; top: 12px; width: 240px; height: 72px; animation-delay: -10s; }
+.aw-site .spawn-cloud i:nth-child(6) { left: -54px; top: -34px; width: 116px; height: 74px; animation-delay: -6s; }
+@keyframes aw-drift { from { transform: translateX(-6px); } to { transform: translateX(6px); } }
+
+/* Phones and reduced motion: today's still (HeroCable renders nothing; this covers the moment of a resize) */
+@media (max-width: 760px) {
+  .aw-site .cable-stage { display: none; }
+}

@@ -493,29 +493,10 @@ export default function Home() {
           ========================================================================== */}
       <header className="hero-canvas" id="top">
         <div className="container hero-center">
-          <div className="audience-toggle" role="group" aria-label="Show examples for">
-            <button
-              className={`toggle-opt${audience === 'platform' ? ' active' : ''}`}
-              id="btn-platform"
-              aria-pressed={audience === 'platform'}
-              onClick={() => setAudience('platform')}
-              type="button"
-            >
-              Any seasonal business
-            </button>
-            <button
-              className={`toggle-opt${audience === 'ski' ? ' active' : ''}`}
-              id="btn-ski"
-              aria-pressed={audience === 'ski'}
-              onClick={() => setAudience('ski')}
-              type="button"
-            >
-              🎿 Ski &amp; board shops
-            </button>
-          </div>
-
           <h1 className="hero-h1">
-            Your phone &amp; website answer every customer, <br />
+            Your phone &amp; <br className="mobile-br" />
+            website answer <br className="mobile-br" />
+            every customer, <br className="mobile-br" />
             <span className="accent-word">instantly.</span>
           </h1>
 

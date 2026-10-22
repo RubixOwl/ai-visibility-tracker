@@ -1,9 +1,9 @@
 import './globals.css';
 
 export const metadata = {
-  title: 'Alpine Wave — 24/7 Front-Desk Voice & Web Assistants for Seasonal Businesses',
-  description: 'Alpine Wave builds 24/7 voice and website front-desk assistants for seasonal businesses. We shield your staff from peak phone rushes, capture after-hours inquiries, and pull verified answers directly from your approved data.',
-  robots: { index: false, follow: false },
+  title: "Alpine Wave answers your phone, so you don't have to",
+  description: "A phone bot and a website chat for ski, bike and tour shops. It answers from your own shop's details and gives your number and hours when it can't answer. Free demo, free 7-day trial.",
+  robots: { index: true, follow: true },
 };
 
 export default function Layout({ children }) {

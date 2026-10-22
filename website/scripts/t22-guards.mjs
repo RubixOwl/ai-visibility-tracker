@@ -1,12 +1,13 @@
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
-import { company, extraAnswers, questions } from '../lib/knowledge.mjs';
+import { company, extraAnswers, phoneLive, questions } from '../lib/knowledge.mjs';
 import { respond } from '../lib/conversation.mjs';
 
 const normalize = text => text.toLowerCase().normalize('NFKC').replace(/[’']/g, '').replace(/[^a-z0-9\s]/g, ' ').replace(/\s+/g, ' ').trim();
 const approved = [...questions, ...extraAnswers.company_questions];
 const buttonQuestions = new Set(questions.map(({ question }) => normalize(question)));
-const offlineAnswer = `I can't give a checked answer to that right now. For anything about Alpine Wave, call ${company.phone} or email ${company.email}, or tap one of the questions below.`;
+const offlineContact = phoneLive ? `call ${company.phone} or email ${company.email}` : `email ${company.email}`;
+const offlineAnswer = phoneLive ? `I can't give a checked answer to that right now. For more, email ${company.email}, or tap Book a call or Get your free demo on this page. You can also tap one of the questions below.` : `I can't give a checked answer to that right now. For anything about Alpine Wave, ${offlineContact}, or tap one of the questions below.`;
 const suggestedButtons = questions.slice(0, 3).map(({ question }) => question);
 const clientKnowledge = JSON.parse(fs.readFileSync(new URL('../lib/rules_and_knowledge.json', import.meta.url), 'utf8'));
 assert.deepEqual(clientKnowledge.company_faq.slice(0, 3).map(({ question }) => question), suggestedButtons);
@@ -58,9 +59,9 @@ for (const wording of typed) {
   assert.ok(!buttonQuestions.has(normalize(wording)), `typed test is an approved button question: ${wording}`);
   const result = respond(wording);
   assert.equal(result.topic, 'offline', `typed topic: ${wording}`);
-  assert.equal(result.answer, offlineAnswer, `offline answer: ${wording}`);
+  assert.equal(result.answer, phoneLive && wording === 'How do I reach you guys?' ? `I can't give a checked answer to that, but you can call Alpine Wave at ${company.phone} or email ${company.email}. You can also tap Book a call or Get your free demo on this page.` : offlineAnswer, `offline answer: ${wording}`); // T121 round 6: phone safety net
   assert.deepEqual(result.suggestions, suggestedButtons, `offline suggestions: ${wording}`);
-  traces.push(`- asked: ${wording} → said: ${result.answer} → source: fixed offline line in website/lib/conversation.mjs; contacts from website/lib/rules_and_knowledge.json company_profile.phone and company_profile.email`);
+  traces.push(`- asked: ${wording} → said: ${result.answer} → source: fixed offline line in website/lib/conversation.mjs; contacts from website/lib/rules_and_knowledge.json ${phoneLive ? 'company_profile.phone and company_profile.email' : 'company_profile.email (phone hidden: company.phone_live is false)'}`);
 }
 
 const source = fs.readFileSync(new URL('../lib/conversation.mjs', import.meta.url), 'utf8');

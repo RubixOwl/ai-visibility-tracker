@@ -86,10 +86,15 @@
     }
 
     .hero-h1 {
-      font-size: clamp(3.2rem, 8.5vw, 7.2rem);
+      font-size: clamp(2.8rem, 6.2vw, 6.2rem);
       font-weight: 800;
-      letter-spacing: -0.048em;
-      line-height: 0.92;
+      letter-spacing: -0.045em;
+      line-height: 0.95;
+      max-width: 1180px;
+      margin: 0 auto;
+    }
+    .mobile-br {
+      display: none;
     }
 
     .section-h2 {
@@ -327,7 +332,7 @@
     .hero-center {
       position: relative;
       z-index: 10;
-      max-width: 940px;
+      max-width: 1200px;
       margin: 0 auto;
       text-align: center;
     }
@@ -336,7 +341,7 @@
       font-size: clamp(1.1rem, 2.2vw, 1.35rem);
       line-height: 1.6;
       color: var(--ink-muted);
-      max-width: 680px;
+      max-width: 860px;
       margin: 28px auto 38px;
       text-wrap: balance;
     }
@@ -1936,6 +1941,8 @@
       nav.main-nav { padding: 12px 0; }
       .brand-logo { font-size: 20px; }
       .hero-canvas { padding: 40px 0 70px; }
+      .mobile-br { display: block; }
+      .hero-h1 { font-size: clamp(2rem, 7.8vw, 2.7rem); line-height: 1.08; letter-spacing: -0.035em; text-wrap: unset; }
       .hero-actions .btn { width: 100%; }
       .toggle-opt { padding: 7px 12px; font-size: 12.5px; }
       .btn { white-space: normal; text-align: center; }
@@ -1961,15 +1968,15 @@
        SECTION BANDS: repeating order orange → beige → navy
        ========================================================================== */
     .hero-canvas, #video, #safeguards, .ready-band       { --band: var(--band-o); }
-    #how-it-works, #one-brain, #features                 { --band: var(--band-b); }
+    #one-brain, #features                                { --band: var(--band-b); }
     #channels, #questions, #tier1                        { --band: var(--band-n); }
 
-    .hero-canvas, #how-it-works, #channels, #video, #one-brain, #questions, #safeguards, #features, #tier1, .ready-band {
+    .hero-canvas, #channels, #video, #one-brain, #questions, #safeguards, #features, #tier1, .ready-band {
       background: var(--band);
       background-image: none;
       border: 0;
     }
-    .hero-canvas::before, .hero-canvas::after, #how-it-works::before, #how-it-works::after { display: none; }
+    .hero-canvas::before, .hero-canvas::after { display: none; }
 
     /* dark bands (orange + navy): heading + intro text go white */
     :is(.hero-canvas, #video, #safeguards, #channels, #questions, #tier1) :is(.hero-h1, .section-h2) { color: #FFFFFF; }
@@ -2007,10 +2014,6 @@
     #one-brain :is(h2, h3, .section-h2) { color: var(--ink); }
     #one-brain .chapter-copy, #one-brain .chapter-copy > p { color: var(--ink-muted); }
     #one-brain .btn-white { border: 1.5px solid var(--line-strong); }
-
-    /* phone section: make the lines to the speech bubbles a bit stronger on beige */
-    #how-it-works .ray { opacity: 0.45; }
-    #how-it-works .ray.on { opacity: 1; }
 
     /* travelling dot: restore the mock-up look */
     .packet { fill: var(--vibrant-poppy); r: 6px; filter: url(#glow); }

@@ -33,7 +33,7 @@ const containsForbidden = (answer, terms) => terms.some(term => {
       /\b(?:snow|sunny|rain|temperature|degrees?)\b/i.test(sentence));
   }
   if (literal === 'any other phone number') {
-    const withoutCompanyNumber = answer.replace(/\(236\)\s*205-7030/g, '');
+    const withoutCompanyNumber = answer.replace(/\(236\)\s*760-3002/g, '');
     return /(?<!236\) )\b(?:\+?1[ .-]?)?(?:\(?\d{3}\)?[ .-]?)\d{3}[ .-]?\d{4}\b/i.test(withoutCompanyNumber);
   }
   if (/^any\b|^whether\b|^a quote\b|^any specific\b|^any number\b|^that alpine wave|^yes,|^no,|^asks the visitor|^payment taken|^a callback|^someone will|^the team will|^admin mode|^any service/i.test(literal)) {
@@ -44,7 +44,7 @@ const containsForbidden = (answer, terms) => terms.some(term => {
 });
 
 if (process.argv.includes('--check-patterns')) {
-  assert.equal(containsForbidden('(236) 205-7030', ['Any other phone number']), false);
+  assert.equal(containsForbidden('(236) 760-3002', ['Any other phone number']), false);
   assert.equal(containsForbidden('Call (250) 555-0100', ['Any other phone number']), true);
   assert.equal(containsForbidden('I do not know the contract length or minimum term.', ['Any contract length']), false);
   assert.equal(containsForbidden('The contract is 12 months.', ['Any contract length']), true);
