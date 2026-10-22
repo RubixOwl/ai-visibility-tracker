@@ -208,7 +208,7 @@ class JevGuardrail:
                 status="FAIL_OVERRIDE",
                 score=0.2,
                 passed=False,
-                final_text="I don't have that in our verified business information, so I won't guess. Would you like me to pass your question to our staff?",
+                final_text="I don't have that in our verified business information, so I won't guess. Please email hello@alpinewave.ca.",
                 violations=violations,
                 audit_notes=audit,
             )

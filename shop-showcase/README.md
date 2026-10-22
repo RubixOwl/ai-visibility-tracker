@@ -49,7 +49,7 @@ The entire storefront and customer bot run on our verified machine-readable cata
 2. **Category Filter Tabs:** Fast switching between Demo Skis, Splitboards, Recreational Fleet, Junior Packages, and Avalanche Rescue Gear.
 3. **Dynamic Rental Rate Calculator:** Live calculation for 1–7 day rentals with automatic 15% discount on 3+ days, helmet/avalanche add-ons, and instant booking handoff.
 4. **Embedded Alpine Wave Assistant Widget:** Floating launcher with unread notification badge, quick query chips, truth-bounded answer matching from `synthetic_shop_data.json`, and staff SMS escalation dispatch.
-5. **Front Counter DID Phone Simulator:** Pairs with Okanagan DID `(236) 205-7030` to simulate sub-second conversational telephone answers to common customer questions.
+5. **Front Counter DID Phone Simulator:** Pairs with Okanagan DID `(236) 555-0123 (a made-up number)` to simulate sub-second conversational telephone answers to common customer questions.
 
 ---
 
