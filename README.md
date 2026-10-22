@@ -90,7 +90,7 @@ See **[How We Build (HOW-WE-BUILD.md)](HOW-WE-BUILD.md)** for:
 Static, client-side demonstration previews are available via GitHub Pages:
 
 * **[Alpine Wave Platform Preview](https://rubixowl.github.io/ai-visibility-tracker/)**: Platform overview and editorial demonstration layout.
-* **[Everything in the Mountains Showcase Preview](https://rubixowl.github.io/ai-visibility-tracker/ski-shop/)**: Showcase demonstrating retail and rental catalog browsing. *(Note: the preview still shows Alpine Wave's phone number `(236) 205-7030`. It moves to its own number once one is provisioned).*
+* **[Everything in the Mountains Showcase Preview](https://rubixowl.github.io/ai-visibility-tracker/ski-shop/)**: Showcase demonstrating retail and rental catalog browsing. *(Note: the preview shows a sample number for the made-up shop; Alpine Wave's own line is (236) 760-3002.)*
 
 ---
 

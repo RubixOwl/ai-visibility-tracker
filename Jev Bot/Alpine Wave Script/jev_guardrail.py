@@ -222,7 +222,7 @@ class JevGuardrail:
                 status="FAIL_OVERRIDE",
                 score=0.0,
                 passed=False,
-                final_text="I want to ensure you receive verified details on that. Let me connect you directly with our front desk at (236) 205-7030.",
+                final_text="I want to make sure you get verified details on that. Please email hello@alpinewave.ca.",
                 violations=violations,
                 audit_notes=audit,
             )
